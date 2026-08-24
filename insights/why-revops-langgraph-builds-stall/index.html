@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why RevOps LangGraph builds stall after the demo | Revenue-Growth.AI</title>
+<meta name="description" content="RevOps LangGraph demos stall in production on interrupt replay, in-memory checkpoints, MCP-only wiring, and Salesforce API limits. Why duplicate CRM writes kill forecast trust.">
+<meta property="og:title" content="Why RevOps LangGraph builds stall after the demo">
+<meta property="og:description" content="RevOps LangGraph demos stall in production on interrupt replay, in-memory checkpoints, MCP-only wiring, and Salesforce API limits. Why duplicate CRM writes kill forecast trust.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://revenue-growth.ai/insights/why-revops-langgraph-builds-stall/">
+<link rel="canonical" href="https://revenue-growth.ai/insights/why-revops-langgraph-builds-stall/">
+<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why RevOps LangGraph builds stall after the demo">
+<meta name="twitter:description" content="RevOps LangGraph demos stall in production on interrupt replay, in-memory checkpoints, MCP-only wiring, and Salesforce API limits. Why duplicate CRM writes kill forecast trust.">
+<meta name="twitter:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="author" content="Michael Bogart">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why RevOps LangGraph builds stall after the demo",
+  "author": {"@type": "Person", "name": "Michael Bogart", "jobTitle": "CEO & Chief Revenue Architect", "sameAs": "https://www.linkedin.com/in/mdbogart/"},
+  "publisher": {"@type": "Organization", "name": "Revenue-Growth.AI", "url": "https://revenue-growth.ai"},
+  "description": "RevOps LangGraph demos stall in production on interrupt replay, in-memory checkpoints, MCP-only wiring, and Salesforce API limits. Why duplicate CRM writes kill forecast trust.",
+  "datePublished": "2026-08-24",
+  "dateModified": "2026-08-24",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://revenue-growth.ai/insights/why-revops-langgraph-builds-stall/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://revenue-growth.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://revenue-growth.ai/insights/"},
+    {"@type": "ListItem", "position": 3, "name": "Why RevOps LangGraph builds stall after the demo", "item": "https://revenue-growth.ai/insights/why-revops-langgraph-builds-stall/"}
+  ]
+}
+</script>
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink-navy);font-family:'Inter',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;line-height:1.25;}
+  a{color:var(--signal-blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  header.site-nav{position:sticky;top:0;z-index:100;background:var(--ink-navy);border-bottom:1px solid var(--line-dark);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-inner img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  .btn-amber{display:inline-flex;align-items:center;padding:11px 20px;border-radius:var(--radius);font-weight:600;font-size:14.5px;background:var(--signal-amber);color:var(--ink-navy) !important;text-decoration:none !important;}
+  .back-link{color:#D7E2EA !important;font-size:14.5px;font-weight:500;text-decoration:none !important;}
+  .back-link:hover{color:#fff !important;}
+  .article-hero{background:var(--ink-navy);color:var(--paper);padding:72px 0;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 40px;}
+  @media (max-width:640px){.wrap{padding:0 24px;}}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#7FB4EE;margin-bottom:16px;}
+  .article-hero h1{font-size:clamp(28px,4vw,42px);color:var(--paper);margin:0;}
+  .article-hero .standfirst{margin-top:20px;font-size:17px;color:#B9C8D4;font-style:italic;}
+  .byline{margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#7FB4EE;}
+  article{padding:64px 0 32px;}
+  article h2{font-size:26px;margin:48px 0 16px;}
+  article h3{font-size:19px;margin:36px 0 12px;}
+  article p{margin:0 0 18px;font-size:16.5px;color:#233642;}
+  article li{margin-bottom:10px;font-size:16px;color:#233642;}
+  article ul,article ol{padding-left:24px;margin:0 0 18px;}
+  article strong{color:var(--ink-navy);}
+  article code{font-family:'IBM Plex Mono',monospace;font-size:0.9em;background:rgba(11,31,46,0.06);padding:1px 5px;border-radius:3px;}
+  .related{margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line);font-size:15.5px;}
+  .cta-block{background:var(--ink-navy);border-radius:12px;padding:40px;margin:56px 0 64px;color:var(--paper);}
+  .cta-block h3{color:var(--paper);margin:0 0 10px;font-size:22px;}
+  .cta-block p{color:#B9C8D4;margin:0 0 24px;font-size:15.5px;}
+  footer{background:var(--ink-navy);color:#8296A6;padding:40px 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1200px;}
+  footer a{color:#B9C8D4;}
+</style>
+</head>
+<body>
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="../../index.html"><img src="../../images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38"></a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="../" class="back-link">&larr; Insights</a>
+      <a href="../../index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+  </div>
+</header>
+<div class="article-hero">
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h1>Why RevOps LangGraph builds stall after the demo</h1>
+    <p class="standfirst">The graph works on Friday. Production is a different system.</p>
+    <div class="byline">Michael Bogart · CEO &amp; Chief Revenue Architect, Revenue-Growth.AI · August 24, 2026</div>
+  </div>
+</div>
+<article>
+  <div class="wrap">
+    <p>The graph works on Friday. By Wednesday the Salesforce Task object has twins, the forecast field is an argument, and the engineer you borrowed is back on the product roadmap.</p>
+    <p>That is the stall. It is not “AI is hard.” It is a specific production gap between a LangGraph notebook and a RevOps system that is allowed to write.</p>
+    <h2>The demo is one opportunity</h2>
+    <p>Composite, labeled as such: a Series B RevOps lead, Salesforce, ~$18M ARR, one friendly backend engineer. They wire four nodes.</p>
+    <p>Pull the Opportunity. Score it. Draft a next step. Write the Task.</p>
+    <p>They put <code>interrupt()</code> in front of the write. They click through one sandbox record. The AE would have written the same next step. Leadership sees a recording. The project is “basically done.”</p>
+    <p>It is not. They have proven that Claude can read a record. They have not proven that a graph can inspect the book of business tonight, pause for a human, survive a deploy, and write once.</p>
+    <h2>Resume restarts the node</h2>
+    <p>This is the mechanism that wrecks the first production week.</p>
+    <p>LangGraph’s <code>interrupt()</code> pauses a node and checkpoints state. When you resume with <code>Command(resume=...)</code>, the interrupted node does not continue from the line after <code>interrupt()</code>. It starts at the top of that node.</p>
+    <p>Anything before the pause runs again. If that anything was <code>sf.Task.create(...)</code>, Salesforce now has two Tasks. Two next steps. A Stage or NextStep field that flipped twice. The activity timeline looks like a drunk intern.</p>
+    <p>The fix is a dedicated approval node that does nothing except <code>interrupt()</code>, plus idempotent writes keyed on something you already own (Opportunity Id + date + agent version). Teams learn this after the duplicates, not before.</p>
+    <p>Until then, the AE does not debate the model. They debate the CRM.</p>
+    <h2>Memory that forgets on deploy</h2>
+    <p>The second silent killer is the checkpointer.</p>
+    <p><code>InMemorySaver</code> is what the tutorial uses. It lives in RAM. Restart the process and every pending approval is gone. The graph has no memory of the twelve deals it paused for a manager who had not yet clicked.</p>
+    <p>Production needs <code>PostgresSaver</code> or equivalent, a stable <code>thread_id</code> per deal, and a policy for checkpoint growth. LangGraph will not prune that store for you. Interrupted threads also sit forever. There is no native “if nobody approves in 30 minutes, escalate or fail closed.”</p>
+    <p>So the first ECS deploy, the first Fargate task recycle, or the first “we had to bounce it” becomes a pile of orphaned deals. RevOps thinks the agent stalled. The agent thinks it is still waiting on a thread that no longer exists.</p>
+    <h2>MCP is a wire</h2>
+    <p>Connecting a model to Salesforce or HubSpot through MCP (or a thin REST wrapper) is real work. It is also the first 10% of the build.</p>
+    <p>A wire lets the model query. A worker has to do the rest: a nightly pass, webhook ingress, scoped credentials, retries, dead letters, eval, and an audit trail of every write. Persona prompts (“act like a RevOps analyst”) do not encode your MEDDPICC, your stage-exit rules, or the way you actually call a slip.</p>
+    <p>Zapier or Make bolted on as “tools” fails here for a different reason. Those runners are if/then. They have no durable graph state, no interrupt that survives a crash, and a bill that scales with task volume exactly when pipeline volume is the point.</p>
+    <p>Shared SaaS AI fails the other way. The SOC 2 review starts. Customer data leaves the VPC. Security is now on the critical path. The graph did not stall. The ticket did.</p>
+    <h2>Approval is not a Slack message</h2>
+    <p><code>interrupt()</code> was built for an interactive session. You, the terminal, a click.</p>
+    <p>A RevOps write is not that session. The approver is a manager in Slack who might answer in two hours. LangGraph does not email them. It does not post to a channel. It does not log who approved, when, or why. Graph state is not an audit log.</p>
+    <p>You will build notifications, a timeout, escalation, and a human-readable record of every CRM write. That is not extra polish. That is the job, because an unsupervised write to Amount, CloseDate, or NextStep is how you lose the floor.</p>
+    <h2>Salesforce will throttle the nightly pass</h2>
+    <p>Even a correct graph still has to live inside CRM physics.</p>
+    <p>Salesforce production orgs cap concurrent inbound API calls that run 20 seconds or longer at 25. New long-running calls then get <code>REQUEST_LIMIT_EXCEEDED</code> until the queue drains. A naive loop (SOQL + long context + a model call, per open Opportunity) will sit in that bucket. LeanData, Gong, Outreach, and your own integrations still need the same daily allocation.</p>
+    <p>HubSpot is kinder on paper and still punishes chatty writeback, duplicate associations, and missing idempotency.</p>
+    <p>The “inspect every deal, every night” idea dies here if you treat the CRM as an unbounded database. It is not. It is a shared production API with a number on it.</p>
+    <h2>One bad write and the forecast is politics</h2>
+    <p>This is why deals stall.</p>
+    <p>The first duplicate Task is funny. The third is a Slack thread. By the time a CloseDate moves with no AE fingerprint, inspection time goes up, not down. The board number is “the AI number.” Reps sandbag because they do not know which fields the graph will touch overnight.</p>
+    <p>You did not buy speed. You bought a second source of truth, then spent the quarter reconciling it.</p>
+    <p>The build-versus-buy tension is real, and it is not Zapier. The real alternative to this path is still a LangGraph graph. The question is whether you want to own the replay bugs, the checkpointer, the HITL plumbing, and the Salesforce backoff yourself, in an AWS account you control, or whether that graph should already be running as infrastructure in your VPC.</p>
+    <p>Control was the right instinct. Data should not leave. A notebook is not control. Control is idempotent writes, scoped IAM, logs in your CloudWatch, and a graph that can be torn down on purpose.</p>
+    <p>If your graph cannot inspect tonight’s book without writing a duplicate Task, you do not have an agent. You have a demo that got permission to touch production.</p>
+    <p class="related"><a href="../../forecast-accuracy.html">AI deal inspection &amp; forecast accuracy</a> · <a href="../../index.html">Revenue-Growth.AI</a> · <a href="../../guide.html">RevOps Guide</a></p>
+    <div class="cta-block">
+      <h3>See what a nightly pass across your book of business looks like</h3>
+      <p>Revenue-Growth.AI deploys autonomous revenue agents — forecast accuracy, churn prediction, and expansion identification — inside your own AWS account in 29 minutes.</p>
+      <a href="../../index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+  </div>
+</article>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Revenue-Growth.AI</span>
+    <span><a href="../../index.html">revenue-growth.ai</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></span>
+  </div>
+</footer>
+</body>
+</html>
