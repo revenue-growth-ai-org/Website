@@ -1,0 +1,24 @@
+# Revenue-Growth.AI
+
+Revenue-Growth.AI deploys autonomous AI revenue agents — forecast and deal inspection, churn prediction, expansion identification, and lead routing — inside the customer's own AWS account via one Terraform command. Customer data never leaves the customer's VPC. Built for B2B SaaS companies at $5M–$50M ARR on Salesforce or HubSpot. One-time CapEx from $20K per agent node, ~$300/month pass-through infrastructure (AWS compute + Anthropic tokens). Full production deployment in 14 days; infrastructure stands up in 29 minutes.
+
+## Pages
+
+- [Homepage](https://revenue-growth.ai/): Product overview, architecture diagram, customer results, pricing, FAQ, and 30-day evaluation signup.
+- [RevOps Guide](https://revenue-growth.ai/guide.html): Long-form guide comparing SaaS, build-it-yourself, and headcount approaches; AWS deployment architecture; technical checklist; 30-day evaluation plan.
+- [AI Deal Inspection & Forecast Accuracy](https://revenue-growth.ai/forecast-accuracy.html): ARR Node use case — nightly deal inspection, qualification scoring, and forecast accuracy for B2B SaaS revenue teams.
+- [AI Churn Prediction & Expansion Revenue](https://revenue-growth.ai/churn-prediction.html): GRR/NRR Node use case — AI maturity model for customer health, churn risk flagging, and expansion identification.
+- [AI Lead Routing & Inbound Acceleration](https://revenue-growth.ai/lead-routing.html): Pipeline Node use case — inbound intent evaluation, account research, and rep routing for Salesforce and HubSpot.
+
+## Key facts
+
+- Deployment model: pre-built AI agents deployed as infrastructure inside the customer's own AWS account (ECS Fargate, RDS, Secrets Manager, Terraform).
+- Security posture: data never leaves the customer's VPC; only external call is to the Anthropic API; no vendor servers in the data path.
+- Pricing model: one-time CapEx from $20K per agent node; optional Fractional AI Engineering add-on; ~$300/month pass-through infra at Series B volume; no per-task billing or recurring license.
+- Buying model: the 30-day evaluation is a structured paid first deployment (one-time node fee, deployed in the customer's AWS account, one-command teardown) — not a free trial. No subscription, no per-seat pricing.
+- Supported CRMs: Salesforce and HubSpot via webhooks through an ALB in the customer's VPC.
+- Agent nodes: Pipeline Node (lead routing & inbound), ARR Node (forecast & deal execution), GRR/NRR Node (churn & expansion).
+- Results (AskNicely deployment): 2x win rates in one quarter; rep ramp cut from 6 months to 3; forecast accuracy within 1%; lowest churn quarter on record.
+- Differentiation vs. Zapier/Make/n8n: real AI reasoning (not static rules), flat infra cost (not per-task), runs entirely in customer's AWS VPC (not shared SaaS infrastructure).
+- Differentiation vs. DIY with MCP: MCP provides the model-to-CRM connection only; orchestration, scheduling, state, hosting, and audit logging are still an 8–12 week internal build. Revenue-Growth.AI ships the full stack as pre-built infrastructure with framework-driven scoring from the customer's own playbooks and deal history. MCP setups are also pull-based (a human must prompt them) and pull arbitrary unaudited context; Revenue-Growth.AI agents run autonomously on a nightly schedule and send only framework-scoped, logged payloads per event.
+- Evaluation: 30-day comparison plan — deploy alongside existing process and measure agent readouts vs. human judgment.

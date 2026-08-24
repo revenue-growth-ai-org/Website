@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Revenue Agents in Your Own AWS Account | Revenue-Growth.AI</title>
+<meta name="description" content="AI revenue agents deployed in your own AWS account — nightly forecast, churn, and expansion readouts for Salesforce and HubSpot. Your data never leaves.">
+<meta property="og:title" content="AI Revenue Agents in Your Own AWS Account | Revenue-Growth.AI">
+<meta property="og:description" content="AI revenue agents deployed in your own AWS account — nightly forecast, churn, and expansion readouts for Salesforce and HubSpot. Your data never leaves.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://revenue-growth.ai">
+<link rel="canonical" href="https://revenue-growth.ai/">
+<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Revenue Agents in Your Own AWS Account | Revenue-Growth.AI">
+<meta name="twitter:description" content="AI revenue agents deployed in your own AWS account — nightly forecast, churn, and expansion readouts for Salesforce and HubSpot. Your data never leaves.">
+<meta name="twitter:image" content="https://revenue-growth.ai/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --unit:8px;
+    --radius:6px;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-navy);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:400;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 40px;
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 24px;}
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+    outline:2px solid var(--signal-blue);
+    outline-offset:2px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:var(--ink-navy);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 40px;
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--paper);
+  }
+  .logo-mark{width:26px;height:26px;flex-shrink:0;}
+  .logo-word{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:18px;
+    color:var(--paper);
+  }
+  .logo-word .dim{color:#9FB4C6;}
+  nav.primary{
+    display:flex;
+    align-items:center;
+    gap:36px;
+  }
+  nav.primary a{
+    color:#D7E2EA;
+    font-size:14.5px;
+    font-weight:500;
+    transition:color .15s ease;
+  }
+  nav.primary a:hover{color:var(--paper);}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:11px 20px;
+    border-radius:var(--radius);
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-amber{
+    background:var(--signal-amber);
+    color:var(--ink-navy);
+  }
+  .btn-amber:hover{background:#EEB562;}
+  .btn-outline-dark{
+    background:transparent;
+    border:1px solid rgba(247,249,251,0.35);
+    color:var(--paper);
+  }
+  .btn-outline-dark:hover{border-color:var(--paper);}
+  .btn-outline-light{
+    background:transparent;
+    border:1px solid rgba(11,31,46,0.2);
+    color:var(--ink-navy);
+  }
+  .btn-outline-light:hover{border-color:var(--ink-navy);}
+  .btn-primary-blue{
+    background:var(--signal-blue);
+    color:#fff;
+  }
+  .btn-primary-blue:hover{background:var(--deep-signal);}
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:var(--paper);
+    cursor:pointer;
+    padding:8px;
+  }
+  .btn.desktop-only{display:inline-flex;}
+  nav.primary .btn.btn-amber{display:none;}
+  @media (max-width:900px){
+    nav.primary{
+      position:absolute;
+      top:72px;
+      left:0;
+      right:0;
+      background:var(--ink-navy);
+      flex-direction:column;
+      align-items:flex-start;
+      gap:0;
+      border-bottom:1px solid var(--line-dark);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    nav.primary.open{max-height:360px;}
+    nav.primary a{
+      width:100%;
+      padding:16px 40px;
+      border-top:1px solid var(--line-dark);
+    }
+    nav.primary .btn{margin:16px 40px;}
+    nav.primary .btn.btn-amber{display:inline-flex;}
+    .nav-toggle{display:block;}
+    .btn.desktop-only{display:none;}
+  }
+
+  section{padding:96px 0;}
+  @media (max-width:640px){
+    section{padding:64px 0;}
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--signal-blue);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:16px;
+    height:1.5px;
+    background:var(--signal-blue);
+  }
+  .section-dark .eyebrow{color:#7FB4EE;}
+  .section-dark .eyebrow::before{background:#7FB4EE;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink-navy);
+    color:var(--paper);
+    padding:88px 0 0 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+    position:relative;
+    z-index:2;
+  }
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;}
+  }
+  .hero h1{
+    font-size:clamp(32px,4.4vw,52px);
+    line-height:1.12;
+    color:var(--paper);
+  }
+  .hero h1 .accent{color:var(--signal-amber);}
+  .hero .sub{
+    margin-top:24px;
+    font-size:18px;
+    color:#B9C8D4;
+    max-width:520px;
+    line-height:1.6;
+  }
+  .hero-ctas{
+    margin-top:36px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .hero-visual{
+    position:relative;
+  }
+  .hero-visual svg{width:100%;height:auto;}
+  .social-proof{
+    margin-top:72px;
+    padding:24px 0;
+    border-top:1px solid var(--line-dark);
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .sp-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#7FB4EE;
+    border:1px solid rgba(127,180,238,0.35);
+    padding:6px 12px;
+    border-radius:4px;
+    flex-shrink:0;
+  }
+  .sp-stats{
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    color:#D7E2EA;
+    font-size:14.5px;
+  }
+  .sp-stats b{color:var(--paper);font-weight:600;}
+
+  /* ---------- PROBLEM ---------- */
+  .quote-lead{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:clamp(24px,3vw,34px);
+    line-height:1.35;
+    max-width:820px;
+    color:var(--ink-navy);
+  }
+  .quote-lead .who{
+    display:block;
+    margin-top:18px;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:400;
+    font-size:13px;
+    color:var(--slate);
+    text-transform:none;
+    letter-spacing:0;
+  }
+  .problem-grid{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  @media (max-width:800px){
+    .problem-grid{grid-template-columns:1fr;}
+  }
+  .problem-card{
+    background:var(--paper);
+    padding:32px;
+  }
+  .problem-card .node-dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--signal-blue);
+    margin-bottom:20px;
+  }
+  .problem-card h3{
+    font-size:18px;
+    margin-bottom:10px;
+  }
+  .problem-card p{
+    color:var(--slate);
+    font-size:15px;
+  }
+
+  /* ---------- NODES / SOLUTION ---------- */
+  .section-label-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-bottom:48px;
+  }
+  .section-label-row h2{
+    font-size:clamp(26px,3.2vw,38px);
+    max-width:640px;
+  }
+  .section-label-row .desc{
+    color:var(--slate);
+    max-width:340px;
+    font-size:15px;
+  }
+  .node-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  @media (max-width:900px){
+    .node-grid{grid-template-columns:1fr;}
+  }
+  .node-card{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:#fff;
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .node-card:hover{
+    border-color:var(--signal-blue);
+    transform:translateY(-2px);
+  }
+  .node-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--signal-blue);
+    letter-spacing:0.06em;
+  }
+  .node-card h3{font-size:21px;}
+  .node-card .what{color:var(--slate);font-size:14.5px;}
+  .node-stat{
+    margin-top:auto;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:14px;
+    color:var(--ink-navy);
+  }
+  .node-stat b{
+    display:block;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--signal-amber);
+    margin-bottom:4px;
+  }
+  .node-icon{width:36px;height:36px;color:var(--signal-blue);}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .section-dark{
+    background:var(--ink-navy);
+    color:var(--paper);
+  }
+  .section-dark h2{color:var(--paper);}
+  .section-dark .section-label-row .desc{color:#9FB4C6;}
+  .flow-wrap{
+    margin-top:56px;
+    overflow-x:auto;
+    padding-bottom:8px;
+  }
+  .flow-steps{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    min-width:820px;
+  }
+  .flow-step{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:0 12px;
+    position:relative;
+  }
+  .flow-node{
+    width:64px;height:64px;
+    border-radius:50%;
+    border:1.5px solid var(--signal-blue);
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(47,127,209,0.08);
+    margin-bottom:20px;
+    color:#7FB4EE;
+  }
+  .flow-node svg{width:28px;height:28px;}
+  .flow-step h4{
+    font-size:15px;
+    color:var(--paper);
+    margin-bottom:8px;
+  }
+  .flow-step p{
+    font-size:13px;
+    color:#9FB4C6;
+  }
+  .flow-line{
+    position:absolute;
+    top:32px;
+    left:50%;
+    width:100%;
+    height:1.5px;
+    background:linear-gradient(90deg, var(--signal-blue), rgba(47,127,209,0.15));
+    z-index:0;
+  }
+  .flow-step:last-child .flow-line{display:none;}
+  .flow-mono-strip{
+    margin-top:40px;
+    padding:20px 24px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--line-dark);
+    border-radius:var(--radius);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:#8FCB9A;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  /* ---------- ALTERNATIVES ---------- */
+  .alt-grid{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr) 1.1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  @media (max-width:960px){
+    .alt-grid{grid-template-columns:1fr;}
+  }
+  .alt-card{
+    background:#fff;
+    padding:28px 24px;
+  }
+  .alt-card.winner{
+    background:var(--ink-navy);
+    color:var(--paper);
+  }
+  .alt-card .alt-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin-bottom:16px;
+  }
+  .alt-card.winner .alt-label{color:var(--signal-amber);}
+  .alt-card h3{font-size:17px;margin-bottom:14px;}
+  .alt-card ul{
+    margin:0;padding:0;list-style:none;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .alt-card li{
+    font-size:13.5px;
+    color:var(--slate);
+    padding-left:16px;
+    position:relative;
+  }
+  .alt-card.winner li{color:#B9C8D4;}
+  .alt-card li::before{
+    content:'';
+    position:absolute;left:0;top:7px;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--slate);
+  }
+  .alt-card.winner li::before{background:var(--signal-amber);}
+
+  /* ---------- DEPLOYMENT ---------- */
+  .deploy-panel{
+    margin-top:56px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  @media (max-width:860px){
+    .deploy-panel{grid-template-columns:1fr;}
+  }
+  .deploy-terminal{
+    background:var(--ink-navy);
+    padding:32px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:#B9C8D4;
+    line-height:1.85;
+  }
+  .deploy-terminal .prompt{color:#7FB4EE;}
+  .deploy-terminal .ok{color:#8FCB9A;}
+  .deploy-terminal .amber{color:var(--signal-amber);}
+  .deploy-steps{
+    padding:32px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+  .deploy-step{
+    display:flex;
+    gap:16px;
+  }
+  .deploy-step .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--signal-blue);
+    flex-shrink:0;
+    width:26px;
+  }
+  .deploy-step h4{font-size:15px;margin-bottom:4px;}
+  .deploy-step p{font-size:13.5px;color:var(--slate);}
+
+  /* ---------- CTA / FORM ---------- */
+  .cta-section{
+    background:var(--paper);
+  }
+  .cta-panel{
+    background:var(--ink-navy);
+    border-radius:12px;
+    padding:56px;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:48px;
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+  }
+  @media (max-width:900px){
+    .cta-panel{grid-template-columns:1fr;padding:36px 24px;}
+  }
+  .cta-copy h2{
+    font-size:clamp(26px,3vw,34px);
+    color:var(--paper);
+  }
+  .cta-copy p{
+    margin-top:16px;
+    color:#B9C8D4;
+    font-size:15.5px;
+    max-width:400px;
+  }
+  .cta-copy .cta-quote{
+    margin-top:32px;
+    padding-top:24px;
+    border-top:1px solid var(--line-dark);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;
+    font-weight:500;
+    color:#D7E2EA;
+    font-style:normal;
+  }
+  .cta-copy .cta-quote span{
+    display:block;
+    margin-top:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:400;
+    font-size:12.5px;
+    color:#7FB4EE;
+  }
+  form.demo-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--line-dark);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+  form.demo-form .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  form.demo-form .field.full{grid-column:1/-1;}
+  form.demo-form label{
+    font-size:12.5px;
+    color:#9FB4C6;
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.03em;
+  }
+  form.demo-form input,
+  form.demo-form select,
+  form.demo-form textarea{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:4px;
+    padding:11px 12px;
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+  }
+  form.demo-form textarea{resize:vertical;min-height:80px;}
+  form.demo-form input::placeholder{color:#6E839400;}
+  form.demo-form input:focus,
+  form.demo-form select:focus{
+    border-color:var(--signal-blue);
+    outline:none;
+  }
+  form.demo-form select{
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%237FB4EE' stroke-width='1.4' fill='none' fill-rule='evenodd'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+  }
+  form.demo-form select option{background:var(--ink-navy);color:var(--paper);}
+  form.demo-form .submit-row{
+    grid-column:1/-1;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-top:4px;
+  }
+  form.demo-form .submit-row .btn{width:100%;justify-content:center;}
+  .form-note{
+    grid-column:1/-1;
+    font-size:12px;
+    color:#6E8394;
+  }
+  .form-success{
+    grid-column:1/-1;
+    display:none;
+    padding:14px 16px;
+    background:rgba(143,203,154,0.12);
+    border:1px solid rgba(143,203,154,0.35);
+    border-radius:4px;
+    color:#8FCB9A;
+    font-size:13.5px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink-navy);
+    color:#8296A6;
+    padding:56px 0 32px;
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:40px;
+    flex-wrap:wrap;
+    padding-bottom:32px;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .footer-cols{
+    display:flex;
+    gap:64px;
+    flex-wrap:wrap;
+  }
+  .footer-col h5{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#5C7284;
+    margin-bottom:16px;
+    font-weight:400;
+  }
+  .footer-col a{
+    display:block;
+    font-size:14px;
+    color:#B9C8D4;
+    margin-bottom:12px;
+    transition:color .15s ease;
+  }
+  .footer-col a:hover{color:var(--paper);}
+  .footer-bottom{
+    margin-top:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:12.5px;
+    color:#5C7284;
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* ---------- TESTIMONIAL CAROUSEL ---------- */
+  .t-track{
+    display:flex;
+    gap:24px;
+    overflow-x:auto;
+    scroll-behavior:auto;
+    padding-bottom:8px;
+    margin-top:16px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .t-track::-webkit-scrollbar{display:none;}
+  .t-card{
+    flex:0 0 400px;
+    max-width:400px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--line-dark);
+    border-radius:8px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+  }
+  @media (max-width:640px){
+    .t-card{flex:0 0 86%;max-width:86%;}
+  }
+  .t-arrow{
+    width:42px;height:42px;
+    border-radius:50%;
+    border:1px solid var(--line-dark);
+    background:rgba(255,255,255,0.04);
+    color:#7FB4EE;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .t-arrow:hover{border-color:#7FB4EE;color:var(--paper);}
+
+  /* utility */
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Revenue-Growth.AI",
+      "url": "https://revenue-growth.ai",
+      "description": "Autonomous AI revenue agents deployed inside your own AWS account. Forecast accuracy, churn prediction, and expansion pipeline identification for B2B SaaS revenue teams.",
+      "sameAs": ["https://www.linkedin.com/in/mdbogart/", "https://www.linkedin.com/company/revenue-growth-ai/"],
+      "founder": {"@type": "Person", "name": "Michael Bogart", "jobTitle": "CEO & Chief Revenue Architect", "sameAs": "https://www.linkedin.com/in/mdbogart/"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Revenue-Growth.AI",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "AWS",
+      "description": "Multi-agent AI orchestration platform for B2B revenue teams. Deploys inside the customer's own AWS account in 29 minutes via one Terraform command. Automates forecast accuracy, churn prediction, and expansion pipeline identification for Salesforce and HubSpot.",
+      "offers": {"@type": "Offer", "price": "20000", "priceCurrency": "USD", "description": "One-time CapEx per agent node. Infrastructure runs at pass-through AWS and Anthropic token cost."},
+      "review": {"@type": "Review", "author": {"@type": "Person", "name": "Alex Burkholder"}, "reviewBody": "The impact on win rates and time to close was immediate. I can't imagine leading a revenue team without this framework. It's not a tool — it's infrastructure."}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "What is an AI revenue agent?", "acceptedAnswer": {"@type": "Answer", "text": "An AI revenue agent is an autonomous process — not a chatbot — that reads your actual revenue data (call transcripts, emails, CRM notes, deal history) and produces an objective readout against a framework you define. Unlike static workflow automation, an agent applies judgment: it reads full context and decides what should happen, the way a smart RevOps analyst would — except it covers every deal and every account, every night."}},
+        {"@type": "Question", "name": "How do AI agents improve forecast accuracy?", "acceptedAnswer": {"@type": "Answer", "text": "Every night, the ARR agent reads every transcript, email, and note on active deals, then scores each deal against your qualification methodology. It flags the gap between what the rep says in the CRM and what the transcript actually shows. One customer result: forecast accuracy within 1% of the called number."}},
+        {"@type": "Question", "name": "Can AI predict customer churn before renewal?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The GRR/NRR agent replaces subjective health scores with a maturity model built from actual customer interactions — scored weekly. It flags churn risk months before the renewal conversation. One customer result: lowest churn quarter on record."}},
+        {"@type": "Question", "name": "Is there an alternative to sending CRM data to a SaaS AI vendor?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — agents-as-infrastructure deployed in your own AWS account. Your CRM connects via webhooks inside your VPC. The only external call is to the model API. No vendor servers sit in your data path, and your customer data never leaves your environment."}},
+        {"@type": "Question", "name": "Does my CRM data leave my environment?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every deployment runs inside your own AWS account — ECS Fargate, RDS, and Secrets Manager in your VPC. The only external call is to the Anthropic API. No Revenue-Growth.AI servers are in your data path."}},
+        {"@type": "Question", "name": "How long does deployment take?", "acceptedAnswer": {"@type": "Answer", "text": "29 minutes via one Terraform command. Full production rollout including CRM connection typically completes in 14 days."}},
+        {"@type": "Question", "name": "How is this priced?", "acceptedAnswer": {"@type": "Answer", "text": "One-time CapEx starting at $20K per agent node, with an optional Fractional AI Engineering add-on for white-glove deployment. Ongoing infrastructure is pass-through AWS compute and Anthropic token cost only — typically around $300/month at Series B volume. No per-task billing, no recurring license."}},
+        {"@type": "Question", "name": "Is the 30-day evaluation a free trial?", "acceptedAnswer": {"@type": "Answer", "text": "No — and deliberately so. It's a structured first deployment: you purchase your first agent node (one-time CapEx, from $20K), we deploy inside your AWS account in 14 days, and you spend the remainder of the 30 days running the agent's nightly readouts side-by-side against your human process. Your risk is bounded in a way no SaaS trial can match: no subscription, you own the infrastructure outright, and one command tears the whole system down."}},
+        {"@type": "Question", "name": "What CRMs are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Salesforce and HubSpot, connected via webhooks through an ALB in your VPC with IP allowlisting."}},
+        {"@type": "Question", "name": "We already have a RevOps team. Why do we need this?", "acceptedAnswer": {"@type": "Answer", "text": "It removes the 30–50% of tedious, manual work revenue teams perform today — deal inspection, health scoring, account reviews, forecast reconciliation — so skilled people act on objective, always-on readouts instead of producing them."}},
+        {"@type": "Question", "name": "Do we need AI engineers to maintain Revenue-Growth.AI?", "acceptedAnswer": {"@type": "Answer", "text": "Three options: your engineering team can own it like any internal service (full Terraform infrastructure-as-code, logs in your CloudWatch), you can leverage our Fractional AI Engineering tier for white-glove management, or we can train your RevOps team to run it. One command tears it down in about 30 minutes."}},
+        {"@type": "Question", "name": "How is this different from Zapier, Make.com, or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Three ways: intelligence, cost, and where your data lives. Intelligence: Those are workflow runners, while we apply real AI reasoning. Cost: They bill per task, while we are a flat infrastructure cost. Compliance: Our platform runs entirely in your own AWS VPC so your data never leaves. Unlike self-hosted n8n, we run on ECS Fargate so AWS manages the servers, OS, and scaling."}},
+        {"@type": "Question", "name": "Can't my team just connect an AI model to our CRM with MCP?", "acceptedAnswer": {"@type": "Answer", "text": "MCP gives you a wire; what you need is a worker. The protocol gives a model access to your CRM data, but everything that makes it autonomous is still yours to build: the orchestration layer, scheduled nightly runs, state management, error handling, hosting, and monitoring. That's the same 8–12 week engineering project as any internal build. Second, a persona prompt is not your deal logic: telling a model to 'act like a RevOps analyst' gives you generic judgment, while our agents score against your qualification framework, your maturity model, and your historical deal patterns. Third, governance: an ad-hoc MCP setup typically runs from a desktop client with broad CRM credentials and no audit trail. Our platform runs as reviewable infrastructure in your AWS account — scoped IAM roles per agent, secrets in Secrets Manager, every routing decision and CRM write logged in your CloudWatch. MCP is a great protocol. It's just the first 10% of the build. There's also an adoption difference: an MCP setup is prompted — coverage depends on someone remembering to ask. Our agents are push, not pull: they run every night across every deal and account with zero behavior change required from your reps."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="Revenue-Growth.AI home">
+      <img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38" class="logo-img" style="height:38px;width:auto;filter:brightness(0) invert(1);">
+    </a>
+    <nav class="primary" id="primaryNav">
+      <a href="#top">Home</a>
+      <a href="#product">Product</a>
+      <a href="#use-cases">Use Cases</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#guide" style="color: var(--signal-amber); font-weight: 600;">Guide</a>
+      <a href="#about">About</a>
+      <a href="#book-demo" class="btn btn-amber" style="margin:16px 40px;">Book Your 30-Day Evaluation</a>
+    </nav>
+    <a href="#book-demo" class="btn btn-amber desktop-only">Book Your 30-Day Evaluation</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primaryNav">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">THE AI REVENUE AGENT PLATFORM · DEPLOYED IN YOUR AWS ACCOUNT</div>
+        <h1>AI agents that inspect every deal, score every account, and route every lead — inside your own AWS account.</h1>
+        <p style="margin-top:12px;font-size:15px;color:#9FB4C6;line-height:1.5;">Automate the science of revenue. <span style="color:#EDC58A;">Let your team focus on the art.</span></p>
+        <p class="sub">Revenue-Growth.AI deploys autonomous AI agents into your own AWS account. Every night they read every transcript, email, and CRM record — then write objective forecast, churn, and expansion readouts back to Salesforce or HubSpot. Your customer data never leaves your environment.</p>
+        <div class="hero-ctas">
+          <a href="#deployment" class="btn btn-amber">See a 29-minute deploy</a>
+          <a href="#asknicely-story" class="btn btn-outline-dark">Read the AskNicely story</a>
+        </div>
+        <p style="margin-top:16px;font-size:13px;color:#7A8E9E;line-height:1.5;">Built for B2B SaaS revenue teams, $5M–$50M ARR, on Salesforce or HubSpot, running on AWS.</p>
+        <a href="#customers" style="display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:8px 16px;border:1px solid rgba(227,163,68,0.4);border-radius:99px;background:rgba(227,163,68,0.08);">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--signal-amber);flex-shrink:0;"></span>
+          <span style="font-family:IBM Plex Mono,monospace;font-size:12.5px;color:#EDC58A;">AskNicely doubled win rates in one quarter →</span>
+        </a>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <h3 style="text-align: center; color: #cbd5e1; font-size: 1.25rem; font-weight: 600; margin-bottom: 24px; letter-spacing: -0.3px; line-height: 1.4;">Multi-agent architecture for your revenue team<br><span style="font-size: 1rem; color: #9FB4C6; font-weight: 400;">No vendor lock-in. No data leaves your VPC.</span></h3>
+        <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#2F7FD1" opacity="0.6"/>
+            </marker>
+          </defs>
+          <style>
+            .ld{stroke-dasharray:300;stroke-dashoffset:300;animation:draw 1.4s ease forwards;}
+            .ld2{animation-delay:.2s;} .ld3{animation-delay:.35s;}
+            .ld4{animation-delay:.9s;} .ld5{animation-delay:1.05s;} .ld6{animation-delay:1.2s;}
+            .ld7{animation-delay:.55s;}
+            @keyframes draw{to{stroke-dashoffset:0;}}
+          </style>
+
+          <!-- CRM SOURCE at top -->
+          <rect x="170" y="16" width="140" height="36" rx="6" fill="#163A56" stroke="#2F7FD1" stroke-width="1.2"/>
+          <text x="240" y="29" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">SALESFORCE / HUBSPOT</text>
+          <text x="240" y="44" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">webhook · ALB · your VPC</text>
+
+          <!-- line: CRM → ORCH -->
+          <line class="ld" x1="240" y1="52" x2="240" y2="88" stroke="#2F7FD1" stroke-width="1.4" opacity="0.7" marker-end="url(#arr)"/>
+
+          <!-- MASTER ORCHESTRATOR — widened box -->
+          <rect x="105" y="90" width="270" height="56" rx="8" fill="#0B1F2E" stroke="#7FB4EE" stroke-width="1.8"/>
+          <text x="240" y="114" text-anchor="middle" fill="#F7F9FB" font-family="IBM Plex Mono" font-size="11" font-weight="500" letter-spacing="1">MASTER ORCHESTRATOR</text>
+          <text x="240" y="133" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="8.5">LangGraph · Anthropic / Claude · ECS Fargate</text>
+
+          <!-- lines: ORCH → nodes -->
+          <line class="ld ld2" x1="185" y1="146" x2="100" y2="198" stroke="#2F7FD1" stroke-width="1.2" opacity="0.6" marker-end="url(#arr)"/>
+          <line class="ld ld3" x1="240" y1="146" x2="240" y2="198" stroke="#2F7FD1" stroke-width="1.2" opacity="0.6" marker-end="url(#arr)"/>
+          <line class="ld ld7" x1="295" y1="146" x2="380" y2="198" stroke="#2F7FD1" stroke-width="1.2" opacity="0.6" marker-end="url(#arr)"/>
+
+          <!-- Hybrid routing label -->
+          <text x="240" y="180" text-anchor="middle" fill="#5B6B7A" font-family="IBM Plex Mono" font-size="8">static · or · claude-sonnet</text>
+
+          <!-- PIPELINE NODE -->
+          <rect x="42" y="200" width="116" height="64" rx="6" fill="#0F1E2D" stroke="#2F7FD1" stroke-width="1.4"/>
+          <text x="100" y="220" text-anchor="middle" fill="#E3A344" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">PIPELINE NODE</text>
+          <text x="100" y="236" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">lead routing &amp;</text>
+          <text x="100" y="249" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">new pipeline</text>
+
+          <!-- ARR NODE -->
+          <rect x="182" y="200" width="116" height="64" rx="6" fill="#0F1E2D" stroke="#2F7FD1" stroke-width="1.4"/>
+          <text x="240" y="220" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">ARR NODE</text>
+          <text x="240" y="236" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">forecast &amp;</text>
+          <text x="240" y="249" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">deal execution</text>
+
+          <!-- GRR/NRR NODE -->
+          <rect x="322" y="200" width="116" height="64" rx="6" fill="#0F1E2D" stroke="#2F7FD1" stroke-width="1.4"/>
+          <text x="380" y="220" text-anchor="middle" fill="#8FCB9A" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">GRR/NRR NODE</text>
+          <text x="380" y="236" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">customer health,</text>
+          <text x="380" y="249" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">churn &amp; expansion</text>
+
+          <!-- lines: nodes → CRM write-back -->
+          <line class="ld ld4" x1="100" y1="264" x2="100" y2="316" stroke="#2F7FD1" stroke-width="1" opacity="0.5" marker-end="url(#arr)"/>
+          <line class="ld ld5" x1="240" y1="264" x2="240" y2="316" stroke="#2F7FD1" stroke-width="1" opacity="0.5" marker-end="url(#arr)"/>
+          <line class="ld ld6" x1="380" y1="264" x2="380" y2="316" stroke="#2F7FD1" stroke-width="1" opacity="0.5" marker-end="url(#arr)"/>
+
+          <!-- CRM write-back -->
+          <rect x="42" y="318" width="116" height="32" rx="4" fill="#0B1F2E" stroke="#E3A344" stroke-width="1"/>
+          <text x="100" y="334" text-anchor="middle" fill="#E3A344" font-family="IBM Plex Mono" font-size="8.5">crm_write=ok</text>
+          <text x="100" y="346" text-anchor="middle" fill="#6E8394" font-family="IBM Plex Mono" font-size="7.5">Salesforce / HubSpot</text>
+
+          <rect x="182" y="318" width="116" height="32" rx="4" fill="#0B1F2E" stroke="#7FB4EE" stroke-width="1"/>
+          <text x="240" y="334" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="8.5">crm_write=ok</text>
+          <text x="240" y="346" text-anchor="middle" fill="#6E8394" font-family="IBM Plex Mono" font-size="7.5">Salesforce / HubSpot</text>
+
+          <rect x="322" y="318" width="116" height="32" rx="4" fill="#0B1F2E" stroke="#8FCB9A" stroke-width="1"/>
+          <text x="380" y="334" text-anchor="middle" fill="#8FCB9A" font-family="IBM Plex Mono" font-size="8.5">crm_write=ok</text>
+          <text x="380" y="346" text-anchor="middle" fill="#6E8394" font-family="IBM Plex Mono" font-size="7.5">Salesforce / HubSpot</text>
+
+          <!-- infra label -->
+          <text x="240" y="390" text-anchor="middle" fill="#3A4E5C" font-family="IBM Plex Mono" font-size="8">RDS PostgreSQL · Secrets Manager · CloudWatch · your AWS account</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="social-proof">
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+        <div style="width:32px;height:32px;border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          <img src="images/asknicely-logo.png" alt="AskNicely logo" width="24" height="24" style="width:24px;height:24px;" loading="lazy">
+        </div>
+        <span class="sp-tag">AskNicely</span>
+      </div>
+      <div class="sp-stats">
+        <span><b>2x</b> win rates</span>
+        <span><b>6mo → 3mo</b> rep ramp</span>
+        <span><b>±1%</b> forecast accuracy</span>
+        <span><b>14 days</b> to deploy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section-dark" id="customers" style="border-top:1px solid var(--line-dark);">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">What revenue leaders say</div>
+        <h2 style="max-width:560px;">Not a tool. Infrastructure.</h2>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <button class="t-arrow" id="tPrev" aria-label="Previous testimonial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="t-arrow" id="tNext" aria-label="Next testimonial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="t-track" id="tTrack">
+        <div class="t-card">
+          <svg width="26" height="20" viewBox="0 0 28 22" fill="none" style="margin-bottom:18px;flex-shrink:0;"><path d="M0 22V12.6C0 5.2 4.2 1 11 0l1.4 3.4C7.8 4.6 6 7 6 10h5v12H0zm17 0V12.6C17 5.2 21.2 1 28 0l-1.4 3.4C22.2 4.6 23 7 23 10h5v12H17z" fill="#2F7FD1" opacity="0.7" transform="scale(1,-1) translate(0,-22)"/></svg>
+          <p style="color:#D7E2EA;font-size:14.5px;line-height:1.7;font-style:italic;flex:1;margin:0;">"We deployed two inbound agents in just three weeks, and the impact on our inbound workflows was immediate. If you want high ROI and rapid time-to-value across your revenue org, I highly recommend their agile, hands-on approach."</p>
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line-dark);display:flex;align-items:center;gap:14px;">
+            <img src="images/morgan-morrill-ixopay.webp" alt="Morgan Morrill, VP of Marketing, IXOPAY" width="48" height="48" style="width:48px;height:48px;border-radius:50%;border:1.5px solid var(--signal-blue);flex-shrink:0;object-fit:cover;" loading="lazy">
+            <div>
+              <div style="font-family:Space Grotesk,sans-serif;font-weight:600;font-size:15px;color:var(--paper);">Morgan Morrill</div>
+              <div style="font-family:IBM Plex Mono,monospace;font-size:11.5px;color:#7FB4EE;margin-top:2px;">VP of Marketing · IXOPAY</div>
+            </div>
+          </div>
+        </div>
+        <div class="t-card">
+          <svg width="26" height="20" viewBox="0 0 28 22" fill="none" style="margin-bottom:18px;flex-shrink:0;"><path d="M0 22V12.6C0 5.2 4.2 1 11 0l1.4 3.4C7.8 4.6 6 7 6 10h5v12H0zm17 0V12.6C17 5.2 21.2 1 28 0l-1.4 3.4C22.2 4.6 23 7 23 10h5v12H17z" fill="#2F7FD1" opacity="0.7" transform="scale(1,-1) translate(0,-22)"/></svg>
+          <p style="color:#D7E2EA;font-size:15.5px;line-height:1.7;font-style:italic;flex:1;margin:0;">"The impact on win rates and time to close was immediate. I can't imagine leading a revenue team without this framework. It's not a tool — it's infrastructure."</p>
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line-dark);display:flex;align-items:center;gap:14px;">
+            <img src="images/alex-burkholder-asknicely.webp" alt="Alex Burkholder, VP Revenue, AskNicely" width="48" height="48" style="width:48px;height:48px;border-radius:50%;border:1.5px solid var(--signal-blue);flex-shrink:0;" loading="lazy">
+            <div>
+              <div style="font-family:Space Grotesk,sans-serif;font-weight:600;font-size:15px;color:var(--paper);">Alex Burkholder</div>
+              <div style="font-family:IBM Plex Mono,monospace;font-size:11.5px;color:#7FB4EE;margin-top:2px;">VP Revenue · AskNicely</div>
+            </div>
+          </div>
+        </div>
+        <div class="t-card">
+          <svg width="26" height="20" viewBox="0 0 28 22" fill="none" style="margin-bottom:18px;flex-shrink:0;"><path d="M0 22V12.6C0 5.2 4.2 1 11 0l1.4 3.4C7.8 4.6 6 7 6 10h5v12H0zm17 0V12.6C17 5.2 21.2 1 28 0l-1.4 3.4C22.2 4.6 23 7 23 10h5v12H17z" fill="#2F7FD1" opacity="0.7" transform="scale(1,-1) translate(0,-22)"/></svg>
+          <p style="color:#D7E2EA;font-size:13.5px;line-height:1.7;font-style:italic;flex:1;margin:0;">"Most teams simply do not have the time to perform deep, objective account reviews at scale. By implementing an agentic strategy, we removed repetitive, unscalable work from our most skilled team members. We now have an always-on, autonomous layer that tells us exactly where to focus to deliver maximum value. AI should not replace judgment — it should sharpen it."</p>
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line-dark);display:flex;align-items:center;gap:14px;">
+            <img src="images/reagan-nickl-asknicely.webp" alt="Reagan Nickl, Chief Customer Officer, AskNicely" width="48" height="48" style="width:48px;height:48px;border-radius:50%;border:1.5px solid var(--signal-blue);flex-shrink:0;" loading="lazy">
+            <div>
+              <div style="font-family:Space Grotesk,sans-serif;font-weight:600;font-size:15px;color:var(--paper);">Reagan Nickl</div>
+              <div style="font-family:IBM Plex Mono,monospace;font-size:11.5px;color:#7FB4EE;margin-top:2px;">Chief Customer Officer · AskNicely</div>
+            </div>
+          </div>
+        </div>
+        <div class="t-card">
+          <svg width="26" height="20" viewBox="0 0 28 22" fill="none" style="margin-bottom:18px;flex-shrink:0;"><path d="M0 22V12.6C0 5.2 4.2 1 11 0l1.4 3.4C7.8 4.6 6 7 6 10h5v12H0zm17 0V12.6C17 5.2 21.2 1 28 0l-1.4 3.4C22.2 4.6 23 7 23 10h5v12H17z" fill="#2F7FD1" opacity="0.7" transform="scale(1,-1) translate(0,-22)"/></svg>
+          <p style="color:#D7E2EA;font-size:15.5px;line-height:1.7;font-style:italic;flex:1;margin:0;">"Fast, no-hassle setup — and immediate impact on forecasting and deal pursuit."</p>
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line-dark);display:flex;align-items:center;gap:14px;">
+            <img src="images/julien-delvecchio-fourkites.webp" alt="Julien Delvecchio, Sr Director GTM Applications, FourKites" width="48" height="48" style="width:48px;height:48px;border-radius:50%;border:1.5px solid var(--signal-blue);flex-shrink:0;" loading="lazy">
+            <div>
+              <div style="font-family:Space Grotesk,sans-serif;font-weight:600;font-size:15px;color:var(--paper);">Julien Delvecchio</div>
+              <div style="font-family:IBM Plex Mono,monospace;font-size:11.5px;color:#7FB4EE;margin-top:2px;">Sr Director GTM Applications · FourKites</div>
+            </div>
+          </div>
+        </div>
+        <div class="t-card">
+          <svg width="26" height="20" viewBox="0 0 28 22" fill="none" style="margin-bottom:18px;flex-shrink:0;"><path d="M0 22V12.6C0 5.2 4.2 1 11 0l1.4 3.4C7.8 4.6 6 7 6 10h5v12H0zm17 0V12.6C17 5.2 21.2 1 28 0l-1.4 3.4C22.2 4.6 23 7 23 10h5v12H17z" fill="#2F7FD1" opacity="0.7" transform="scale(1,-1) translate(0,-22)"/></svg>
+          <p style="color:#D7E2EA;font-size:14.5px;line-height:1.7;font-style:italic;flex:1;margin:0;">"The agents deployed with zero effort and ran autonomously from day one. The ROI was undeniable — quota attainment up 45% while absorbing the capacity of three open headcount roles."</p>
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line-dark);display:flex;align-items:center;gap:14px;">
+            <img src="images/christine-shulman-fourkites.webp" alt="Christine Shulman, Boutique Advisor, Former VP GTM Strategy & Ops, FourKites" width="48" height="48" style="width:48px;height:48px;border-radius:50%;border:1.5px solid var(--signal-blue);flex-shrink:0;" loading="lazy">
+            <div>
+              <div style="font-family:Space Grotesk,sans-serif;font-weight:600;font-size:15px;color:var(--paper);">Christine Shulman</div>
+              <div style="font-family:IBM Plex Mono,monospace;font-size:11.5px;color:#7FB4EE;margin-top:2px;">Boutique Advisor · Former VP GTM Strategy &amp; Ops, FourKites</div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section id="asknicely-story">
+  <div class="wrap">
+    <div class="eyebrow">The problem</div>
+    <p class="quote-lead">
+      "We were drowning in human subjectivity. Our forecast and pipeline health were basically built on rep happy ears and gut feelings."
+      <span class="who">— Alex Burkholder, VP Revenue, AskNicely</span>
+    </p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="node-dot"></div>
+        <h3>Forecast built on gut feelings</h3>
+        <p><strong>Your forecast accuracy problem isn't effort — it's subjectivity.</strong> Deal inspection eats leadership bandwidth every week, and the number you call is still a guess dressed up as a methodology.</p>
+      </div>
+      <div class="problem-card">
+        <div class="node-dot"></div>
+        <h3>Health scores that don't predict churn</h3>
+        <p><strong>You find out about churn at the renewal conversation, when it's too late to save.</strong> The CS team scores every account, but the score has zero correlation with who actually leaves at renewal.</p>
+      </div>
+      <div class="problem-card">
+        <div class="node-dot"></div>
+        <h3>Expansion pipeline nobody's fishing</h3>
+        <p><strong>Your next best deal is already a customer — you just can't see it.</strong> Upsell opportunity is sitting inside your existing base right now — there's just no systematic way to find it before a competitor does.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOLUTION / NODES ================= -->
+<section id="use-cases">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">The solution</div>
+        <h2>Three agent nodes. One nightly pass across your entire book of business.</h2>
+      </div>
+      <p class="desc">Each node reads every transcript, email, note, and CRM field — every night — and writes an objective readout back to your CRM.</p>
+    </div>
+
+    <div class="node-grid">
+      <div class="node-card" style="border-top:3px solid var(--signal-amber);">
+        <svg class="node-icon" viewBox="0 0 24 24" fill="none" style="color:var(--signal-amber)"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div class="node-tag" style="color:var(--signal-amber);">ARR NODE</div>
+        <h3>Forecast accuracy &amp; AI deal inspection</h3>
+        <ul style="color:var(--slate); font-size:14.5px; padding-left:20px; margin:0; display:flex; flex-direction:column; gap:8px;"><li>Reads every transcript, email, and note on active deals.</li><li>Scores deals against your methodology.</li><li>Surfaces risk without bias to prevent slipped quarters.</li></ul>
+        <div class="node-stat"><b>2x win rates</b>3-month ramp vs. 6 · forecast within 1%</div>
+        <p style="margin-top:16px;"><a href="forecast-accuracy.html" style="color:var(--signal-blue);font-weight:600;font-size:14px;">Learn more about AI deal inspection →</a></p>
+      </div>
+      <div class="node-card" style="border-top:3px solid #8FCB9A;">
+        <svg class="node-icon" viewBox="0 0 24 24" fill="none" style="color:#8FCB9A"><path d="M12 3l7 3.5v5c0 4.7-3 8.7-7 9.5-4-.8-7-4.8-7-9.5v-5L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="node-tag" style="color:#5aaa6e;">GRR/NRR NODE</div>
+        <h3>Churn prediction &amp; expansion revenue</h3>
+        <ul style="color:var(--slate); font-size:14.5px; padding-left:20px; margin:0; display:flex; flex-direction:column; gap:8px;"><li>Replaces subjective health scores with an AI maturity model.</li><li>Automatically flags churn risk before renewal.</li><li>Surfaces hidden expansion opportunities from actual interactions.</li></ul>
+        <div class="node-stat"><b>Lowest churn</b>quarter on record · 17x expansion deal found</div>
+        <p style="margin-top:16px;"><a href="churn-prediction.html" style="color:var(--signal-blue);font-weight:600;font-size:14px;">Learn more about churn &amp; expansion →</a></p>
+      </div>
+      <div class="node-card" style="border-top:3px solid var(--signal-blue);">
+        <svg class="node-icon" viewBox="0 0 24 24" fill="none" style="color:var(--signal-blue)"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div class="node-tag" style="color:var(--signal-blue);">PIPELINE NODE</div>
+        <h3>AI lead routing &amp; inbound response time</h3>
+        <ul style="color:var(--slate); font-size:14.5px; padding-left:20px; margin:0; display:flex; flex-direction:column; gap:8px;"><li>Instantly evaluates inbound intent and researches the account.</li><li>Routes to the right rep with a synthesized brief.</li><li>Turns hours of manual pre-call research into seconds.</li></ul>
+        <div class="node-stat"><b>Immediate impact</b>on inbound workflows &amp; lead response time</div>
+        <p style="margin-top:16px;"><a href="lead-routing.html" style="color:var(--signal-blue);font-weight:600;font-size:14px;">Learn more about AI lead routing →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEFINITION ================= -->
+<section id="what-is-ai-revenue-agent">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">Definition</div>
+        <h2>What is an AI revenue agent?</h2>
+      </div>
+      <p class="desc">An AI revenue agent is an autonomous process — not a chatbot — that reads your actual revenue data (call transcripts, emails, CRM notes, deal history) and produces an objective readout against a framework you define. Unlike static workflow automation, an agent applies judgment: it reads full context and decides what should happen, the way a smart RevOps analyst would — except it covers every deal and every account, every night.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="section-dark" id="product">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">How it works</div>
+        <h2>A webhook fires. The orchestrator decides. An agent updates your CRM.</h2>
+      </div>
+      <p class="desc">Most events are unambiguous and get routed instantly by static rules. Edge cases go to Claude Sonnet for judgment. Nothing ever leaves your AWS account.</p>
+    </div>
+
+    <div class="flow-wrap">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-line"></div>
+          <div class="flow-node"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4zM4 6l8 7 8-7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+          <h4>Webhook fires</h4>
+          <p>Salesforce or HubSpot event lands in your VPC</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-line"></div>
+          <div class="flow-node"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <h4>Master Orchestrator</h4>
+          <p>LangGraph on ECS Fargate reads the event</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-line"></div>
+          <div class="flow-node"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 9-9 9-9-9 9-9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+          <h4>Hybrid routing decision</h4>
+          <p>Static for volume, Claude Sonnet for edge cases</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-line"></div>
+          <div class="flow-node"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <h4>Agent node executes</h4>
+          <p>Pipeline, ARR, or GRR/NRR agent scores the record</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-node"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>CRM updated</h4>
+          <p>Field writes back — your team sees it, not us</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;background:#060F17;border:1px solid rgba(47,127,209,0.3);border-radius:6px;overflow:hidden;">
+      <div style="background:#0B1F2E;padding:8px 16px;display:flex;gap:8px;border-bottom:1px solid rgba(47,127,209,0.2);">
+        <span style="width:10px;height:10px;border-radius:50%;background:#FF5F57;display:inline-block;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#FFBD2E;display:inline-block;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28CA41;display:inline-block;"></span>
+        <span style="font-family:IBM Plex Mono,monospace;font-size:11px;color:#5C7284;margin-left:8px;">revenue-growth-ai — orchestrator · us-east-2</span>
+      </div>
+      <div style="padding:20px 24px;font-family:IBM Plex Mono,monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:nowrap;">
+        <div><span style="color:#7FB4EE;">$</span> <span style="color:#B9C8D4;">aws ecs describe-tasks --cluster rg-ai-prod</span></div>
+        <div style="color:#5B6B7A;">→ listening on webhook endpoint · port 443 · ALB ready</div>
+        <div><span style="color:#8FCB9A;">✓</span> <span style="color:#B9C8D4;">event received</span> <span style="color:#5B6B7A;">· type=contact.created · source=hubspot</span></div>
+        <div><span style="color:#8FCB9A;">✓</span> <span style="color:#B9C8D4;">route=static</span> <span style="color:#5B6B7A;">· matched ARR Node · latency=12ms</span></div>
+        <div><span style="color:#8FCB9A;">✓</span> <span style="color:#B9C8D4;">agent=arr-node</span> <span style="color:#5B6B7A;">· scoring deal against forecast framework</span></div>
+        <div><span style="color:#8FCB9A;">✓</span> <span style="color:#B9C8D4;">crm_write=ok</span> <span style="color:#5B6B7A;">· field updated · rep notified · elapsed=340ms</span></div>
+        <div style="color:#E3A344;">→ data never left your AWS account · region=us-east-2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ALTERNATIVES ================= -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Why not the alternatives</div>
+    <h2 style="max-width:640px;">Three ways teams try to solve this. All three are the wrong shape.</h2>
+
+    <div class="alt-grid">
+      <div class="alt-card">
+        <div class="alt-label">Buy SaaS</div>
+        <h3>Slow, and your data leaves</h3>
+        <ul>
+          <li>SOC 2 review takes months before you're live</li>
+          <li>Change management drag across every team</li>
+          <li>Per-task billing explodes as you scale</li>
+          <li>Your customer data leaves your environment</li>
+        </ul>
+      </div>
+      <div class="alt-card">
+        <div class="alt-label">Build it yourself</div>
+        <h3>8–12 weeks, then you own it forever</h3>
+        <ul>
+          <li>Needs a senior engineer you don't have available</li>
+          <li>So the project never actually starts</li>
+          <li>If it ships, you maintain it indefinitely</li>
+          <li>No one to call when it breaks at 2am</li>
+          <li>MCP connects the model to your CRM — the other 90% is still a build</li>
+        </ul>
+      </div>
+      <div class="alt-card">
+        <div class="alt-label">Hire headcount</div>
+        <h3>$150K–$200K OpEx that doesn't scale</h3>
+        <ul>
+          <li>One more analyst, still working off gut feel</li>
+          <li>Cost scales linearly with deal volume</li>
+          <li>Ramp time before they're useful</li>
+          <li>Still fundamentally subjective</li>
+        </ul>
+      </div>
+      <div class="alt-card winner">
+        <div class="alt-label">Revenue-Growth.AI</div>
+        <h3>Deployed in your environment, 14–29 minutes</h3>
+        <ul>
+          <li>One-time CapEx — no OpEx trap, no subscription</li>
+          <li>You own the IP and the infrastructure</li>
+          <li>Data never leaves your AWS account</li>
+          <li>Destroy it in ~30 minutes if it's not for you</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEPLOYMENT ================= -->
+<section id="deployment">
+  <div class="wrap">
+    <div class="eyebrow">Deployment</div>
+    <h2 style="max-width:600px;">One Terraform command. 29 minutes. You own it entirely.</h2>
+
+    <div class="deploy-panel">
+      <div class="deploy-terminal mono">
+        <div><span class="prompt">$</span> terraform apply -auto-approve</div>
+        <div>&nbsp;&nbsp;module.orchestrator.aws_ecs_service <span class="ok">created</span></div>
+        <div>&nbsp;&nbsp;module.vpc.aws_subnet <span class="ok">created</span> (x4)</div>
+        <div>&nbsp;&nbsp;module.agents.pipeline_node <span class="ok">created</span></div>
+        <div>&nbsp;&nbsp;module.agents.arr_node <span class="ok">created</span></div>
+        <div>&nbsp;&nbsp;module.agents.grr_nrr_node <span class="ok">created</span></div>
+        <div>&nbsp;&nbsp;module.secrets.aws_secretsmanager <span class="ok">created</span></div>
+        <div style="margin-top:10px;">Apply complete. Resources: 38 added.</div>
+        <div>Elapsed: <span class="amber">00:28:41</span></div>
+      </div>
+      <div class="deploy-steps">
+        <div class="deploy-step">
+          <div class="num">01</div>
+          <div><h4>Command runs</h4><p>One Terraform apply, scoped to your AWS account and your permissions.</p></div>
+        </div>
+        <div class="deploy-step">
+          <div class="num">02</div>
+          <div><h4>AWS infra spins up</h4><p>ECS Fargate, RDS, ALB, Secrets Manager, and IAM roles — all inside your VPC.</p></div>
+        </div>
+        <div class="deploy-step">
+          <div class="num">03</div>
+          <div><h4>Agents deploy</h4><p>Pipeline, ARR, and GRR/NRR nodes come online and register with the orchestrator.</p></div>
+        </div>
+        <div class="deploy-step">
+          <div class="num">04</div>
+          <div><h4>Data flows in</h4><p>Salesforce or HubSpot webhook connects, and the first nightly pass runs automatically.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= PRICING TEASER ================= -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="eyebrow">Pricing</div>
+    <div class="section-label-row">
+      <div>
+        <h2 style="max-width:560px;">One-time CapEx. No OpEx trap. No per-task billing.</h2>
+      </div>
+      <p class="desc">Starting at $20K CapEx per node, deployed in 14 days. Infrastructure runs at pass-through AWS + Anthropic token cost — typically ~$300/month at Series B volume.</p>
+    </div>
+    <div style="margin-top:40px;background:var(--ink-navy);border-radius:12px;padding:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;overflow:hidden;position:relative;">
+      <div style="padding:0 32px 0 0;border-right:1px solid rgba(247,249,251,0.1);">
+        <div style="font-family:IBM Plex Mono,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-amber);margin-bottom:16px;">One-time cost</div>
+        <div style="font-family:Space Grotesk,sans-serif;font-size:42px;font-weight:600;color:#fff;line-height:1;">$20K</div>
+        <div style="font-family:IBM Plex Mono,monospace;font-size:12px;color:#7FB4EE;margin-top:6px;">CapEx / node</div>
+        <p style="color:#9FB4C6;font-size:14px;margin-top:16px;line-height:1.6;">Fourteen-day deployment. No recurring license. You own the IP.</p>
+      </div>
+      <div style="padding:0 32px;border-right:1px solid rgba(247,249,251,0.1);">
+        <div style="font-family:IBM Plex Mono,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-amber);margin-bottom:16px;">Monthly infra</div>
+        <div style="font-family:Space Grotesk,sans-serif;font-size:42px;font-weight:600;color:#fff;line-height:1;">~$300</div>
+        <div style="font-family:IBM Plex Mono,monospace;font-size:12px;color:#7FB4EE;margin-top:6px;">pass-through / mo</div>
+        <p style="color:#9FB4C6;font-size:14px;margin-top:16px;line-height:1.6;">AWS compute + Anthropic tokens only. No markup. Typical Series B volume.</p>
+      </div>
+      <div style="padding:0 0 0 32px;">
+        <div style="font-family:IBM Plex Mono,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-blue);margin-bottom:16px;">Optional Add-On</div>
+        <div style="font-family:Space Grotesk,sans-serif;font-size:32px;font-weight:600;color:#fff;line-height:1.2;">Fractional<br>Engineering</div>
+        <div style="font-family:IBM Plex Mono,monospace;font-size:12px;color:#7FB4EE;margin-top:6px;">White-glove GTM deployment</div>
+        <p style="color:#9FB4C6;font-size:14px;margin-top:16px;line-height:1.6;">Bolt on our elite engineers to map your playbooks, configure webhooks, and guarantee day-one ROI.</p>
+      </div>
+    </div>
+    <div style="margin-top:24px;">
+      <a href="#book-demo" class="btn btn-amber">Talk to us about your revenue model</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA / DEMO FORM ================= -->
+<section class="cta-section" id="book-demo">
+  <div class="wrap">
+    <div class="cta-panel">
+      <div class="cta-copy">
+        <div class="eyebrow">Book a demo</div>
+        <h2>Ready to stop flying blind?</h2>
+        <p>Tell us where it hurts most — pipeline, churn, or expansion — and we'll show you what a nightly pass across your own book of business looks like.</p>
+        <blockquote style="margin:32px 0 0;padding:20px 24px;border-left:3px solid var(--signal-amber);background:rgba(227,163,68,0.07);border-radius:0 6px 6px 0;">
+          <p style="font-family:Space Grotesk,sans-serif;font-size:17px;font-weight:500;color:#D7E2EA;line-height:1.5;margin:0;">"It is much cheaper to buy than to build and maintain."</p>
+          <footer style="margin-top:12px;font-family:IBM Plex Mono,monospace;font-size:12px;color:#7FB4EE;">— Alex Burkholder, VP Revenue, AskNicely</footer>
+        </blockquote>
+      </div>
+
+      <form class="demo-form" id="demoForm" novalidate action="https://formspree.io/f/xaqgzqpe" method="POST">
+        <!-- honeypot — bots fill this, humans never see it -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;" aria-hidden="true">
+        <input type="hidden" name="_subject" value="New demo request — revenue-growth.ai">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input type="text" id="f-name" name="name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="f-company">Company</label>
+          <input type="text" id="f-company" name="company" required autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-email">Work email</label>
+          <input type="email" id="f-email" name="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="f-crm">CRM</label>
+          <select id="f-crm" name="crm" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Salesforce</option>
+            <option>HubSpot</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-pain">Biggest challenge</label>
+          <select id="f-pain" name="pain" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Pipeline — lead routing &amp; new pipeline</option>
+            <option>ARR — forecast &amp; deal execution</option>
+            <option>GRR/NRR — churn &amp; expansion</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-comments">Questions / Comments (Optional)</label>
+          <textarea id="f-comments" name="comments" placeholder="Any specific goals or context to share before we chat?"></textarea>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn btn-amber">Book My 30-Day Evaluation</button>
+        </div>
+        <div class="form-success mono" id="formSuccess">Request received. We'll follow up within one business day.</div>
+        <p class="form-note">No spam, no drip campaign. Michael reads every submission.</p>
+        <p class="form-note" style="margin-top:8px;color:#8296A6;font-size:13px;line-height:1.6;">The 30-day evaluation is a structured first deployment — one-time node fee, deployed in your AWS account, torn down with one command if it's not for you.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Frequently asked</div>
+    <h2 style="max-width:560px;">The questions every RevOps leader asks first.</h2>
+
+    <div style="margin-top:48px;max-width:820px;display:flex;flex-direction:column;gap:12px;">
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">What is an AI revenue agent?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">An AI revenue agent is an autonomous process — not a chatbot — that reads your actual revenue data (call transcripts, emails, CRM notes, deal history) and produces an objective readout against a framework you define. Unlike static workflow automation, an agent applies judgment: it reads full context and decides what should happen, the way a smart RevOps analyst would — except it covers every deal and every account, every night.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">How do AI agents improve forecast accuracy?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">Every night, the ARR agent reads every transcript, email, and note on your active deals — then scores each deal against your qualification methodology. It flags the gap between what the rep says in the CRM and what the transcript actually shows. One customer result: forecast accuracy within 1% of the called number.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">Can AI predict customer churn before renewal?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">Yes. The GRR/NRR agent replaces subjective health scores with a maturity model built from actual customer interactions — scored weekly, not quarterly. It flags churn risk months before the renewal conversation, not weeks. One customer result: lowest churn quarter on record.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">Is there an alternative to sending CRM data to a SaaS AI vendor?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">Yes — agents-as-infrastructure deployed in your own AWS account. Your CRM connects via webhooks inside your VPC. The only external call is to the model API. No vendor servers sit in your data path, and your customer data never leaves your environment.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">Does my CRM data leave my environment?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">No. Every deployment runs inside your own AWS account — ECS Fargate, RDS, and Secrets Manager in your VPC. The only external call is to the Anthropic API. No Revenue-Growth.AI servers are in your data path, ever.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">How long does deployment take?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">The infrastructure deploys in 29 minutes via one Terraform command. Full production rollout — including CRM connection and your custom scoring frameworks — typically completes in 14 days.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">How is this priced?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">One-time CapEx starting at $20K per agent node, with an optional <strong>Fractional AI Engineering</strong> add-on for white-glove Go-To-Market deployment and custom playbook configuration. Ongoing infrastructure is pass-through AWS compute and Anthropic/Claude token cost only — typically ~$300/month at Series B volume. No per-task billing. No recurring license. No SaaS markup.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">Is the 30-day evaluation a free trial?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">No — and deliberately so. It's a structured first deployment: you purchase your first agent node (one-time CapEx, from $20K), we deploy inside your AWS account in 14 days, and you spend the remainder of the 30 days running the agent's nightly readouts side-by-side against your human process. Your risk is bounded in a way no SaaS trial can match: no subscription, you own the infrastructure outright, and one command tears the whole system down.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">What CRMs are supported?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">Salesforce and HubSpot, connected via webhooks through an Application Load Balancer inside your VPC with IP allowlisting enforced.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">We already have a RevOps team. Why do we need this?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">This isn't a replacement — it removes the 30–50% of tedious, manual work your team performs today: deal inspection, health scoring, account reviews, forecast reconciliation. Your most skilled people stop doing repetitive analysis and start acting on objective, always-on readouts.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">Do we need AI engineers to maintain Revenue-Growth.AI?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">You have three options, and all of them work: your engineering team can own it like any other internal service (full infrastructure-as-code via Terraform, logs and alarms in your CloudWatch), you can leverage our <strong>Fractional AI Engineering</strong> tier for white-glove management and playbook configuration, or we can train your RevOps team to run it themselves. Want it gone? One command tears it down in ~30 minutes.</p>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">How is this different from Zapier, Make.com, or n8n?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <div style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">
+          <p style="margin-bottom:12px;">Three ways: intelligence, cost, and where your data lives.</p>
+          <p style="margin-bottom:12px;"><strong>Intelligence.</strong> Those are workflow runners — static if/then rules with no judgment. Revenue-Growth.AI routes simple events deterministically at zero cost and applies real AI reasoning when a decision needs context.</p>
+          <p style="margin-bottom:12px;"><strong>Cost.</strong> Zapier and Make bill per task — costs explode exactly when your pipeline grows. We're a flat infrastructure cost inside your AWS account, regardless of volume.</p>
+          <p style="margin-bottom:12px;"><strong>Compliance.</strong> On their shared infrastructure, the security features you actually need — SSO, audit logs, data residency — are gated behind enterprise agreements. Our platform runs entirely in your own AWS VPC. Your data never leaves. There's nothing for security to negotiate.</p>
+          <p><strong>What about self-hosted n8n?</strong> That means running servers: OS patching, capacity planning, uptime. We run on ECS Fargate — AWS manages the servers, OS, and scaling. The only thing that ever changes is agent code, deployed with one command.</p>
+        </div>
+      </details>
+
+      <details style="border:1px solid var(--line);border-radius:6px;background:#fff;">
+        <summary style="padding:20px 24px;cursor:pointer;font-family:Space Grotesk,sans-serif;font-weight:600;font-size:16px;color:var(--ink-navy);list-style:none;display:flex;justify-content:space-between;align-items:center;">Can't my team just connect an AI model to our CRM with MCP?<span style="color:var(--signal-blue);font-size:20px;">+</span></summary>
+        <p style="padding:0 24px 20px;color:var(--slate);font-size:15px;line-height:1.7;">MCP gives you a wire; what you need is a worker. The protocol gives a model access to your CRM data, but everything that makes it autonomous is still yours to build: the orchestration layer, scheduled nightly runs, state management, error handling, hosting, and monitoring. That's the same 8–12 week engineering project as any internal build. Second, a persona prompt is not your deal logic: telling a model to 'act like a RevOps analyst' gives you generic judgment, while our agents score against your qualification framework, your maturity model, and your historical deal patterns. Third, governance: an ad-hoc MCP setup typically runs from a desktop client with broad CRM credentials and no audit trail. Our platform runs as reviewable infrastructure in your AWS account — scoped IAM roles per agent, secrets in Secrets Manager, every routing decision and CRM write logged in your CloudWatch. MCP is a great protocol. It's just the first 10% of the build. There's also an adoption difference: an MCP setup is prompted — coverage depends on someone remembering to ask. Our agents are push, not pull: they run every night across every deal and account with zero behavior change required from your reps.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= GUIDE ================= -->
+<section id="guide">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">Guide</div>
+        <h2 style="max-width:600px;">The RevOps Leader's Guide to Deploying AI Agents in Your Own Cloud</h2>
+      </div>
+      <p class="desc">A practical guide for revenue leaders who want AI working across their pipeline without handing their customer data to another SaaS vendor.</p>
+    </div>
+    <div style="margin-top:32px;">
+      <a href="guide.html" class="btn btn-primary-blue">Read the full guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">About</div>
+        <h2 style="max-width:600px;">Founder-led. Built because revenue teams were burning $150K–$200K and still flying blind.</h2>
+      </div>
+      <p class="desc">Helping companies go from AI experimentation to rapid, measurable revenue impact — in days, not quarters.</p>
+    </div>
+    <div style="margin-top:40px;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+      <img src="images/michael-bogart-founder.webp" alt="Michael Bogart, CEO & Chief Revenue Architect, Revenue-Growth.AI" width="80" height="80" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--signal-blue);flex-shrink:0;object-fit:cover;" loading="lazy">
+      <div style="flex:1;min-width:260px;">
+        <div style="font-family:Space Grotesk,sans-serif;font-weight:600;font-size:18px;color:var(--ink-navy);">Michael Bogart</div>
+        <div style="font-family:IBM Plex Mono,monospace;font-size:12px;color:var(--slate);margin-top:4px;">CEO &amp; Chief Revenue Architect · Revenue-Growth.AI</div>
+        <p style="margin-top:16px;color:var(--slate);font-size:15px;line-height:1.7;max-width:640px;">Built Revenue-Growth.AI after watching a Series B company miss its board target — a critical, committed deal completely mismanaged in plain sight. The realization: if AI can be trained to pass the bar exam and medical boards, it can certainly be trained to automate the 30–50% of tedious, manual work every B2B revenue team performs.</p>
+        <p style="margin-top:12px;color:var(--slate);font-size:15px;line-height:1.7;max-width:640px;">We're early and intentional — working closely with Series A–C SaaS revenue leaders who are ready to stop guessing and start running their pipeline on objective data.</p>
+        <div style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="#book-demo" class="btn btn-primary-blue">Work with us directly</a>
+          <a href="https://www.linkedin.com/in/mdbogart/" target="_blank" rel="noopener" class="btn btn-outline-light">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="logo">
+        <img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="44" height="40" style="height:40px;width:auto;filter:brightness(0) invert(1);" loading="lazy">
+      </div>
+      <div style="max-width:280px;">
+        <p style="font-size:13.5px;color:#8296A6;line-height:1.7;margin-top:16px;">The AI revenue agent platform deployed in your own AWS account. Forecast accuracy, churn prediction, and expansion pipeline — the data never leaves your environment.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Product</h5>
+          <a href="#product">How it works</a>
+          <a href="#use-cases">Use cases</a>
+          <a href="forecast-accuracy.html">Forecast accuracy</a>
+          <a href="churn-prediction.html">Churn prediction</a>
+          <a href="lead-routing.html">Lead routing</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="#about">About</a>
+          <a href="#guide">RevOps guide</a>
+          <a href="#book-demo">Book a demo</a>
+        </div>
+        <div class="footer-col">
+          <h5>Deploy</h5>
+          <a href="#deployment">29-minute deploy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Revenue-Growth.AI</span>
+      <span>revenue-growth.ai</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // testimonial carousel — continuous slow scroll, seamless loop
+  (function(){
+    var track = document.getElementById('tTrack');
+    if(!track) return;
+    // duplicate cards once for seamless looping
+    var originals = Array.prototype.slice.call(track.children);
+    originals.forEach(function(c){ track.appendChild(c.cloneNode(true)); });
+    var half = function(){ return track.scrollWidth / 2; };
+
+    var step = function(){ var c = track.querySelector('.t-card'); return c ? c.offsetWidth + 24 : 424; };
+    document.getElementById('tPrev').addEventListener('click', function(){ track.scrollBy({left:-step(), behavior:'smooth'}); });
+    document.getElementById('tNext').addEventListener('click', function(){ track.scrollBy({left:step(), behavior:'smooth'}); });
+
+    var paused = false;
+    track.addEventListener('mouseenter', function(){ paused = true; });
+    track.addEventListener('mouseleave', function(){ paused = false; });
+    track.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
+    track.addEventListener('touchend', function(){ setTimeout(function(){ paused = false; }, 4000); }, {passive:true});
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduced){
+      var speed = 0.4; // px per frame ~24px/sec — slow, readable
+      function tick(){
+        if(!paused){
+          track.scrollLeft += speed;
+          if(track.scrollLeft >= half()){ track.scrollLeft -= half(); }
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  })();
+
+  // scroll active nav state
+  (function(){
+    var sections = document.querySelectorAll('section[id], header[id]');
+    var navLinks = document.querySelectorAll('nav.primary a[href^="#"]');
+    function onScroll(){
+      var scrollY = window.scrollY + 100;
+      var current = '';
+      sections.forEach(function(s){
+        if(s.offsetTop <= scrollY) current = s.id;
+      });
+      navLinks.forEach(function(a){
+        a.style.color = '';
+        var href = a.getAttribute('href').replace('#','');
+        if(href === current) a.style.color = '#fff';
+      });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+
+  // mobile nav toggle
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('primaryNav');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+
+  // demo form — posts to Formspree (replace YOUR_FORM_ID after creating the form)
+  var form = document.getElementById('demoForm');
+  var success = document.getElementById('formSuccess');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        success.style.display = 'block';
+        form.querySelectorAll('input, select, button').forEach(function(el){ el.disabled = true; });
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Book My 30-Day Evaluation';
+        alert('Something went wrong — please email us directly or try again.');
+      }
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Book My 30-Day Evaluation';
+      alert('Something went wrong — please email us directly or try again.');
+    });
+  });
+</script>
+
+</body>
+</html>

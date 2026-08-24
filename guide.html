@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The RevOps Leader's Guide to Deploying AI Agents in Your Own Cloud | Revenue-Growth.AI</title>
+<meta name="description" content="Guide for revenue leaders: why AI agents, where SaaS/build-it-yourself/headcount break, deploy-in-your-AWS model, 7-point checklist, and 30-day evaluation plan.">
+<meta property="og:title" content="The RevOps Leader's Guide to Deploying AI Agents in Your Own Cloud">
+<meta property="og:description" content="Why AI agents, where alternatives break, and how to evaluate agents-as-infrastructure in your AWS account — 7-point checklist and 30-day plan.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://revenue-growth.ai/guide.html">
+<link rel="canonical" href="https://revenue-growth.ai/guide.html">
+<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The RevOps Leader's Guide to Deploying AI Agents in Your Own Cloud">
+<meta name="twitter:description" content="Why AI agents, where alternatives break, and how to evaluate agents-as-infrastructure in your AWS account — 7-point checklist and 30-day plan.">
+<meta name="twitter:image" content="https://revenue-growth.ai/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The RevOps Leader's Guide to Deploying AI Agents in Your Own Cloud",
+  "author": {"@type": "Person", "name": "Michael Bogart", "jobTitle": "CEO & Chief Revenue Architect", "sameAs": "https://www.linkedin.com/in/mdbogart/"},
+  "publisher": {"@type": "Organization", "name": "Revenue-Growth.AI", "url": "https://revenue-growth.ai"},
+  "description": "Why AI agents, where SaaS, build-it-yourself, and headcount each break, the deploy-in-your-own-AWS model, a technical checklist, and a 30-day evaluation plan.",
+  "keywords": "Salesforce AI agents, HubSpot AI automation, RevOps AI tools, AWS deployed AI agents, ECS Fargate, LangGraph, Anthropic Claude, Data-secure AI for sales",
+  "datePublished": "2026-07-01",
+  "dateModified": "2026-07-09",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://revenue-growth.ai/guide.html"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://revenue-growth.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "RevOps Guide", "item": "https://revenue-growth.ai/guide.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://revenue-growth.ai/guide.html#faq",
+  "mainEntity": [
+    {"@type": "Question", "name": "How long does it take to build an internal AI agent system?", "acceptedAnswer": {"@type": "Answer", "text": "Realistically 8–12 weeks of senior engineering time: architecture design, infrastructure code, orchestration layer, model integration, testing, and security review. Most Series A–C companies never start because their engineers are shipping product — which is why pre-built agents-as-infrastructure deploys in days instead of quarters."}},
+    {"@type": "Question", "name": "What should I look for in an AI agent architecture?", "acceptedAnswer": {"@type": "Answer", "text": "Seven properties separate production-grade from demo-grade: hybrid routing (static rules for volume, LLM only for edge cases), graceful degradation when the model times out, isolated agent services with separate IAM roles, secrets in a secrets manager not code, full observability in your logging stack, reversibility with one teardown command, and framework-driven scoring against your playbooks — not generic prompts."}},
+    {"@type": "Question", "name": "How do I evaluate an AI revenue agent vendor?", "acceptedAnswer": {"@type": "Answer", "text": "Run a structured 30-day comparison: Week 1 — baseline your team's manual analytical hours and pick your sharpest pain (forecast, churn, or expansion). Week 2 — security pre-clearance with your engineering lead on an in-VPC deployment model. Week 3 — write down your qualification framework or health model. Week 4 — deploy and compare the agent's nightly readout against your human process for one cycle; the gap is your business case."}},
+    {"@type": "Question", "name": "Can't my team just build an agent with MCP and a persona prompt?", "acceptedAnswer": {"@type": "Answer", "text": "MCP standardizes the model-to-CRM connection but solves only the first 10% of a production agent — orchestration, nightly scheduling, state management, hosting, IAM isolation, secrets, and observability are still an 8–12 week internal build. A persona prompt produces generic judgment, not scoring against your qualification framework and deal history, and an ad-hoc MCP setup gives security nothing to review: no scoped roles, no audit trail, no defined data path."}}
+  ]
+}
+</script>
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink-navy);font-family:'Inter',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;line-height:1.25;}
+  a{color:var(--signal-blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site-nav{position:sticky;top:0;z-index:100;background:var(--ink-navy);border-bottom:1px solid var(--line-dark);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-inner img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  .btn-amber{display:inline-flex;align-items:center;padding:11px 20px;border-radius:var(--radius);font-weight:600;font-size:14.5px;background:var(--signal-amber);color:var(--ink-navy) !important;text-decoration:none !important;}
+  .back-link{color:#D7E2EA !important;font-size:14.5px;font-weight:500;text-decoration:none !important;}
+  .back-link:hover{color:#fff !important;}
+
+  .article-hero{background:var(--ink-navy);color:var(--paper);padding:72px 0;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 40px;}
+  @media (max-width:640px){.wrap{padding:0 24px;}}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#7FB4EE;margin-bottom:16px;}
+  .article-hero h1{font-size:clamp(28px,4vw,42px);color:var(--paper);margin:0;}
+  .article-hero .standfirst{margin-top:20px;font-size:17px;color:#B9C8D4;font-style:italic;}
+  .byline{margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#7FB4EE;}
+
+  article{padding:64px 0 32px;}
+  article h2{font-size:26px;margin:48px 0 16px;}
+  article h3{font-size:19px;margin:36px 0 12px;}
+  article p{margin:0 0 18px;font-size:16.5px;color:#233642;}
+  article li{margin-bottom:10px;font-size:16px;color:#233642;}
+  article ul,article ol{padding-left:24px;margin:0 0 18px;}
+  article strong{color:var(--ink-navy);}
+  .callout{border-left:3px solid var(--signal-amber);background:rgba(227,163,68,0.07);padding:18px 22px;border-radius:0 var(--radius) var(--radius) 0;margin:28px 0;}
+  .callout p{margin:0;font-size:16px;}
+  .divider{border:none;border-top:1px solid var(--line);margin:48px 0;}
+
+  .cta-block{background:var(--ink-navy);border-radius:12px;padding:40px;margin:56px 0 64px;color:var(--paper);}
+  .cta-block h3{color:var(--paper);margin:0 0 10px;font-size:22px;}
+  .cta-block p{color:#B9C8D4;margin:0 0 24px;font-size:15.5px;}
+
+  footer{background:var(--ink-navy);color:#8296A6;padding:40px 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1200px;}
+  footer a{color:#B9C8D4;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html"><img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38"></a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="index.html#guide" class="back-link">&larr; Back to home</a>
+      <a href="index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+  </div>
+</header>
+
+<div class="article-hero">
+  <div class="wrap">
+    <div class="eyebrow">Guide</div>
+    <h1>The RevOps Leader's Guide to Deploying AI Agents in Your Own Cloud</h1>
+    <p class="standfirst">A practical guide for revenue leaders who want AI working across their pipeline without handing their customer data to another SaaS vendor.</p>
+    <div class="byline">Michael Bogart · CEO &amp; Chief Revenue Architect, Revenue-Growth.AI</div>
+  </div>
+</div>
+
+<article id="faq">
+  <div class="wrap">
+
+    <h2>Who this is for</h2>
+    <p>You run revenue operations, or you own the number, at a B2B SaaS company somewhere between $5M and $50M ARR. You have Salesforce or HubSpot. Your company runs on AWS. And you have a growing suspicion that 30&ndash;50% of what your revenue team does every week &mdash; deal inspection, health scoring, account reviews, forecast reconciliation &mdash; is exactly the kind of tedious, pattern-based work AI should be doing by now.</p>
+    <p>You're right. This guide covers how to actually get there, what your options are, and where each one breaks.</p>
+
+    <h2>The problem nobody budgets for</h2>
+    <p>Every revenue team runs on a hidden tax: the manual analytical work that keeps the machine honest.</p>
+    <p>Someone has to inspect every deal to know whether the forecast is real or a rep's happy ears. Someone has to review every account to know which customers are quietly walking toward the exit. Someone has to comb the existing customer base for expansion opportunity &mdash; and almost nobody actually does, because there's never bandwidth.</p>
+    <p>At most companies, this work is done by the most expensive people on the team &mdash; the VP of Revenue, the CS leader, the RevOps director &mdash; in review calls, spreadsheets, and gut feel. The result is predictable: forecasts built on subjectivity, health scores with zero correlation to actual churn, and expansion pipeline that stays invisible until a competitor finds it first.</p>
+    <div class="callout"><p><strong>The math on the hidden tax:</strong> if your revenue team spends 30&ndash;50% of its time producing analysis instead of acting on it, you're paying senior salaries for work an agent can run every night.</p></div>
+
+    <h2>Why AI agents &mdash; and what "agent" actually means here</h2>
+    <p>An AI agent, in this context, is not a chatbot. It's an autonomous process that reads your actual revenue data &mdash; call transcripts, emails, CRM notes, next steps, deal history &mdash; and produces an objective readout against a framework you define.</p>
+    <p>The difference from traditional automation is judgment. A static rule does what it's told: if field equals X, do Y. An agent reads the full context and decides what should happen &mdash; the way a smart ops person would, except it runs across every deal and every account, every night, without fatigue or bias.</p>
+    <p>Practical examples of what production revenue agents do today:</p>
+    <ul>
+      <li><strong>Forecast and pipeline (ARR):</strong> Read every interaction on every active deal nightly. Score each deal against your qualification framework. Flag the gap between what the rep says and what the transcript shows. <a href="forecast-accuracy.html">AI deal inspection &amp; forecast accuracy →</a></li>
+      <li><strong>Customer health and churn (GRR):</strong> Replace the subjective health score with a maturity model built from actual customer interactions. Score weekly. Flag risk months before the renewal conversation, not weeks. <a href="churn-prediction.html">AI churn prediction →</a></li>
+      <li><strong>Expansion (NRR):</strong> Score every account by maturity, renewal timing, and size of prize. Surface the accounts your AMs should be in this week &mdash; including the small-looking logo that's actually an enterprise expansion hiding in plain sight. <a href="churn-prediction.html">Expansion revenue identification →</a></li>
+      <li><strong>Inbound and lead routing (Pipeline):</strong> Evaluate inbound intent, research the account, and route to the right rep with a synthesized brief &mdash; in seconds, not hours. <a href="lead-routing.html">AI lead routing for Salesforce &amp; HubSpot →</a></li>
+    </ul>
+
+    <h2>The three ways teams try to do this &mdash; and where each breaks</h2>
+
+    <div style="overflow-x:auto; margin: 24px 0 40px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px;">
+      <table style="width:100%; border-collapse: collapse; text-align: left; font-size: 14.5px;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--ink-navy);">
+            <th style="padding: 12px; color: var(--ink-navy);">Approach</th>
+            <th style="padding: 12px; color: var(--ink-navy);">Data Security</th>
+            <th style="padding: 12px; color: var(--ink-navy);">Timeline</th>
+            <th style="padding: 12px; color: var(--ink-navy);">Cost Structure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--line);">
+            <td style="padding: 12px; font-weight: 600;">SaaS Tool</td>
+            <td style="padding: 12px; color: #E05C5C;">Leaves your VPC</td>
+            <td style="padding: 12px;">Months (Security Review)</td>
+            <td style="padding: 12px;">Per-task / Per-seat (Unpredictable)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--line);">
+            <td style="padding: 12px; font-weight: 600;">Build Internal</td>
+            <td style="padding: 12px; color: #8FCB9A;">Stays in VPC</td>
+            <td style="padding: 12px;">8-12 Weeks (If it starts)</td>
+            <td style="padding: 12px;">Senior Eng Time + Maintenance</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--line);">
+            <td style="padding: 12px; font-weight: 600;">Hire Headcount</td>
+            <td style="padding: 12px; color: #8FCB9A;">Stays in VPC</td>
+            <td style="padding: 12px;">3-6 Months (Ramp)</td>
+            <td style="padding: 12px;">$150K+ OpEx per person</td>
+          </tr>
+          <tr style="background: rgba(47,127,209,0.05);">
+            <td style="padding: 12px; font-weight: 600; color: var(--signal-blue);">Revenue-Growth.AI</td>
+            <td style="padding: 12px; font-weight: 600; color: #28CA41;">Stays in VPC</td>
+            <td style="padding: 12px; font-weight: 600;">14-29 Minutes</td>
+            <td style="padding: 12px; font-weight: 600;">One-time CapEx + Pass-through</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Option 1: Buy a SaaS tool</h3>
+    <p>The default move. There are dozens of AI-for-revenue SaaS products, and some are good. But for a data-sensitive B2B company, the SaaS model has structural problems:</p>
+    <ul>
+      <li><strong>Your customer data leaves your environment.</strong> Every transcript, every deal note, every customer record flows to the vendor's servers. For many companies, that alone kills the project in security review.</li>
+      <li><strong>Security review takes months.</strong> SOC 2 questionnaires, DPA negotiations, vendor risk assessment &mdash; you can burn a quarter before seeing value.</li>
+      <li><strong>Per-task or per-seat pricing scales against you.</strong> The more the AI works, the more you pay. Costs are unpredictable exactly when usage is growing.</li>
+      <li><strong>You're renting, forever.</strong> Stop paying and everything the system learned about your business evaporates.</li>
+    </ul>
+
+    <h3>Option 2: Build it yourself</h3>
+    <p>The frameworks exist &mdash; LangGraph, the model APIs, the AWS primitives. A capable team can absolutely build a production multi-agent system.</p>
+    <p>Here's the honest accounting: designing the architecture, writing the infrastructure code, building the orchestration layer, integrating the model, testing, and passing security review is realistically 8&ndash;12 weeks of work from a senior engineer. Which raises the real question: do you have a senior engineer with 8&ndash;12 free weeks? Almost no Series A&ndash;C company does. Their engineers are shipping product.</p>
+    <p>So the build option produces the most expensive outcome of all: <strong>the project never starts.</strong> The team agrees it's a good idea, it goes in the backlog, and eighteen months later the forecast is still built on gut feel.</p>
+    <p>And if it does ship &mdash; you own maintenance forever. Model versions change. APIs change. The engineer who built it leaves. There's no one to call when it breaks at 2am before a board meeting.</p>
+
+    <h3>What about MCP? (The 10% trap)</h3>
+    <p>A fair question from technical teams: 'Can't we just stand up an MCP server against Salesforce and give the model a RevOps persona?' MCP (Model Context Protocol) is genuinely useful &mdash; it standardizes how a model reads and writes your CRM. But it solves the connection, which is roughly the first 10% of a production agent system.</p>
+    <ul>
+      <li>Orchestration and routing logic</li>
+      <li>Scheduled nightly runs across every deal and account</li>
+      <li>State management between runs</li>
+      <li>Graceful degradation when the model API fails</li>
+      <li>Hosting and scaling</li>
+      <li>Per-service IAM isolation</li>
+      <li>Secrets management</li>
+      <li>Observability with alarms</li>
+      <li>That's the same 8&ndash;12 week build described above &mdash; MCP just shortens the integration step.</li>
+    </ul>
+    <p>Two deeper gaps remain even after the build. A persona prompt is not deal logic: 'act like a senior RevOps analyst' produces generic judgment, not scoring against your qualification framework and your historical deal patterns. There's also a data-scope problem. In an interactive MCP session, whatever a user asks for is what gets pulled into the model's context &mdash; entire CRM objects, PII included, with no record of what left. Our architecture inverts that: each webhook event sends only the framework-defined payload for that record, and every payload and CRM write is logged in your CloudWatch. The question your security team actually asks isn't 'does it call a model API?' &mdash; it's 'can we enumerate and audit exactly what data leaves?' With scoped webhooks the answer is yes; with an open MCP pipe it isn't.</p>
+    <p>And the operational difference compounds: MCP agents work when someone prompts them; agents-as-infrastructure work every night whether anyone remembers to ask or not.</p>
+
+    <h3>Option 3: Hire headcount</h3>
+    <p>Add a RevOps analyst or two. This works, sort of &mdash; but it's $150K&ndash;$200K of OpEx per person, every year, forever. It scales linearly with your deal volume. There's ramp time before they're useful. And the output is still fundamentally subjective: you've hired another human to have opinions, not built a system that produces objective readouts.</p>
+
+    <h2>Deploying AI Agents on AWS: The Revenue-Growth.AI Architecture</h2>
+    <p>There's a deployment model that resolves the tension between the three options above: <strong>pre-built AI agents deployed as infrastructure inside your own AWS account.</strong></p>
+    <div style="margin: 40px 0;">
+        <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#2F7FD1" opacity="0.6"/>
+            </marker>
+          </defs>
+          <style>
+            .ld{stroke-dasharray:300;stroke-dashoffset:300;animation:draw 1.4s ease forwards;}
+            .ld2{animation-delay:.2s;} .ld3{animation-delay:.35s;}
+            .ld4{animation-delay:.9s;} .ld5{animation-delay:1.05s;} .ld6{animation-delay:1.2s;}
+            .ld7{animation-delay:.55s;}
+            @keyframes draw{to{stroke-dashoffset:0;}}
+          </style>
+
+          <!-- CRM SOURCE at top -->
+          <rect x="170" y="16" width="140" height="36" rx="6" fill="#163A56" stroke="#2F7FD1" stroke-width="1.2"/>
+          <text x="240" y="29" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">SALESFORCE / HUBSPOT</text>
+          <text x="240" y="44" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">webhook · ALB · your VPC</text>
+
+          <!-- line: CRM → ORCH -->
+          <line class="ld" x1="240" y1="52" x2="240" y2="88" stroke="#2F7FD1" stroke-width="1.4" opacity="0.7" marker-end="url(#arr)"/>
+
+          <!-- MASTER ORCHESTRATOR — widened box -->
+          <rect x="105" y="90" width="270" height="56" rx="8" fill="#0B1F2E" stroke="#7FB4EE" stroke-width="1.8"/>
+          <text x="240" y="114" text-anchor="middle" fill="#F7F9FB" font-family="IBM Plex Mono" font-size="11" font-weight="500" letter-spacing="1">MASTER ORCHESTRATOR</text>
+          <text x="240" y="133" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="8.5">LangGraph · Anthropic / Claude · ECS Fargate</text>
+
+          <!-- lines: ORCH → nodes -->
+          <line class="ld ld2" x1="185" y1="146" x2="100" y2="198" stroke="#2F7FD1" stroke-width="1.2" opacity="0.6" marker-end="url(#arr)"/>
+          <line class="ld ld3" x1="240" y1="146" x2="240" y2="198" stroke="#2F7FD1" stroke-width="1.2" opacity="0.6" marker-end="url(#arr)"/>
+          <line class="ld ld7" x1="295" y1="146" x2="380" y2="198" stroke="#2F7FD1" stroke-width="1.2" opacity="0.6" marker-end="url(#arr)"/>
+
+          <!-- Hybrid routing label -->
+          <text x="240" y="180" text-anchor="middle" fill="#5B6B7A" font-family="IBM Plex Mono" font-size="8">static · or · claude-sonnet</text>
+
+          <!-- PIPELINE NODE -->
+          <rect x="42" y="200" width="116" height="64" rx="6" fill="#0F1E2D" stroke="#2F7FD1" stroke-width="1.4"/>
+          <text x="100" y="220" text-anchor="middle" fill="#E3A344" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">PIPELINE NODE</text>
+          <text x="100" y="236" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">lead routing &amp;</text>
+          <text x="100" y="249" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">new pipeline</text>
+
+          <!-- ARR NODE -->
+          <rect x="182" y="200" width="116" height="64" rx="6" fill="#0F1E2D" stroke="#2F7FD1" stroke-width="1.4"/>
+          <text x="240" y="220" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">ARR NODE</text>
+          <text x="240" y="236" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">forecast &amp;</text>
+          <text x="240" y="249" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">deal execution</text>
+
+          <!-- GRR/NRR NODE -->
+          <rect x="322" y="200" width="116" height="64" rx="6" fill="#0F1E2D" stroke="#2F7FD1" stroke-width="1.4"/>
+          <text x="380" y="220" text-anchor="middle" fill="#8FCB9A" font-family="IBM Plex Mono" font-size="9" letter-spacing="1">GRR/NRR NODE</text>
+          <text x="380" y="236" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">customer health,</text>
+          <text x="380" y="249" text-anchor="middle" fill="#B9C8D4" font-family="IBM Plex Mono" font-size="8">churn &amp; expansion</text>
+
+          <!-- lines: nodes → CRM write-back -->
+          <line class="ld ld4" x1="100" y1="264" x2="100" y2="316" stroke="#2F7FD1" stroke-width="1" opacity="0.5" marker-end="url(#arr)"/>
+          <line class="ld ld5" x1="240" y1="264" x2="240" y2="316" stroke="#2F7FD1" stroke-width="1" opacity="0.5" marker-end="url(#arr)"/>
+          <line class="ld ld6" x1="380" y1="264" x2="380" y2="316" stroke="#2F7FD1" stroke-width="1" opacity="0.5" marker-end="url(#arr)"/>
+
+          <!-- CRM write-back -->
+          <rect x="42" y="318" width="116" height="32" rx="4" fill="#0B1F2E" stroke="#E3A344" stroke-width="1"/>
+          <text x="100" y="334" text-anchor="middle" fill="#E3A344" font-family="IBM Plex Mono" font-size="8.5">crm_write=ok</text>
+          <text x="100" y="346" text-anchor="middle" fill="#6E8394" font-family="IBM Plex Mono" font-size="7.5">Salesforce / HubSpot</text>
+
+          <rect x="182" y="318" width="116" height="32" rx="4" fill="#0B1F2E" stroke="#7FB4EE" stroke-width="1"/>
+          <text x="240" y="334" text-anchor="middle" fill="#7FB4EE" font-family="IBM Plex Mono" font-size="8.5">crm_write=ok</text>
+          <text x="240" y="346" text-anchor="middle" fill="#6E8394" font-family="IBM Plex Mono" font-size="7.5">Salesforce / HubSpot</text>
+
+          <rect x="322" y="318" width="116" height="32" rx="4" fill="#0B1F2E" stroke="#8FCB9A" stroke-width="1"/>
+          <text x="380" y="334" text-anchor="middle" fill="#8FCB9A" font-family="IBM Plex Mono" font-size="8.5">crm_write=ok</text>
+          <text x="380" y="346" text-anchor="middle" fill="#6E8394" font-family="IBM Plex Mono" font-size="7.5">Salesforce / HubSpot</text>
+
+          <!-- infra label -->
+          <text x="240" y="390" text-anchor="middle" fill="#3A4E5C" font-family="IBM Plex Mono" font-size="8">RDS PostgreSQL · Secrets Manager · CloudWatch · your AWS account</text>
+        </svg>
+    </div>
+    <p>The shape of it:</p>
+    <ul>
+      <li>The entire system &mdash; orchestration layer, agent nodes, database, secrets management &mdash; deploys into <strong>your</strong> AWS account via infrastructure-as-code. One Terraform command; the infrastructure stands up in about half an hour.</li>
+      <li>Your CRM connects via webhooks through a load balancer in your VPC. Data flows from Salesforce or HubSpot to agents running on your compute, and results write back to your CRM.</li>
+      <li><strong>The only external call is to the model API.</strong> No vendor servers sit in your data path. Your customer data never leaves your environment.</li>
+      <li>Your team owns it like any internal service: your IAM roles, your CloudWatch logs, your security posture. Want it gone? One command tears it down.</li>
+    </ul>
+    <p><strong>Why this model wins the security conversation:</strong> when your engineering lead asks "where does our data go?", the answer is "nowhere &mdash; it's our AWS account." The months-long vendor security review collapses into a normal internal architecture review, because there is no external vendor in the data path to review.</p>
+    <p><strong>Why it wins the cost conversation:</strong> infrastructure this shape runs at pass-through cost &mdash; your AWS compute plus model tokens, typically a few hundred dollars a month at Series B volume. Compare that against per-task SaaS billing at scale, or $150K+ of annual headcount, and the shape of the decision changes.</p>
+    <p><strong>Why it wins the speed conversation:</strong> the alternative isn't really SaaS or headcount &mdash; it's the 8&ndash;12 week internal build that never starts. Deployment as pre-built infrastructure means the timeline is days, not quarters.</p>
+
+    <h2>What to look for in an agent architecture (the technical checklist)</h2>
+    <p>Whether you build or buy, these are the architectural properties that separate production-grade from demo-grade. Hand this list to your engineering lead:</p>
+    <ol>
+      <li><strong>Hybrid routing.</strong> High-volume, predictable events should route via static rules &mdash; zero model cost, zero latency. Only ambiguous edge cases should invoke the LLM. If every event hits the model, the economics break at scale.</li>
+      <li><strong>Graceful degradation.</strong> If the model times out or the API is down, static rules must take over automatically. The system should never silently drop an event.</li>
+      <li><strong>Isolated agent services.</strong> Each agent should run as its own service with its own IAM role &mdash; a failure or compromise in one node shouldn't touch the others.</li>
+      <li><strong>Secrets out of code.</strong> Credentials belong in a secrets manager, never in configuration files or environment variables checked into a repo.</li>
+      <li><strong>Full observability.</strong> Every event, routing decision, and CRM write should land in your logging stack with alarms your ops team owns.</li>
+      <li><strong>Reversibility.</strong> You should be able to tear the entire system down with one command. If removal is complicated, ownership was never real.</li>
+      <li><strong>Framework-driven scoring, not generic prompts.</strong> The agents should score against <em>your</em> qualification framework, <em>your</em> maturity model, <em>your</em> playbooks &mdash; not a generic definition of deal health.</li>
+    </ol>
+
+    <h2>What results look like when it works</h2>
+    <p>One customer deployment, for calibration &mdash; a B2B SaaS company running the full agent stack across pipeline, retention, and expansion:</p>
+    <ul>
+      <li>Win rates doubled within a quarter of deployment</li>
+      <li>New rep ramp time cut from six months to three</li>
+      <li>Forecast accuracy within 1% of the called number</li>
+      <li>A 17x expansion opportunity surfaced inside an account paying $2K/year &mdash; invisible to the human team, found by the agent's nightly pass</li>
+      <li>Lowest churn quarter on record, followed by the best expansion quarter ever</li>
+      <li>Deployed in 14 days</li>
+    </ul>
+    <p>The pattern behind these numbers isn't magic. It's coverage: humans review deals weekly at best, and only the deals that look important. Agents review everything, every night, with no bias about which accounts matter.</p>
+
+    <h2>How to run the evaluation (a 30-day plan)</h2>
+    <p><strong>Week 1 &mdash; Baseline.</strong> Document what manual analytical work your team performs and how many hours it consumes. Pick your sharpest pain: forecast accuracy, churn prediction, or expansion coverage. That's your first agent.</p>
+    <p><strong>Week 2 &mdash; Security pre-clearance.</strong> Bring your engineering lead in <em>before</em> the vendor conversation. Frame the question: "If this deploys entirely inside our AWS account with no external data path, what does our review process look like?" You'll find the answer is dramatically simpler than a SaaS review.</p>
+    <p><strong>Week 3 &mdash; Framework definition.</strong> Write down your actual qualification framework, health model, or expansion criteria. This is the highest-leverage work you'll do &mdash; the agents are only as sharp as the framework they score against. (If you can't write it down, that's a finding in itself.)</p>
+    <p><strong>Week 4 &mdash; Deploy and compare.</strong> Run the agent's nightly readout alongside your human process for one cycle. (This is a purchased deployment, not a trial — the one-time node fee covers it, and teardown is one command if the comparison doesn't convince you.) Compare the agent's deal scores against what actually closed. Compare its churn flags against your CS team's instincts. The gap between the two is your business case.</p>
+    <p style="margin-top: 24px; font-weight: 500;">Ready to run this comparison? <a href="index.html#book-demo">Book a strategy session with us to start your 30-day evaluation.</a></p>
+
+    <h2>The bottom line</h2>
+    <p>The question is no longer whether AI can do the analytical work of a revenue team &mdash; it demonstrably can. The question is deployment model: whose cloud does it run in, who owns the data, and what does it cost as it scales.</p>
+    <p>For B2B companies on AWS with real data sensitivity, the answer increasingly looks like agents-as-infrastructure: pre-built, deployed in your own account, running at pass-through cost, owned like any internal service.</p>
+    <p><strong>The control of DIY. The speed of SaaS. And the data never leaves your AWS account.</strong></p>
+
+    <div class="cta-block">
+      <h3>See what a nightly pass across your book of business looks like</h3>
+      <p>Revenue-Growth.AI deploys autonomous revenue agents &mdash; forecast accuracy, churn prediction, and expansion identification &mdash; inside your own AWS account in 29 minutes.</p>
+      <a href="index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Revenue-Growth.AI</span>
+    <span><a href="index.html">revenue-growth.ai</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
