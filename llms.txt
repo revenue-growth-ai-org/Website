@@ -6,6 +6,8 @@ Revenue-Growth.AI deploys autonomous AI revenue agents — forecast and deal ins
 
 - [Homepage](https://revenue-growth.ai/): Product overview, architecture diagram, customer results, pricing, FAQ, and 30-day evaluation signup.
 - [RevOps Guide](https://revenue-growth.ai/guide.html): Long-form guide comparing SaaS, build-it-yourself, and headcount approaches; AWS deployment architecture; technical checklist; 30-day evaluation plan.
+- [Insights](https://revenue-growth.ai/insights/): Long-form notes for RevOps leaders on LangGraph, CRM writebacks, and agents-as-infrastructure.
+- [Why RevOps LangGraph builds stall after the demo](https://revenue-growth.ai/insights/why-revops-langgraph-builds-stall/): Where DIY LangGraph agents die in production: interrupt replay, in-memory checkpoints, MCP-only wiring, Salesforce API limits, and duplicate CRM writes.
 - [AI Deal Inspection & Forecast Accuracy](https://revenue-growth.ai/forecast-accuracy.html): ARR Node use case — nightly deal inspection, qualification scoring, and forecast accuracy for B2B SaaS revenue teams.
 - [AI Churn Prediction & Expansion Revenue](https://revenue-growth.ai/churn-prediction.html): GRR/NRR Node use case — AI maturity model for customer health, churn risk flagging, and expansion identification.
 - [AI Lead Routing & Inbound Acceleration](https://revenue-growth.ai/lead-routing.html): Pipeline Node use case — inbound intent evaluation, account research, and rep routing for Salesforce and HubSpot.
