@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Per-Task Automation Pricing Breaks at Scale (and What to Do Instead) | Revenue-Growth.AI</title>
+<meta name="description" content="Per-task and per-operation pricing (Zapier, Make, n8n Cloud) indexes your automation cost to event volume, not value. How the metering works, an illustrative cost curve, and the flat-infrastructure alternative in your own AWS account.">
+<meta property="og:title" content="Why Per-Task Automation Pricing Breaks at Scale">
+<meta property="og:description" content="Per-task pricing indexes your automation cost to event volume, not value. How the metering works, and the flat-infrastructure alternative in your own AWS account.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://revenue-growth.ai/insights/per-task-automation-pricing-at-scale/">
+<link rel="canonical" href="https://revenue-growth.ai/insights/per-task-automation-pricing-at-scale/">
+<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Per-Task Automation Pricing Breaks at Scale">
+<meta name="twitter:description" content="Per-task pricing indexes your automation cost to event volume, not value. The flat-infrastructure alternative in your own AWS account.">
+<meta name="twitter:image" content="https://revenue-growth.ai/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Per-Task Automation Pricing Breaks at Scale",
+  "author": {"@type": "Person", "name": "Michael Bogart", "jobTitle": "Founder & CEO, Revenue-Growth.AI", "sameAs": "https://www.linkedin.com/in/mdbogart/"},
+  "publisher": {"@type": "Organization", "name": "Revenue-Growth.AI", "url": "https://revenue-growth.ai"},
+  "description": "How per-task and per-operation automation billing scales cost with event volume, and the flat-infrastructure alternative deployed in the customer's own AWS account.",
+  "datePublished": "2026-09-06",
+  "dateModified": "2026-09-06",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://revenue-growth.ai/insights/per-task-automation-pricing-at-scale/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://revenue-growth.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://revenue-growth.ai/insights/"},
+    {"@type": "ListItem", "position": 3, "name": "Why Per-Task Automation Pricing Breaks at Scale", "item": "https://revenue-growth.ai/insights/per-task-automation-pricing-at-scale/"}
+  ]
+}
+</script>
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink-navy);font-family:'Inter',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;line-height:1.25;}
+  a{color:var(--signal-blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site-nav{position:sticky;top:0;z-index:100;background:var(--ink-navy);border-bottom:1px solid var(--line-dark);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-inner img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  .btn-amber{display:inline-flex;align-items:center;padding:11px 20px;border-radius:var(--radius);font-weight:600;font-size:14.5px;background:var(--signal-amber);color:var(--ink-navy) !important;text-decoration:none !important;}
+  .back-link{color:#D7E2EA !important;font-size:14.5px;font-weight:500;text-decoration:none !important;}
+  .back-link:hover{color:#fff !important;}
+
+  .article-hero{background:var(--ink-navy);color:var(--paper);padding:72px 0;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 40px;}
+  @media (max-width:640px){.wrap{padding:0 24px;}}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#7FB4EE;margin-bottom:16px;}
+  .article-hero h1{font-size:clamp(28px,4vw,42px);color:var(--paper);margin:0;}
+  .article-hero .standfirst{margin-top:20px;font-size:17px;color:#B9C8D4;font-style:italic;}
+  .byline{margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#7FB4EE;}
+
+  article{padding:64px 0 32px;}
+  article h2{font-size:26px;margin:48px 0 16px;}
+  article h3{font-size:19px;margin:36px 0 12px;}
+  article p{margin:0 0 18px;font-size:16.5px;color:#233642;}
+  article li{margin-bottom:10px;font-size:16px;color:#233642;}
+  article ul,article ol{padding-left:24px;margin:0 0 18px;}
+  article strong{color:var(--ink-navy);}
+  .divider{border:none;border-top:1px solid var(--line);margin:48px 0;}
+
+  .cta-block{background:var(--ink-navy);border-radius:12px;padding:40px;margin:56px 0 24px;color:var(--paper);}
+  .cta-block h3{color:var(--paper);margin:0 0 10px;font-size:22px;}
+  .cta-block p{color:#B9C8D4;margin:0 0 24px;font-size:15.5px;}
+  .related{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--slate);margin:0 0 24px;}
+
+  footer{background:var(--ink-navy);color:#8296A6;padding:40px 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1200px;}
+  footer a{color:#B9C8D4;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="../../index.html"><img src="../../images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38"></a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="../" class="back-link">&larr; All Insights</a>
+      <a href="../../index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+  </div>
+</header>
+
+<div class="article-hero">
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h1>Why Per-Task Automation Pricing Breaks at Scale</h1>
+    <p class="standfirst">Per-task and per-operation pricing indexes your automation cost to event volume, not to the value you get. How the metering works, an illustrative cost curve, and the flat-infrastructure alternative.</p>
+    <div class="byline">Michael Bogart &middot; Founder &amp; CEO, Revenue-Growth.AI &middot; Published 2026-09-06</div>
+  </div>
+</div>
+
+<article>
+  <div class="wrap">
+
+    <p>If your Zapier, Make, or n8n Cloud bill keeps climbing while your workflows stay the same, the cause is structural. Per-task pricing indexes your cost to event volume, not to the value you get. A good quarter &mdash; more inbound leads, more signups, more CRM writes &mdash; arrives as a larger invoice. This piece explains how the metering works, walks through an illustrative cost curve, and covers the alternative: running orchestration on flat-cost infrastructure inside your own AWS account, where the bill does not move when webhook volume doubles.</p>
+
+    <h2>How per-task billing actually works</h2>
+    <p>Three common models. These details come from 2026 comparison write-ups, which are vendor-adjacent and have positioning incentives &mdash; treat specific prices as directional and check the live pricing pages yourself.</p>
+    <ul>
+      <li><em>Zapier &mdash; per task.</em> Each action step in a Zap is metered separately. A six-step Zap that runs once bills six tasks (the trigger itself is not billed).</li>
+      <li><em>Make &mdash; per operation.</em> Each module call is an operation, and triggers, filters, and iterators each count. One scenario run can be many operations.</li>
+      <li><em>n8n Cloud &mdash; per workflow execution.</em> One run performing 30 actions counts as one execution. Self-hosting n8n removes the meter but adds the operational burden.</li>
+    </ul>
+    <p>A commonly cited rule of thumb: the math starts favoring a custom build around ~$200/month of Zapier spend, with overage near $1.55 per 100 extra tasks. That is a directional signal from comparison blogs, not a methodology-backed benchmark &mdash; but the direction is what matters. One account in circulation describes an automation invoice growing from about &pound;20/month to &pound;680/month as volume climbed.</p>
+
+    <h2>The failure mode: your cost curve has the wrong x-axis</h2>
+    <p>Workflow logic is fixed cost &mdash; you build a Zap or scenario once. Event volume is not. It tracks your lead flow, your signup rate, your customer count. When billing is per event, your automation cost rides that same curve. Grow 40% and your automation line grows roughly 40%, for the same automations. RevOps notices, and the rational response is to stop automating marginal work &mdash; which is exactly the work automation is for.</p>
+
+    <h2>An illustrative cost calculation (illustrative, not a customer result)</h2>
+    <p>Assumptions: your CRM generates 200,000 lead and contact events a month. Each event triggers an average 10-operation workflow &mdash; enrich, score, branch, look up the owner, format, write back, notify. That is roughly 2,000,000 operations a month. On any per-operation plan you are now in the top pricing tier and probably negotiating overages. Double lead volume next year with identical workflow logic, and the bill roughly doubles. On flat infrastructure, the same growth is a rounding error: provisioned compute is sized to concurrency and latency, not cumulative event count.</p>
+
+    <h2>The two usual responses, and why they disappoint</h2>
+    <ol>
+      <li><em>Pay more, or optimize the meter.</em> You spend engineering time shaving operations per run and rationing which events get automated. The tool now shapes your process instead of serving it.</li>
+      <li><em>Self-host n8n.</em> The meter goes away and an operational surface takes its place: autoscaling, patching, uptime, and an on-call rotation for automations that touch revenue. For some teams that trade is fine. For most RevOps teams it is a new liability, not a win.</li>
+    </ol>
+
+    <h2>The third option: flat cost in your own AWS account</h2>
+    <p>We deploy the orchestration as infrastructure inside your AWS account &mdash; one Terraform command, roughly 29 minutes to stand up. It runs on ECS Fargate, so you pay for provisioned compute, not per execution. The infrastructure footprint &mdash; RDS, NAT gateways, ALB, ECS Fargate &mdash; is roughly a flat ~$300/month and does not scale with webhook volume. Because it runs in your VPC, CRM payloads stay in your account; the only external call is to the Anthropic API, and only when a routing decision needs one.</p>
+
+    <h2>The mechanism behind "flat"</h2>
+    <p>Routing is hybrid:</p>
+    <ul>
+      <li><em>Static routing</em> is deterministic and makes zero LLM calls. Known webhook fields map straight to the agent that handles them.</li>
+      <li><em>LLM routing</em> (Claude Sonnet) fires only when static rules do not match or a judgment call is needed, with automatic fallback.</li>
+    </ul>
+    <p>So the expensive path &mdash; a model call &mdash; is the exception, not the per-event default. High-volume predictable traffic runs on compute you have already provisioned, which is why the curve stays flat.</p>
+
+    <h2>Where per-task tools still make the most sense</h2>
+    <p>No strawman here. Zapier and Make are strong at connector breadth, non-technical self-service, and low-volume glue between SaaS apps. If a business user needs to wire two apps together for a few hundred runs a month, that is exactly the job those tools are built for, and standing up cloud infrastructure would be overkill. The wall appears when event volume is high, the workflows are core revenue operations, and the invoice has started scaling with company growth.</p>
+
+    <h2>A quick decision checklist</h2>
+    <ul>
+      <li>Is your automation invoice trending with lead or customer volume rather than workflow count?</li>
+      <li>Are you declining to automate small tasks because each run is metered?</li>
+      <li>Do security or compliance reviews flag customer data transiting a third-party automation cloud?</li>
+      <li>Would you rather own a flat infrastructure line than a variable SaaS meter?</li>
+    </ul>
+    <p>Three or more yes, and it is worth pricing the flat-infrastructure option.</p>
+
+    <h2>Close</h2>
+    <p>The tool you bought to help you grow should not be the line item that punishes you for growing. If your automation bill has a slope, look hard at what is on the x-axis &mdash; and decide whether that is a variable you actually want to throttle.</p>
+
+    <hr class="divider">
+    <p class="related">Related: <a href="../../lead-routing.html">AI lead routing for Salesforce and HubSpot</a> &middot; <a href="../">All Insights</a></p>
+
+    <div class="cta-block">
+      <h3>See hybrid routing on your own stack</h3>
+      <p>Revenue-Growth.AI deploys autonomous revenue agents inside your own AWS account &mdash; flat infrastructure cost, hybrid static and LLM routing, and customer data that never leaves your VPC.</p>
+      <a href="../../index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Revenue-Growth.AI</span>
+    <span><a href="../../index.html">revenue-growth.ai</a> &middot; <a href="../">Insights</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

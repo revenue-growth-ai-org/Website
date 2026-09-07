@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights | Revenue-Growth.AI</title>
+<meta name="description" content="Insights from Revenue-Growth.AI on RevOps automation economics, build-vs-buy, hybrid routing, and keeping customer data in your own AWS account.">
+<meta property="og:title" content="Insights | Revenue-Growth.AI">
+<meta property="og:description" content="RevOps automation economics, build-vs-buy, and data residency — from the team deploying AI revenue agents in your own AWS account.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://revenue-growth.ai/insights/">
+<link rel="canonical" href="https://revenue-growth.ai/insights/">
+<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink-navy);font-family:'Inter',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;line-height:1.25;margin:0;}
+  a{color:var(--signal-blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  header.site-nav{position:sticky;top:0;z-index:100;background:var(--ink-navy);border-bottom:1px solid var(--line-dark);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-inner img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  .btn-amber{display:inline-flex;align-items:center;padding:11px 20px;border-radius:var(--radius);font-weight:600;font-size:14.5px;background:var(--signal-amber);color:var(--ink-navy) !important;text-decoration:none !important;}
+  .back-link{color:#D7E2EA !important;font-size:14.5px;font-weight:500;text-decoration:none !important;}
+  .back-link:hover{color:#fff !important;}
+  .page-hero{background:var(--ink-navy);color:var(--paper);padding:72px 0;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 40px;}
+  @media (max-width:640px){.wrap{padding:0 24px;}}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#7FB4EE;margin-bottom:16px;}
+  .page-hero h1{font-size:clamp(28px,4vw,42px);color:var(--paper);}
+  .page-hero .subhead{margin-top:20px;font-size:18px;color:#B9C8D4;line-height:1.6;}
+  main{padding:64px 0 40px;}
+  .post{border-top:1px solid var(--line);padding:28px 0;}
+  .post:last-child{border-bottom:1px solid var(--line);}
+  .post .date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate);letter-spacing:0.04em;}
+  .post h2{font-size:22px;margin:8px 0 10px;}
+  .post p{margin:0;font-size:16px;color:#233642;}
+  footer{background:var(--ink-navy);color:#8296A6;padding:40px 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1200px;}
+  footer a{color:#B9C8D4;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="../index.html"><img src="../images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38"></a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="../index.html" class="back-link">&larr; Back to home</a>
+      <a href="../index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h1>Insights</h1>
+    <p class="subhead">Notes on RevOps automation economics, build-vs-buy, hybrid routing, and keeping customer data inside your own AWS account.</p>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <article class="post">
+      <div class="date">2026-09-06</div>
+      <h2><a href="per-task-automation-pricing-at-scale/">Why Per-Task Automation Pricing Breaks at Scale</a></h2>
+      <p>Per-task and per-operation pricing (Zapier, Make, n8n Cloud) indexes your automation cost to event volume, not to the value you get. How the metering works, an illustrative cost curve, and the flat-infrastructure alternative that runs in your own AWS account.</p>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Revenue-Growth.AI</span>
+    <span><a href="../index.html">revenue-growth.ai</a> &middot; <a href="../guide.html">RevOps Guide</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
