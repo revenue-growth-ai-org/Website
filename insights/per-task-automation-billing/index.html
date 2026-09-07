@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Per-task automation billing doesn’t scale | Revenue-Growth.AI</title>
+<meta name="description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.">
+<meta property="og:title" content="Per-task automation billing doesn’t scale">
+<meta property="og:description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://revenue-growth.ai/insights/per-task-automation-billing/">
+<link rel="canonical" href="https://revenue-growth.ai/insights/per-task-automation-billing/">
+<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Per-task automation billing doesn’t scale">
+<meta name="twitter:description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.">
+<meta name="twitter:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="author" content="Michael Bogart">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Per-task automation billing doesn’t scale",
+  "author": {"@type": "Person", "name": "Michael Bogart", "jobTitle": "CEO & Chief Revenue Architect", "sameAs": "https://www.linkedin.com/in/mdbogart/"},
+  "publisher": {"@type": "Organization", "name": "Revenue-Growth.AI", "url": "https://revenue-growth.ai"},
+  "description": "Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.",
+  "datePublished": "2026-09-07",
+  "dateModified": "2026-09-07",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://revenue-growth.ai/insights/per-task-automation-billing/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://revenue-growth.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://revenue-growth.ai/insights/"},
+    {"@type": "ListItem", "position": 3, "name": "Per-task automation billing doesn’t scale", "item": "https://revenue-growth.ai/insights/per-task-automation-billing/"}
+  ]
+}
+</script>
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink-navy);font-family:'Inter',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;line-height:1.25;}
+  a{color:var(--signal-blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site-nav{position:sticky;top:0;z-index:100;background:var(--ink-navy);border-bottom:1px solid var(--line-dark);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-inner img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  .btn-amber{display:inline-flex;align-items:center;padding:11px 20px;border-radius:var(--radius);font-weight:600;font-size:14.5px;background:var(--signal-amber);color:var(--ink-navy) !important;text-decoration:none !important;}
+  .back-link{color:#D7E2EA !important;font-size:14.5px;font-weight:500;text-decoration:none !important;}
+  .back-link:hover{color:#fff !important;}
+
+  .article-hero{background:var(--ink-navy);color:var(--paper);padding:72px 0;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 40px;}
+  @media (max-width:640px){.wrap{padding:0 24px;}}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#7FB4EE;margin-bottom:16px;}
+  .article-hero h1{font-size:clamp(28px,4vw,42px);color:var(--paper);margin:0;}
+  .article-hero .standfirst{margin-top:20px;font-size:17px;color:#B9C8D4;font-style:italic;}
+  .byline{margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#7FB4EE;}
+
+  article{padding:64px 0 32px;}
+  article h2{font-size:26px;margin:48px 0 16px;}
+  article h3{font-size:19px;margin:36px 0 12px;}
+  article p{margin:0 0 18px;font-size:16.5px;color:#233642;}
+  article li{margin-bottom:10px;font-size:16px;color:#233642;}
+  article ul,article ol{padding-left:24px;margin:0 0 18px;}
+  article strong{color:var(--ink-navy);}
+  article code{font-family:'IBM Plex Mono',monospace;font-size:0.9em;background:rgba(11,31,46,0.06);padding:1px 5px;border-radius:3px;}
+  .table-wrap{overflow-x:auto;margin:24px 0 18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;}
+  article table{width:100%;border-collapse:collapse;text-align:left;font-size:14.5px;}
+  article th{padding:12px;color:var(--ink-navy);border-bottom:2px solid var(--ink-navy);font-weight:600;}
+  article td{padding:12px;color:#233642;border-bottom:1px solid var(--line);vertical-align:top;}
+  article tbody tr:last-child td{border-bottom:none;}
+  .related{margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line);font-size:15.5px;}
+  .cta-block{background:var(--ink-navy);border-radius:12px;padding:40px;margin:56px 0 64px;color:var(--paper);}
+  .cta-block h3{color:var(--paper);margin:0 0 10px;font-size:22px;}
+  .cta-block p{color:#B9C8D4;margin:0 0 24px;font-size:15.5px;}
+
+  footer{background:var(--ink-navy);color:#8296A6;padding:40px 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1200px;}
+  footer a{color:#B9C8D4;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="../../index.html"><img src="../../images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38"></a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="../" class="back-link">&larr; Insights</a>
+      <a href="../../index.html#book-demo" class="btn-amber">Book Your 30-Day Evaluation</a>
+    </div>
+  </div>
+</header>
+
+<div class="article-hero">
+  <div class="wrap">
+    <div class="eyebrow">Insights</div>
+    <h1>Per-task automation billing doesn’t scale</h1>
+    <p class="standfirst">Flat monthly infra vs. Make / Zapier / n8n per-operation meters</p>
+    <div class="byline">Michael Bogart · CEO &amp; Chief Revenue Architect, Revenue-Growth.AI · September 7, 2026</div>
+  </div>
+</div>
+
+<article>
+  <div class="wrap">
+
+    <p>If you run RevOps or own the automation stack at a Series A–C SaaS shop, you already know the pattern.</p>
+    <p>Event volume in Salesforce or HubSpot climbs. Enrichment, stage syncs, and outbound research fire more often. The automation invoice climbs with it.</p>
+    <p>This is usually not a “wrong plan” problem. It is a metering problem.</p>
+
+    <h2>What the meter actually counts</h2>
+    <p>The major orchestration tools do not bill the same unit. They bill the same shape.</p>
+    <p>Zapier bills tasks. A task is a successful action step in a third-party app. Triggers, filters, and paths do not count. Every completed write, update, or lookup still does. A five-action Zap run 10,000 times is 50,000 tasks — before you touch AI steps or branching complexity elsewhere in the stack.</p>
+    <p>Make bills credits (the unit formerly called operations). For standard modules, one module run is roughly one credit. Triggers, filters, and routers generally count. Iterators and paginated loops consume one credit per record. Native AI and code modules consume more than one credit per run. Complexity and volume both move the needle.</p>
+    <p>n8n (cloud) bills executions: one full workflow run equals one charge, regardless of node count. Self-hosted n8n removes the SaaS meter and replaces it with your own compute, storage, and ops cost. The unit changes. The need for a unit does not.</p>
+    <p>Different labels. Same cost function for high-volume CRM automation:</p>
+    <p><code>monthly automation cost ≈ event volume × billable units per run × price per unit</code></p>
+    <p>When opportunity updates, lifecycle transitions, and research callbacks scale, that product scales. You are not buying a larger feature set. You are buying more of the meter.</p>
+
+    <h2>Why “just upgrade the plan” fails</h2>
+    <p>Plan tiers buy you a larger bucket of the same unit.</p>
+    <p>That helps until:</p>
+    <ul>
+      <li>A single scenario adds steps (each step multiplies units per run on task/credit meters)</li>
+      <li>An iterator fans out across a list (Make: per-record credits)</li>
+      <li>You wire AI modules into the path (variable credit burn on Make; extra tasks or external API cost elsewhere)</li>
+      <li>Marketing or sales ops turns up webhook / polling frequency</li>
+    </ul>
+    <p>None of that requires a new product decision. It requires more of the existing meter. Finance sees a line item that tracks pipeline activity instead of capacity.</p>
+    <p>If you can read a Terraform plan, this should feel familiar: you already separate control plane cost from data plane volume in AWS. Per-task automation SaaS collapses them. Volume is the bill.</p>
+
+    <h2>The capacity model</h2>
+    <p>There is another way to pay for the same class of work — CRM workflows, forecasting jobs, churn / expansion agents, outbound research — without a vendor task or credit counter attached to each CRM event.</p>
+    <p>Run the agents as compute in your account:</p>
+    <ul>
+      <li>LangGraph + Claude Sonnet agents</li>
+      <li>ECS Fargate tasks inside your private VPC</li>
+      <li>Provisioned with one Terraform apply (~22–29 minutes on a typical first deploy)</li>
+      <li>Data stays in your AWS account</li>
+    </ul>
+    <p>The bill you watch is AWS capacity: CPU, memory, egress, model API usage you configure. It is not a Make credit or a Zapier task minted per Salesforce update.</p>
+    <p>That is the mechanism, not a slogan.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>What scales the bill</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Zapier tasks</td>
+            <td>Successful action steps × runs</td>
+          </tr>
+          <tr>
+            <td>Make credits</td>
+            <td>Module runs (and extras for iterators / AI / code) × volume</td>
+          </tr>
+          <tr>
+            <td>n8n Cloud</td>
+            <td>Workflow executions × volume</td>
+          </tr>
+          <tr>
+            <td>Your AWS capacity</td>
+            <td>Provisioned Fargate / related infra (+ model usage), not a per-CRM-event orchestration tax</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>“The control of DIY. The speed of SaaS. The data never leaves your AWS account.”</p>
+    <p>The true alternative for teams that outgrow click-ops orchestration is not a cheaper task pack. It is owning the runtime: same class of agentic workflows, metered like infra.</p>
+
+    <h2>Who this is for</h2>
+    <p>You are a RevOps Director or an Engineering Lead who can read a Terraform plan.</p>
+    <p>You already run Make, Zapier, n8n, or a homegrown glue layer. You have hit the wall where the per-operation (or per-credit / per-task / per-execution) bill tracks event volume. You are actively looking at what to switch to — not whether the pain is real.</p>
+    <p>If that is you, the decision frame is narrow:</p>
+    <p>Is automation cost a function of how often the workflow fires, or of how much compute you reserved?</p>
+    <p>If it is the first, growth taxes you twice: once in CRM volume, again on the automation meter.</p>
+
+    <h2>Closing</h2>
+    <p>Reply with how you are metered today — tasks, credits, executions, or raw compute — and what breaks first when volume doubles.</p>
+    <p>Or dig in at <a href="https://revenue-growth.ai">https://revenue-growth.ai</a></p>
+
+    <p class="related"><a href="../grok-bot-for-business/">Grok Bot for business, OpenClaw for enterprise, and Hermes for business</a> · <a href="../../forecast-accuracy.html">AI deal inspection &amp; forecast accuracy</a> · <a href="../../index.html">Revenue-Growth.AI</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></p>
+
+    <div class="cta-block">
+      <h3>Same class of work. Metered like infra.</h3>
+      <p>LangGraph + Claude Sonnet on ECS Fargate in your private VPC. One Terraform apply. The bill is capacity, not CRM event volume.</p>
+      <a href="../../index.html" class="btn-amber">See the capacity model</a>
+    </div>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Revenue-Growth.AI</span>
+    <span><a href="../../index.html">revenue-growth.ai</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
