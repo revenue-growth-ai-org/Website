@@ -9,6 +9,8 @@ Revenue-Growth.AI deploys autonomous AI revenue agents — forecast and deal ins
 - [AI Deal Inspection & Forecast Accuracy](https://revenue-growth.ai/forecast-accuracy.html): ARR Node use case — nightly deal inspection, qualification scoring, and forecast accuracy for B2B SaaS revenue teams.
 - [AI Churn Prediction & Expansion Revenue](https://revenue-growth.ai/churn-prediction.html): GRR/NRR Node use case — AI maturity model for customer health, churn risk flagging, and expansion identification.
 - [AI Lead Routing & Inbound Acceleration](https://revenue-growth.ai/lead-routing.html): Pipeline Node use case — inbound intent evaluation, account research, and rep routing for Salesforce and HubSpot.
+- [Insights](https://revenue-growth.ai/insights/): Long-form articles on RevOps automation economics, build-vs-buy, hybrid routing, and data residency.
+- [Why Per-Task Automation Pricing Breaks at Scale](https://revenue-growth.ai/insights/per-task-automation-pricing-at-scale/): Insights article — how per-task and per-operation billing (Zapier, Make, n8n Cloud) scales automation cost with event volume, and the flat ~$300/month infrastructure alternative running in the customer's own AWS account with hybrid static/LLM routing.
 
 ## Key facts
 
