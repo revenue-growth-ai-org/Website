@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6RC6GGV58L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RC6GGV58L');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How We Run the Business | Revenue-Growth.ai</title>
+<meta name="description" content="Agents draft. Michael acts. How Revenue-Growth.ai runs internally — not what you buy as a product.">
+<meta property="og:title" content="How We Run the Business | Revenue-Growth.ai">
+<meta property="og:description" content="We sell a 6-month embed. Internally, agents draft; Michael alone sends, applies, publishes, and merges.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.revenue-growth.ai/how-we-run">
+<meta property="og:image" content="https://www.revenue-growth.ai/og-image.png">
+<link rel="canonical" href="https://www.revenue-growth.ai/how-we-run">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How We Run the Business | Revenue-Growth.ai">
+<meta name="twitter:description" content="We sell a 6-month embed. Internally, agents draft; Michael alone sends, applies, publishes, and merges.">
+<meta name="twitter:image" content="https://www.revenue-growth.ai/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy:#0B1F2E;
+    --signal-blue:#2F7FD1;
+    --deep-signal:#163A56;
+    --paper:#F7F9FB;
+    --slate:#5B6B7A;
+    --signal-amber:#E3A344;
+    --line:rgba(11,31,46,0.10);
+    --line-dark:rgba(247,249,251,0.14);
+    --unit:8px;
+    --radius:6px;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-navy);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;font-weight:400;}
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 40px;
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 24px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--signal-blue);
+    outline-offset:2px;
+  }
+
+  header.site-nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:var(--ink-navy);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 40px;
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--paper);
+  }
+  .logo-img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  nav.primary{
+    display:flex;
+    align-items:center;
+    gap:36px;
+  }
+  nav.primary a{
+    color:#D7E2EA;
+    font-size:14.5px;
+    font-weight:500;
+    transition:color .15s ease;
+  }
+  nav.primary a:hover{color:var(--paper);}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:11px 20px;
+    border-radius:var(--radius);
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-outline-dark{
+    background:transparent;
+    border:1px solid rgba(247,249,251,0.35);
+    color:var(--paper);
+  }
+  .btn-outline-dark:hover{border-color:var(--paper);}
+  .btn-outline-light{
+    background:transparent;
+    border:1px solid rgba(11,31,46,0.2);
+    color:var(--ink-navy);
+  }
+  .btn-outline-light:hover{border-color:var(--ink-navy);}
+  .btn-primary-blue{
+    background:var(--signal-blue);
+    color:#fff;
+  }
+  .btn-primary-blue:hover{background:var(--deep-signal);}
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:var(--paper);
+    cursor:pointer;
+    padding:8px;
+  }
+  .btn.desktop-only{display:inline-flex;}
+  nav.primary .btn.btn-primary-blue{display:none;}
+  @media (max-width:960px){
+    nav.primary{
+      position:absolute;
+      top:72px;
+      left:0;
+      right:0;
+      background:var(--ink-navy);
+      flex-direction:column;
+      align-items:flex-start;
+      gap:0;
+      border-bottom:1px solid var(--line-dark);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    nav.primary.open{max-height:480px;}
+    nav.primary a{
+      width:100%;
+      padding:16px 40px;
+      border-top:1px solid var(--line-dark);
+    }
+    nav.primary .btn{margin:16px 40px;}
+    nav.primary .btn.btn-primary-blue{display:inline-flex;}
+    .nav-toggle{display:block;}
+    .btn.desktop-only{display:none;}
+  }
+
+  section{padding:96px 0;}
+  @media (max-width:640px){
+    section{padding:64px 0;}
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--signal-blue);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:16px;
+    height:1.5px;
+    background:var(--signal-blue);
+  }
+  .section-dark .eyebrow{color:#7FB4EE;}
+  .section-dark .eyebrow::before{background:#7FB4EE;}
+
+  .hero{
+    background:var(--ink-navy);
+    color:var(--paper);
+    padding:88px 0 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse 55% 50% at 90% 15%, rgba(47,127,209,0.14), transparent 70%);
+  }
+  .hero .wrap{position:relative;z-index:2;max-width:760px;}
+  .hero h1{
+    font-size:clamp(32px,4.2vw,48px);
+    line-height:1.14;
+    color:var(--paper);
+    margin-bottom:28px;
+  }
+  .opener-stack{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .opener-stack p{
+    font-size:17px;
+    color:#B9C8D4;
+    line-height:1.65;
+    max-width:640px;
+  }
+  .opener-stack p.emphasis{
+    color:var(--paper);
+    font-weight:500;
+  }
+
+  .section-dark{
+    background:var(--ink-navy);
+    color:var(--paper);
+  }
+  .section-dark h2{color:var(--paper);}
+
+  .group-block{margin-bottom:56px;}
+  .group-block:last-child{margin-bottom:0;}
+  .group-header{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--signal-blue);
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .group-header::before{
+    content:'';
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    border:1.5px solid var(--signal-blue);
+    background:transparent;
+    flex-shrink:0;
+  }
+  .group-header::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+  .section-dark .group-header{color:#7FB4EE;}
+  .section-dark .group-header::before{border-color:#7FB4EE;}
+  .section-dark .group-header::after{background:var(--line-dark);}
+
+  .node-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .node-grid.cols-1{grid-template-columns:1fr;max-width:420px;}
+  .node-grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .node-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+  @media (max-width:1000px){
+    .node-grid.cols-4{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:800px){
+    .node-grid,
+    .node-grid.cols-2,
+    .node-grid.cols-4{grid-template-columns:1fr;}
+    .node-grid.cols-1{max-width:none;}
+  }
+
+  .node-card{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:#fff;
+    padding:24px 26px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    position:relative;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .node-card::before{
+    content:'';
+    position:absolute;
+    top:24px;
+    left:-1px;
+    width:3px;
+    height:16px;
+    background:var(--signal-blue);
+    border-radius:0 2px 2px 0;
+  }
+  .node-card:hover{
+    border-color:var(--signal-blue);
+    transform:translateY(-2px);
+  }
+  .node-card .name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:18px;
+    color:var(--ink-navy);
+    line-height:1.3;
+  }
+  .node-card .title{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--signal-blue);
+    font-weight:500;
+  }
+  .node-card .line{
+    color:var(--slate);
+    font-size:14.5px;
+    line-height:1.55;
+  }
+  .section-dark .node-card{
+    background:rgba(255,255,255,0.03);
+    border-color:var(--line-dark);
+  }
+  .section-dark .node-card::before{background:#7FB4EE;}
+  .section-dark .node-card:hover{border-color:#7FB4EE;}
+  .section-dark .node-card .name{color:var(--paper);}
+  .section-dark .node-card .title{color:#7FB4EE;}
+  .section-dark .node-card .line{color:#9FB4C6;}
+
+  .group-note{
+    margin-top:20px;
+    font-size:13.5px;
+    color:var(--slate);
+    line-height:1.6;
+    max-width:640px;
+    padding-left:16px;
+    border-left:2px solid var(--signal-amber);
+  }
+  .section-dark .group-note{color:#9FB4C6;}
+
+  .callout{
+    border:1px solid rgba(47,127,209,0.35);
+    border-radius:var(--radius);
+    background:rgba(47,127,209,0.08);
+    padding:28px 32px;
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+  }
+  .callout-mark{
+    flex-shrink:0;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:1.5px solid var(--signal-blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--signal-blue);
+  }
+  .callout p{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:clamp(17px,2.2vw,21px);
+    line-height:1.45;
+    color:var(--ink-navy);
+  }
+  .callout .accent{
+    color:var(--signal-amber);
+  }
+
+  .faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:36px;
+  }
+  details.faq-item{
+    border:1px solid var(--line-dark);
+    border-radius:var(--radius);
+    background:rgba(255,255,255,0.03);
+  }
+  details.faq-item summary{
+    padding:16px 22px;
+    cursor:pointer;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:15.5px;
+    color:var(--paper);
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  details.faq-item summary::-webkit-details-marker{display:none;}
+  details.faq-item summary .plus{color:#7FB4EE;font-size:18px;flex-shrink:0;transition:transform .15s ease;}
+  details.faq-item[open] summary .plus{transform:rotate(45deg);}
+  details.faq-item p{
+    padding:0 22px 18px;
+    color:#9FB4C6;
+    font-size:14.5px;
+    line-height:1.65;
+  }
+  details.faq-item summary .faq-name{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  details.faq-item summary .faq-ref{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    font-weight:400;
+    letter-spacing:0.03em;
+    color:#7FB4EE;
+  }
+
+  .cta-band{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+    padding:28px 32px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:#fff;
+  }
+  .cta-band h3{font-size:20px;margin-bottom:6px;}
+  .cta-band p{color:var(--slate);font-size:14.5px;}
+  .cta-actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+  footer{
+    background:var(--ink-navy);
+    color:#8296A6;
+    padding:56px 0 32px;
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:40px;
+    flex-wrap:wrap;
+    padding-bottom:32px;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .footer-cols{display:flex;gap:64px;flex-wrap:wrap;}
+  .footer-col h5{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#5C7284;
+    margin-bottom:16px;
+    font-weight:400;
+  }
+  .footer-col a{
+    display:block;
+    font-size:14px;
+    color:#B9C8D4;
+    margin-bottom:12px;
+    transition:color .15s ease;
+  }
+  .footer-col a:hover{color:var(--paper);}
+  .footer-bottom{
+    margin-top:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:12.5px;
+    color:#5C7284;
+    font-family:'IBM Plex Mono',monospace;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "How We Run the Business",
+  "url": "https://www.revenue-growth.ai/how-we-run"
+}
+</script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="Revenue-Growth.ai home">
+      <img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.ai logo" width="41" height="38" class="logo-img">
+    </a>
+    <nav class="primary" id="primaryNav">
+      <a href="index.html#how-we-work">How we work</a>
+      <a href="index.html#engagement">Engagement</a>
+      <a href="platform.html">Platform</a>
+      <a href="https://www.revenue-growth.ai/insights/">Insights</a>
+      <a href="index.html#about">About</a>
+      <a href="https://www.revenue-growth.ai/#book-demo" class="btn btn-primary-blue" style="margin:16px 40px;">Book a working session</a>
+    </nav>
+    <a href="https://www.revenue-growth.ai/#book-demo" class="btn btn-primary-blue desktop-only">Book a working session</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primaryNav">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- 1. OPENER -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">How we run</div>
+    <h1>How we run the business.</h1>
+    <div class="opener-stack">
+      <p>We sell a 6-month embed as your AI GTM / RevOps engineer — cleanup, process, then agents in your stack. Platform included when it fits, not the SKU.</p>
+      <p>Internally, agents draft the firm’s research, board briefs, content, and site mockups. Michael Bogart alone sends, applies, publishes, and merges.</p>
+      <p class="emphasis">That is how we run — not what you buy as a product.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CARDS -->
+<section id="roster">
+  <div class="wrap">
+
+    <div class="group-block">
+      <div class="group-header">Founder</div>
+      <div class="node-grid cols-1">
+        <div class="node-card">
+          <div class="name">Michael Bogart</div>
+          <div class="title">Founder</div>
+          <p class="line">Sends, applies, publishes, merges. The only human in the loop on outbound.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-block">
+      <div class="group-header">Weekly ops</div>
+      <div class="node-grid cols-2">
+        <div class="node-card">
+          <div class="name">Jethro</div>
+          <div class="title">Chief of Agents</div>
+          <p class="line">Routes weekly ops; owns the rollup, not the scout work.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Nathan</div>
+          <div class="title">Signal scout</div>
+          <p class="line">Finds funding / hiring / DIY-build signals; Gmail drafts only.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Caleb</div>
+          <div class="title">Fractional recon</div>
+          <p class="line">Finds contractor listings; outreach stays in the Sheet.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Habakkuk</div>
+          <div class="title">Content pack</div>
+          <p class="line">LI/X and Insights drafts; never publishes.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section-dark" id="board-website" style="border-top:1px solid var(--line-dark);">
+  <div class="wrap">
+
+    <div class="group-block">
+      <div class="group-header">Board</div>
+      <div class="node-grid cols-2">
+        <div class="node-card">
+          <div class="name">Ezra</div>
+          <div class="title">Board Chair</div>
+          <p class="line">Runs the brief; assembles seats; does not sell or ship.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Uri</div>
+          <div class="title">CTO seat</div>
+          <p class="line">What we may claim; what we must not.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Bezalel</div>
+          <div class="title">CMO seat</div>
+          <p class="line">Positioning, voice, brand craft.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Deborah</div>
+          <div class="title">CRO seat</div>
+          <p class="line">Sequence, reframe, objections, CTA.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-block">
+      <div class="group-header">Website</div>
+      <div class="node-grid">
+        <div class="node-card">
+          <div class="name">Oholiab</div>
+          <div class="title">Site mockup</div>
+          <p class="line">HTML drafts from the board brief; never deploys.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Baruch</div>
+          <div class="title">SEO</div>
+          <p class="line">Classic search visibility drafts.</p>
+        </div>
+        <div class="node-card">
+          <div class="name">Daniel</div>
+          <div class="title">GEO / LLM</div>
+          <p class="line">Generative-engine visibility drafts.</p>
+        </div>
+      </div>
+      <p class="group-note">Board seats advise RG assets. They are not the customer’s RevOps team / embed deliverable.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. CALLOUT -->
+<section id="callout">
+  <div class="wrap">
+    <div class="callout" role="note">
+      <div class="callout-mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.5v5M8 11.5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <p>Agents draft. Michael acts. <span class="accent">No autonomous send, apply, publish, or merge.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. FAQ -->
+<section class="section-dark" id="faq" style="border-top:1px solid var(--line-dark);">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2 style="max-width:560px;font-size:clamp(26px,3.2vw,36px);">Why biblical names?</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-name">Jethro <span class="faq-ref">Exodus 18</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Organize under lieutenants.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Nathan <span class="faq-ref">2 Samuel 12</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Hard signal to the king.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Caleb <span class="faq-ref">Numbers 14</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>True scout report.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Habakkuk <span class="faq-ref">Habakkuk 2</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Write the vision plain.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Ezra <span class="faq-ref">Ezra 7</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Study, do, teach.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Uri <span class="faq-ref">Exodus 31</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Craft / technical line.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Bezalel <span class="faq-ref">Exodus 31</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Sacred craft / brand.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Deborah <span class="faq-ref">Judges 4</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Lead / judge.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Oholiab <span class="faq-ref">Exodus 31</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Partner craftsman.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Baruch <span class="faq-ref">Jeremiah 36</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Write so it can be read.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-name">Daniel <span class="faq-ref">Daniel 2</span></span><span class="plus" aria-hidden="true">+</span></summary>
+        <p>Wisdom for kings.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CTA -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h3>Start with a working session</h3>
+        <p>First call diagnoses CRM + process — then agents. Not a product demo.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="https://www.revenue-growth.ai/#book-demo" class="btn btn-primary-blue">Book a working session</a>
+        <a href="index.html#how-we-work" class="btn btn-outline-light">How the 6-month embed works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="logo" aria-label="Revenue-Growth.ai home">
+          <img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.ai logo" width="41" height="38" class="logo-img">
+        </a>
+        <p style="font-size:13.5px;color:#8296A6;line-height:1.7;margin-top:16px;max-width:280px;">Six-month AI GTM / RevOps embed — cleanup, process, then agents. Platform included when it fits.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Site</h5>
+          <a href="index.html#how-we-work">How we work</a>
+          <a href="index.html#engagement">Engagement</a>
+          <a href="platform.html">Platform</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="index.html#about">About</a>
+          <a href="how-we-run.html">How we run</a>
+          <a href="https://www.revenue-growth.ai/insights/">Insights</a>
+          <a href="https://www.revenue-growth.ai/#book-demo">Book a working session</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Revenue-Growth.ai · Draft mockup — not published</span>
+      <span>revenue-growth.ai</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var nav = document.getElementById('primaryNav');
+    toggle.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
