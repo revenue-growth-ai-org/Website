@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/platform.html",
+      "destination": "/platform",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-we-run.html",
+      "destination": "/how-we-run",
+      "statusCode": 301
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/platform",
+      "destination": "/platform.html"
+    },
+    {
+      "source": "/how-we-run",
+      "destination": "/how-we-run.html"
+    }
+  ]
+}
