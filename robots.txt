@@ -19,4 +19,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://revenue-growth.ai/sitemap.xml
+Sitemap: https://www.revenue-growth.ai/sitemap.xml
