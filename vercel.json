@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/platform", "destination": "/platform.html" },
+    { "source": "/how-we-run", "destination": "/how-we-run.html" }
+  ],
+  "redirects": [
+    { "source": "/platform.html", "destination": "/platform", "permanent": true },
+    { "source": "/how-we-run.html", "destination": "/how-we-run", "permanent": true }
+  ]
+}
