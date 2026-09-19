@@ -34,6 +34,8 @@
     --paper:#F7F9FB;
     --slate:#5B6B7A;
     --signal-amber:#E3A344;
+    --copper:#B87333;
+    --matte-black:#0A0A0B;
     --line:rgba(11,31,46,0.10);
     --line-dark:rgba(247,249,251,0.14);
     --unit:8px;
@@ -93,13 +95,8 @@
     align-items:center;
     justify-content:space-between;
   }
-  .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:var(--paper);
-  }
-  .logo-img{height:38px;width:auto;filter:brightness(0) invert(1);}
+  /* logo base overridden in V8 craft */
+  .logo{display:flex;align-items:center;gap:12px;color:var(--paper);}
   nav.primary{
     display:flex;
     align-items:center;
@@ -175,7 +172,7 @@
       overflow:hidden;
       transition:max-height .25s ease;
     }
-    nav.primary.open{max-height:480px;}
+    nav.primary.open{max-height:560px;}
     nav.primary a{
       width:100%;
       padding:16px 40px;
@@ -405,9 +402,9 @@
     margin-top:36px;
   }
   details.faq-item{
-    border:1px solid var(--line-dark);
+    border:1px solid var(--line);
     border-radius:var(--radius);
-    background:rgba(255,255,255,0.03);
+    background:#fff;
   }
   details.faq-item summary{
     padding:16px 22px;
@@ -415,7 +412,7 @@
     font-family:'Space Grotesk',sans-serif;
     font-weight:600;
     font-size:15.5px;
-    color:var(--paper);
+    color:var(--ink-navy);
     list-style:none;
     display:flex;
     justify-content:space-between;
@@ -423,11 +420,11 @@
     gap:16px;
   }
   details.faq-item summary::-webkit-details-marker{display:none;}
-  details.faq-item summary .plus{color:#7FB4EE;font-size:18px;flex-shrink:0;transition:transform .15s ease;}
+  details.faq-item summary .plus{color:var(--signal-blue);font-size:18px;flex-shrink:0;transition:transform .15s ease;}
   details.faq-item[open] summary .plus{transform:rotate(45deg);}
   details.faq-item p{
     padding:0 22px 18px;
-    color:#9FB4C6;
+    color:var(--slate);
     font-size:14.5px;
     line-height:1.65;
   }
@@ -442,7 +439,7 @@
     font-size:11.5px;
     font-weight:400;
     letter-spacing:0.03em;
-    color:#7FB4EE;
+    color:var(--signal-blue);
   }
 
   .cta-band{
@@ -503,6 +500,256 @@
     color:#5C7284;
     font-family:'IBM Plex Mono',monospace;
   }
+
+  /* ========== V7 VISUAL CRAFT (Bezalel KEEP) ========== */
+  /* Stronger type hierarchy */
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.026em;}
+  h1{font-weight:700;letter-spacing:-0.032em;}
+  h2{letter-spacing:-0.028em;}
+  body{
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+  }
+  /* IBM Plex Mono reserved for URLs / metrics / gate labels / MCP chrome — via .mono, .eyebrow, .node-tag, footer-bottom, MCP UI */
+
+  /* V8.1 — card v6.1c metallic R + denser node-arc wash + Signal Blue .AI */
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 12px 8px 0;
+    margin-left:-2px;
+    min-height:54px;
+    color:var(--paper);
+  }
+  .logo-mark{
+    width:34px;height:34px;
+    flex-shrink:0;
+    display:block;
+  }
+  .logo-word{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--paper);
+    line-height:1;
+    white-space:nowrap;
+  }
+  .logo-ai{color:var(--signal-blue);}
+  @media (max-width:640px){
+    .logo{padding:6px 8px 6px 0;min-height:48px;gap:10px;}
+    .logo-mark{width:30px;height:30px;}
+    .logo-word{font-size:12px;letter-spacing:0.06em;}
+  }
+  .nav-inner{padding-left:40px;padding-right:40px;}
+  @media (max-width:640px){
+    .nav-inner{padding-left:24px;padding-right:24px;}
+  }
+
+  /* Amber Book primary CTA clarity */
+  .btn-amber{
+    background:var(--signal-amber);
+    color:var(--ink-navy);
+    box-shadow:0 1px 0 rgba(11,31,46,0.08), 0 8px 20px rgba(227,163,68,0.22);
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .btn-amber:hover{
+    background:#EEB562;
+    box-shadow:0 1px 0 rgba(11,31,46,0.06), 0 10px 24px rgba(227,163,68,0.32);
+  }
+
+  /* V8 — denser node-arc wash (card craft) */
+  .node-wash{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .node-wash::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background-image:url('images/node-wash-v3.svg');
+    background-repeat:no-repeat;
+    background-position:right -2% center;
+    background-size:min(900px,82vw) auto;
+    opacity:0.36;
+  }
+  .hero .node-wash::before{opacity:0.52;}
+  .section-dark.has-wash{position:relative;overflow:hidden;}
+  .section-dark.has-wash > .wrap{position:relative;z-index:2;}
+  .section-dark .node-wash::before{
+    opacity:0.28;
+    background-position:right -6% 55%;
+    background-size:min(760px,74vw) auto;
+  }
+  @media (max-width:720px){
+    .node-wash::before{
+      opacity:0.22;
+      background-position:right -18% center;
+      background-size:min(580px,120vw) auto;
+    }
+    .section-dark .node-wash::before{opacity:0.14;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .node-wash::before{opacity:0.16;}
+  }
+
+  /* Paper reading bands */
+  .section-paper{
+    background:var(--paper);
+    color:var(--ink-navy);
+  }
+  .section-paper h2{color:var(--ink-navy);}
+  .section-paper .section-label-row .desc{color:var(--slate);}
+  .section-paper .eyebrow{color:var(--signal-blue);}
+  .section-paper .eyebrow::before{background:var(--signal-blue);}
+
+  /* how-we-work on paper: rhythm strip adapts */
+  .section-paper .rhythm-strip{
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .section-paper .rhythm-item{
+    background:#fff;
+    color:var(--slate);
+  }
+  .section-paper .rhythm-item b{color:var(--ink-navy);}
+  .section-paper .rhythm-item .ri-icon{color:var(--signal-blue);}
+
+  /* V8 — tighter type hierarchy */
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.026em;
+  }
+  h1{font-weight:700;letter-spacing:-0.032em;}
+  h2{letter-spacing:-0.028em;}
+  .hero h1{font-size:clamp(32px,4.4vw,52px);line-height:1.08;font-weight:700;letter-spacing:-0.034em;}
+  h2{font-size:clamp(26px,3.2vw,36px);line-height:1.15;}
+  h3{letter-spacing:-0.022em;}
+  /* display scale retained below */
+  .hero h1{font-size:clamp(32px,4.4vw,52px);line-height:1.08;}
+  .section-label-row h2,
+  .section-paper h2,
+  section h2{
+    /* keep existing clamps where more specific; reinforce weight */
+  }
+  .section-label-row h2{font-size:clamp(28px,3.4vw,40px);}
+  .node-card h3{font-size:22px;letter-spacing:-0.02em;}
+  .proof-lead{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+  }
+
+
+  /* ========== V9 CRAFT — business-card copper + matte (LOCKED) ========== */
+  :root{
+    --copper:#B87333;
+    --matte-black:#0A0A0B;
+  }
+
+  /* Space Grotesk all-caps labels / eyebrows — tracking 0.12–0.15em */
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:500;
+    letter-spacing:0.13em;
+  }
+  .logo-word{letter-spacing:0.13em;}
+  @media (max-width:640px){
+    .logo-word{letter-spacing:0.12em;}
+  }
+  .group-header{letter-spacing:0.13em;}
+
+  /* Body on Paper = Slate; headlines on Paper = Ink; headlines on Ink = white */
+  .section-paper{color:var(--slate);}
+  .section-paper h1,.section-paper h2,.section-paper h3,.section-paper h4{color:var(--ink-navy);}
+  .hero h1,.section-dark h1,.section-dark h2,.section-dark h3{color:#FFFFFF;}
+
+  /* Hero: denser matte canvas under wash; Ink Navy still owns nav/footer */
+  .hero{
+    background:var(--matte-black);
+  }
+  .hero .node-wash::before{opacity:0.58;}
+
+  /* Secondary: Ink fill + thin Copper border + soft glow — NEVER Book primary */
+  .btn-copper-outline,
+  .btn-outline-dark,
+  .btn-outline-on-navy,
+  .btn-outline-light{
+    background:var(--ink-navy);
+    border:1px solid var(--copper);
+    color:var(--paper);
+    box-shadow:0 0 0 0 rgba(184,115,51,0);
+    transition:transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .22s ease;
+  }
+  .btn-copper-outline:hover,
+  .btn-outline-dark:hover,
+  .btn-outline-on-navy:hover,
+  .btn-outline-light:hover{
+    background:#0E2536;
+    border-color:#C9894A;
+    color:#FFFFFF;
+    box-shadow:0 0 14px rgba(184,115,51,0.32), 0 0 2px rgba(184,115,51,0.45);
+  }
+  /* Amber Book primary — filled only; do not hollow / copper-outline */
+  .btn-amber{
+    background:var(--signal-amber);
+    color:var(--ink-navy);
+  }
+
+  /* Ultra-thin grid + copper intersections (platform / how-we-run; sparse on home) */
+  .has-craft-grid{position:relative;overflow:hidden;}
+  .has-craft-grid > .wrap{position:relative;z-index:2;}
+  .craft-grid{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:0.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+      radial-gradient(circle, rgba(184,115,51,0.55) 1px, transparent 1.5px);
+    background-size:56px 56px, 56px 56px, 56px 56px;
+    background-position:0 0, 0 0, -0.5px -0.5px;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 70% 35%, #000 15%, transparent 72%);
+    mask-image:radial-gradient(ellipse 75% 65% at 70% 35%, #000 15%, transparent 72%);
+  }
+  .craft-grid.is-sparse{opacity:0.28;}
+  .section-dark.has-craft-grid .craft-grid,
+  .hero.has-craft-grid .craft-grid{
+    opacity:0.48;
+  }
+  .hero.has-craft-grid .craft-grid.is-sparse{opacity:0.26;}
+
+  /* Copper foil dividers — accents only, never page bg */
+  .foil-divider{
+    height:1px;
+    border:0;
+    margin:0;
+    background:linear-gradient(90deg, transparent 0%, var(--copper) 35%, var(--copper) 65%, transparent 100%);
+    opacity:0.45;
+  }
+  .section-dark .foil-divider{opacity:0.55;}
+
+  @media (prefers-reduced-motion: reduce){
+    .btn-copper-outline:hover,
+    .btn-outline-dark:hover,
+    .btn-outline-on-navy:hover,
+    .btn-outline-light:hover{
+      box-shadow:none;
+      transform:none;
+    }
+    .hero .node-wash::before{opacity:0.40;}
+  }
+
 </style>
 <script type="application/ld+json">
 {
@@ -517,15 +764,17 @@
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="logo" aria-label="Revenue-Growth.ai home">
-      <img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.ai logo" width="41" height="38" class="logo-img">
+    <a href="/" class="logo" aria-label="Revenue-Growth.ai home">
+      <img src="images/rg-mark-r.svg" alt="Revenue-Growth.ai" width="34" height="34" class="logo-mark">
+      <span class="logo-word">Revenue-Growth<span class="logo-ai">.AI</span></span>
     </a>
     <nav class="primary" id="primaryNav">
-      <a href="index.html#how-we-work">How we work</a>
-      <a href="index.html#engagement">Engagement</a>
-      <a href="platform.html">Platform</a>
-      <a href="https://www.revenue-growth.ai/insights/">Insights</a>
-      <a href="index.html#about">About</a>
+      <a href="/#how-we-work">How we work</a>
+      <a href="/#engagement">Engagement</a>
+      <a href="/platform">Platform</a>
+      <a href="/platform/architecture">Architecture</a>
+<a href="https://www.revenue-growth.ai/insights/">Insights</a>
+      <a href="/#about">About</a>
       <a href="https://www.revenue-growth.ai/#book-demo" class="btn btn-amber" style="margin:16px 40px;">Book a working session</a>
     </nav>
     <a href="https://www.revenue-growth.ai/#book-demo" class="btn btn-amber desktop-only">Book a working session</a>
@@ -538,12 +787,14 @@
 <main>
 
 <!-- 1. OPENER -->
-<section class="hero" id="top">
+<section class="hero has-craft-grid" id="top">
+  <div class="node-wash" aria-hidden="true"></div>
+  <div class="craft-grid" aria-hidden="true"></div>
   <div class="wrap">
     <div class="eyebrow">How we run</div>
     <h1>How we run the business.</h1>
     <div class="opener-stack">
-      <p>We sell a 6-month embed as your AI GTM / RevOps engineer — cleanup, process, then agents in your stack. Platform included when it fits.</p>
+      <p>We sell a 6-month embed as your AI GTM / RevOps engineer — data, processes, then agents in your stack. Platform included when it fits.</p>
       <p>Internally, agents draft the firm’s research, board briefs, content, and site mockups. Michael Bogart alone sends, applies, publishes, and merges.</p>
       <p class="emphasis">That is how we run — not what you buy as a product.</p>
     </div>
@@ -551,7 +802,7 @@
 </section>
 
 <!-- 2. CARDS -->
-<section id="roster">
+<section class="section-paper" id="roster">
   <div class="wrap">
 
     <div class="group-block">
@@ -594,7 +845,9 @@
   </div>
 </section>
 
-<section class="section-dark" id="board-website" style="border-top:1px solid var(--line-dark);">
+<section class="section-dark has-wash has-craft-grid" id="board-website" style="border-top:1px solid var(--line-dark);">
+  <div class="node-wash" aria-hidden="true"></div>
+  <div class="craft-grid" aria-hidden="true"></div>
   <div class="wrap">
 
     <div class="group-block">
@@ -649,7 +902,7 @@
 </section>
 
 <!-- 3. CALLOUT -->
-<section id="callout">
+<section class="section-paper" id="callout">
   <div class="wrap">
     <div class="callout" role="note">
       <div class="callout-mark" aria-hidden="true">
@@ -661,7 +914,7 @@
 </section>
 
 <!-- 4. FAQ -->
-<section class="section-dark" id="faq" style="border-top:1px solid var(--line-dark);">
+<section class="section-paper" id="faq" style="border-top:1px solid var(--line);">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
     <h2 style="max-width:560px;font-size:clamp(26px,3.2vw,36px);">Why biblical names?</h2>
@@ -715,7 +968,7 @@
 </section>
 
 <!-- 5. CTA -->
-<section id="cta">
+<section class="section-paper" id="cta">
   <div class="wrap">
     <div class="cta-band">
       <div>
@@ -724,7 +977,7 @@
       </div>
       <div class="cta-actions">
         <a href="https://www.revenue-growth.ai/#book-demo" class="btn btn-amber">Book a working session</a>
-        <a href="index.html#how-we-work" class="btn btn-outline-light">How the 6-month embed works</a>
+        <a href="/#how-we-work" class="btn btn-copper-outline btn-outline-light">How the 6-month embed works</a>
       </div>
     </div>
   </div>
@@ -736,22 +989,24 @@
   <div class="wrap">
     <div class="footer-top">
       <div>
-        <a href="index.html" class="logo" aria-label="Revenue-Growth.ai home">
-          <img src="images/revenue-growth-ai-logo.png" alt="Revenue-Growth.ai logo" width="41" height="38" class="logo-img">
+        <a href="/" class="logo" aria-label="Revenue-Growth.ai home">
+          <img src="images/rg-mark-r.svg" alt="Revenue-Growth.ai" width="34" height="34" class="logo-mark">
+          <span class="logo-word">Revenue-Growth<span class="logo-ai">.AI</span></span>
         </a>
-        <p style="font-size:13.5px;color:#8296A6;line-height:1.7;margin-top:16px;max-width:280px;">Six-month AI GTM / RevOps embed — cleanup, process, then agents. Platform included when it fits.</p>
+        <p style="font-size:13.5px;color:#8296A6;line-height:1.7;margin-top:16px;max-width:280px;">Six-month AI GTM / RevOps embed — data, processes, then agents. Platform included when it fits.</p>
       </div>
       <div class="footer-cols">
         <div class="footer-col">
           <h5>Site</h5>
-          <a href="index.html#how-we-work">How we work</a>
-          <a href="index.html#engagement">Engagement</a>
-          <a href="platform.html">Platform</a>
+          <a href="/#how-we-work">How we work</a>
+          <a href="/#engagement">Engagement</a>
+          <a href="/platform">Platform</a>
+          <a href="/platform/architecture">Architecture</a>
         </div>
         <div class="footer-col">
           <h5>Company</h5>
-          <a href="index.html#about">About</a>
-          <a href="how-we-run.html">How we run</a>
+          <a href="/#about">About</a>
+          <a href="/how-we-run">How we run</a>
           <a href="https://www.revenue-growth.ai/insights/">Insights</a>
           <a href="https://www.revenue-growth.ai/#book-demo">Book a working session</a>
         </div>
