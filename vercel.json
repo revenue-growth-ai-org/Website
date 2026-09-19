@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/platform", "destination": "/platform.html" },
+    { "source": "/platform/architecture", "destination": "/architecture.html" },
+    { "source": "/how-we-run", "destination": "/how-we-run.html" }
+  ],
+  "redirects": [
+    { "source": "/platform.html", "destination": "/platform", "permanent": true },
+    { "source": "/architecture.html", "destination": "/platform/architecture", "permanent": true },
+    { "source": "/how-we-run.html", "destination": "/how-we-run", "permanent": true }
+  ]
+}

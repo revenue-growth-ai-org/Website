@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="Revenue-Growth.ai mark">
+  <defs>
+    <linearGradient id="rgMetal" x1="10%" y1="5%" x2="90%" y2="95%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="30%" stop-color="#F2F5F8"/>
+      <stop offset="62%" stop-color="#C5CED8"/>
+      <stop offset="100%" stop-color="#9AA6B4"/>
+    </linearGradient>
+    <linearGradient id="rgEdge" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6A7786" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <!-- Sharp metallic geometric R — fidelity to card v6.1c (prefer silhouette over prior chamfered block R) -->
+  <path d="M1.0 1.6 L24 1.2 L70 2.4 C82 3.2 92.5 10 96.8 20.5 C100.2 29.5 100.5 39.5 99.2 48.5 C97.5 60.5 90.5 70.5 79 76.2 C73.5 79 68 79.8 63.5 79.6 C67.5 84.5 72 90.5 76.8 96.2 L79.5 98 L51.5 98 L31.5 72.5 L28.5 68.2 L17.8 54.2 L69.5 53.6 C77.2 53.6 81.2 48.8 81.2 43.2 C81.2 37.2 76.8 32.6 69.2 32.4 L19.2 32.2 Z" fill="url(#rgMetal)"/>
+  <path d="M1.0 1.6 L24 1.2 L70 2.4 C82 3.2 92.5 10 96.8 20.5 C100.2 29.5 100.5 39.5 99.2 48.5 C97.5 60.5 90.5 70.5 79 76.2 C73.5 79 68 79.8 63.5 79.6 C67.5 84.5 72 90.5 76.8 96.2 L79.5 98 L51.5 98 L31.5 72.5 L28.5 68.2 L17.8 54.2 L69.5 53.6 C77.2 53.6 81.2 48.8 81.2 43.2 C81.2 37.2 76.8 32.6 69.2 32.4 L19.2 32.2 Z" fill="none" stroke="url(#rgEdge)" stroke-width="0.55" stroke-linejoin="round" opacity="0.45"/>
+</svg>
