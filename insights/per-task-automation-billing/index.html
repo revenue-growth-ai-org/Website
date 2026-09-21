@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6RC6GGV58L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RC6GGV58L');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Per-task automation billing doesn’t scale | Revenue-Growth.AI</title>
-<meta name="description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.">
+<title>Per-task automation billing doesn’t scale | Revenue-Growth.ai</title>
+<meta name="description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and why the path out is a six-month embed (data → processes → agents), with capacity-based runtime included when it fits.">
 <meta property="og:title" content="Per-task automation billing doesn’t scale">
-<meta property="og:description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.">
+<meta property="og:description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and why the path out is a six-month embed (data → processes → agents), with capacity-based runtime included when it fits.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://revenue-growth.ai/insights/per-task-automation-billing/">
-<link rel="canonical" href="https://revenue-growth.ai/insights/per-task-automation-billing/">
-<meta property="og:image" content="https://revenue-growth.ai/og-image.png">
+<meta property="og:url" content="https://www.revenue-growth.ai/insights/per-task-automation-billing/">
+<link rel="canonical" href="https://www.revenue-growth.ai/insights/per-task-automation-billing/">
+<meta property="og:image" content="https://www.revenue-growth.ai/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Per-task automation billing doesn’t scale">
-<meta name="twitter:description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.">
-<meta name="twitter:image" content="https://revenue-growth.ai/og-image.png">
+<meta name="twitter:description" content="Why Make, Zapier, and n8n Cloud bills track CRM event volume — and why the path out is a six-month embed (data → processes → agents), with capacity-based runtime included when it fits.">
+<meta name="twitter:image" content="https://www.revenue-growth.ai/og-image.png">
 <meta name="author" content="Michael Bogart">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,11 +33,11 @@
   "@type": "Article",
   "headline": "Per-task automation billing doesn’t scale",
   "author": {"@type": "Person", "name": "Michael Bogart", "jobTitle": "CEO & Chief Revenue Architect", "sameAs": "https://www.linkedin.com/in/mdbogart/"},
-  "publisher": {"@type": "Organization", "name": "Revenue-Growth.AI", "url": "https://revenue-growth.ai"},
-  "description": "Why Make, Zapier, and n8n Cloud bills track CRM event volume — and how capacity-based agents on ECS Fargate in your AWS account change the meter.",
+  "publisher": {"@type": "Organization", "name": "Revenue-Growth.ai", "url": "https://www.revenue-growth.ai"},
+  "description": "Why Make, Zapier, and n8n Cloud bills track CRM event volume — and why the path out is a six-month embed (data → processes → agents), with capacity-based runtime included when it fits.",
   "datePublished": "2026-09-07",
-  "dateModified": "2026-09-07",
-  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://revenue-growth.ai/insights/per-task-automation-billing/"}
+  "dateModified": "2026-09-21",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.revenue-growth.ai/insights/per-task-automation-billing/"}
 }
 </script>
 <script type="application/ld+json">
@@ -37,9 +45,9 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://revenue-growth.ai/"},
-    {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://revenue-growth.ai/insights/"},
-    {"@type": "ListItem", "position": 3, "name": "Per-task automation billing doesn’t scale", "item": "https://revenue-growth.ai/insights/per-task-automation-billing/"}
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.revenue-growth.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Insights", "item": "https://www.revenue-growth.ai/insights/"},
+    {"@type": "ListItem", "position": 3, "name": "Per-task automation billing doesn’t scale", "item": "https://www.revenue-growth.ai/insights/per-task-automation-billing/"}
   ]
 }
 </script>
@@ -104,10 +112,10 @@
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="../../index.html"><img src="../../images/revenue-growth-ai-logo.png" alt="Revenue-Growth.AI logo" width="41" height="38"></a>
+    <a href="https://www.revenue-growth.ai/"><img src="../../images/revenue-growth-ai-logo.png" alt="Revenue-Growth.ai logo" width="41" height="38"></a>
     <div style="display:flex;align-items:center;gap:28px;">
       <a href="../" class="back-link">&larr; Insights</a>
-      <a href="../../index.html#book-a-working-session" class="btn-amber">Book Your 30-Day Evaluation</a>
+      <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn-amber">Book a working session</a>
     </div>
   </div>
 </header>
@@ -117,16 +125,17 @@
     <div class="eyebrow">Insights</div>
     <h1>Per-task automation billing doesn’t scale</h1>
     <p class="standfirst">Flat monthly infra vs. Make / Zapier / n8n per-operation meters</p>
-    <div class="byline">Michael Bogart · CEO &amp; Chief Revenue Architect, Revenue-Growth.AI · September 7, 2026</div>
+    <div class="byline">Michael Bogart · CEO &amp; Chief Revenue Architect, Revenue-Growth.ai · September 7, 2026</div>
   </div>
 </div>
 
 <article>
   <div class="wrap">
 
+    <p>Answer first: the invoice is a metering problem, but we are not an AWS/ECS metering shop. The path out is a six-month AI GTM / RevOps embed — data → processes → agents. Capacity-based runtime is how the meter changes once the foundation can hold a truth. Platform included when it fits.</p>
     <p>If you run RevOps or own the automation stack at a Series A–C SaaS shop, you already know the pattern.</p>
     <p>Event volume in Salesforce or HubSpot climbs. Enrichment, stage syncs, and outbound research fire more often. The automation invoice climbs with it.</p>
-    <p>This is usually not a “wrong plan” problem. It is a metering problem.</p>
+    <p>This is usually not a “wrong plan” problem. It is a metering problem — and metering is the symptom, not the offer.</p>
 
     <h2>What the meter actually counts</h2>
     <p>The major orchestration tools do not bill the same unit. They bill the same shape.</p>
@@ -198,15 +207,15 @@
     <p>Is automation cost a function of how often the workflow fires, or of how much compute you reserved?</p>
     <p>If it is the first, growth taxes you twice: once in CRM volume, again on the automation meter.</p>
 
-    <p class="related"><a href="../grok-bot-for-business/">Grok Bot for business, OpenClaw for enterprise, and Hermes for business</a> · <a href="../../forecast-accuracy.html">AI deal inspection &amp; forecast accuracy</a> · <a href="../../index.html">Revenue-Growth.AI</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></p>
+    <p class="related"><a href="../grok-bot-for-business/">Grok Bot for business, OpenClaw for enterprise, and Hermes for business</a> · <a href="../../forecast-accuracy.html">AI deal inspection &amp; forecast accuracy</a> · <a href="https://www.revenue-growth.ai/">Revenue-Growth.ai</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></p>
 
   </div>
 </article>
 
 <footer>
   <div class="wrap">
-    <span>&copy; 2026 Revenue-Growth.AI</span>
-    <span><a href="../../index.html">revenue-growth.ai</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></span>
+    <span>&copy; 2026 Revenue-Growth.ai</span>
+    <span><a href="https://www.revenue-growth.ai/">revenue-growth.ai</a> · <a href="../">Insights</a> · <a href="../../guide.html">RevOps Guide</a></span>
   </div>
 </footer>
 

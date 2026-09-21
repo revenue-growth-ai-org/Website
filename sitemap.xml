@@ -26,33 +26,32 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/insights/</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://www.revenue-growth.ai/insights/</loc>
+    <lastmod>2026-09-21</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/insights/cuban-custom-revops-embed/</loc>
+    <loc>https://www.revenue-growth.ai/insights/cuban-custom-revops-embed/</loc>
     <lastmod>2026-09-20</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/insights/fractional-ai-gtm-embed/</loc>
-    <lastmod>2026-09-14</lastmod>
+    <loc>https://www.revenue-growth.ai/insights/fractional-ai-gtm-embed/</loc>
+    <lastmod>2026-09-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/insights/per-task-automation-billing/</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.revenue-growth.ai/insights/per-task-automation-billing/</loc>
+    <lastmod>2026-09-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/insights/grok-bot-for-business/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <loc>https://www.revenue-growth.ai/insights/grok-bot-for-business/</loc>
+    <lastmod>2026-09-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url><loc>https://www.revenue-growth.ai/</loc></url>
   <url><loc>https://www.revenue-growth.ai/platform</loc></url>
   <url><loc>https://www.revenue-growth.ai/platform/architecture</loc></url>
   <url><loc>https://www.revenue-growth.ai/how-we-run</loc></url>
-  <url><loc>https://www.revenue-growth.ai/insights/</loc></url>
 </urlset>
