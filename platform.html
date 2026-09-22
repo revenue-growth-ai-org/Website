@@ -12,7 +12,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <title>Included Platform | Revenue-Growth.ai</title>
 <meta name="description" content="The control of DIY. The speed of SaaS. The data never leaves your AWS account.">
@@ -266,6 +268,18 @@
     text-underline-offset:4px;
   }
   .hero .deeper-reading a:hover{color:#fff;}
+  .architecture-reading .deeper-reading{
+    margin:28px 0 0;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;
+    font-weight:600;
+  }
+  .architecture-reading .deeper-reading a{
+    color:var(--signal-blue);
+    text-decoration:underline;
+    text-underline-offset:4px;
+  }
+  .architecture-reading .deeper-reading a:hover{color:var(--ink-navy);}
   .tagline{
     margin-top:28px;
     padding:18px 20px;
@@ -830,7 +844,7 @@
     line-height:1;
     white-space:nowrap;
   }
-  .logo-ai{color:var(--signal-blue);}
+  .logo-ai{color:#2F7FD1;}
   @media (max-width:640px){
     .logo{padding:6px 8px 6px 0;min-height:48px;gap:10px;}
     .logo-mark{width:30px;height:30px;}
@@ -866,13 +880,13 @@
     content:'';
     position:absolute;
     inset:0;
-    background-image:url('images/node-wash-v3.svg');
+    background-image:url('/images/node-wash-v3.svg');
     background-repeat:no-repeat;
     background-position:right -2% center;
     background-size:min(900px,82vw) auto;
     opacity:0.36;
   }
-  .hero .node-wash::before{opacity:0.52;}
+  .hero .node-wash::before{opacity:0.60;}
   .section-dark.has-wash{position:relative;overflow:hidden;}
   .section-dark.has-wash > .wrap{position:relative;z-index:2;}
   .section-dark .node-wash::before{
@@ -968,7 +982,7 @@
   .hero{
     background:var(--matte-black);
   }
-  .hero .node-wash::before{opacity:0.58;}
+  .hero .node-wash::before{opacity:0.68;}
 
   /* Secondary: Ink fill + thin Copper border + soft glow — NEVER Book primary */
   .btn-copper-outline,
@@ -1019,7 +1033,7 @@
   .hero.has-craft-grid .craft-grid{
     opacity:0.48;
   }
-  .hero.has-craft-grid .craft-grid.is-sparse{opacity:0.26;}
+  .hero.has-craft-grid .craft-grid.is-sparse{opacity:0.32;}
 
   /* Copper foil dividers — accents only, never page bg */
   .foil-divider{
@@ -1029,7 +1043,7 @@
     background:linear-gradient(90deg, transparent 0%, var(--copper) 35%, var(--copper) 65%, transparent 100%);
     opacity:0.45;
   }
-  .section-dark .foil-divider{opacity:0.55;}
+  .section-dark .foil-divider{opacity:0.62;}
 
   @media (prefers-reduced-motion: reduce){
     .btn-copper-outline:hover,
@@ -1039,7 +1053,7 @@
       box-shadow:none;
       transform:none;
     }
-    .hero .node-wash::before{opacity:0.40;}
+    .hero .node-wash::before{opacity:0.48;}
   }
 
 </style>
@@ -1069,7 +1083,7 @@
 <header class="site-nav">
   <div class="nav-inner">
     <a href="/" class="logo" aria-label="Revenue-Growth.ai home">
-      <img src="images/rg-mark-r.svg" alt="Revenue-Growth.ai" width="34" height="34" class="logo-mark">
+      <img src="/images/rg-mark-r.svg" alt="Revenue-Growth.ai" width="34" height="34" class="logo-mark">
       <span class="logo-word">Revenue-Growth<span class="logo-ai">.AI</span></span>
     </a>
     <nav class="primary" id="primaryNav">
@@ -1172,6 +1186,19 @@
       </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section-paper architecture-reading" id="architecture-reading">
+  <div class="wrap">
+    <div class="section-label-row">
+      <div>
+        <div class="eyebrow">Architecture</div>
+        <h2>Architecture / deeper reading</h2>
+      </div>
+      <p class="desc">Secondary trust page — not the product you’re buying. The lead remains the 6-month embed; this page summarizes where the included platform runs when it’s in scope.</p>
+    </div>
+    <p class="deeper-reading"><a href="/platform/architecture">Architecture / deeper reading</a></p>
   </div>
 </section>
 
@@ -1352,7 +1379,7 @@
     <div class="footer-top">
       <div>
         <a href="/" class="logo" aria-label="Revenue-Growth.ai home">
-          <img src="images/rg-mark-r.svg" alt="Revenue-Growth.ai" width="34" height="34" class="logo-mark">
+          <img src="/images/rg-mark-r.svg" alt="Revenue-Growth.ai" width="34" height="34" class="logo-mark">
           <span class="logo-word">Revenue-Growth<span class="logo-ai">.AI</span></span>
         </a>
         <p style="font-size:13.5px;color:#8296A6;line-height:1.7;margin-top:16px;max-width:280px;">Six-month AI GTM / RevOps embed — data, processes, then agents. Platform included when it fits — or standalone in AWS / Azure.</p>
