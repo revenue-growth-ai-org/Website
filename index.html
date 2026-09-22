@@ -606,6 +606,10 @@
     border-radius:var(--radius);
     padding:24px;
   }
+  #sessionForm,
+  #book-a-working-session,
+  #book-demo{scroll-margin-top:88px;}
+  .book-target{min-width:0;}
   form.session-form .field{
     display:flex;
     flex-direction:column;
@@ -1417,7 +1421,7 @@
   </div>
 </section>
 
-<section class="cta-section" id="book-a-working-session">
+<section class="cta-section">
   <div class="wrap">
     <div class="cta-panel">
       <div class="cta-copy">
@@ -1428,6 +1432,8 @@
           <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn btn-amber">Book a working session</a>
         </div>
       </div>
+      <div id="book-a-working-session" class="book-target">
+      <div id="book-demo" class="book-target">
       <form class="session-form" id="sessionForm" novalidate>
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
         <div class="field">
@@ -1469,6 +1475,8 @@
           <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn btn-amber" style="width:100%;justify-content:center;">Book a working session</a>
         </div>
         </form>
+      </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1527,6 +1535,37 @@
     if(form){
       form.addEventListener('submit', function(e){ e.preventDefault(); });
     }
+    function bookHash(){
+      var h = location.hash;
+      return h === '#book-a-working-session' || h === '#book-demo';
+    }
+    function scrollToSessionForm(){
+      if(!form || !bookHash()) return;
+      form.scrollIntoView({block:'start'});
+    }
+    window.addEventListener('hashchange', scrollToSessionForm);
+    window.addEventListener('load', function(){
+      scrollToSessionForm();
+      setTimeout(scrollToSessionForm, 0);
+      setTimeout(scrollToSessionForm, 250);
+    });
+    scrollToSessionForm();
+    document.addEventListener('click', function(e){
+      var a = e.target.closest ? e.target.closest('a') : null;
+      if(!a || !form) return;
+      var href = a.getAttribute('href') || '';
+      if(href.indexOf('#book-a-working-session') === -1 && href.indexOf('#book-demo') === -1) return;
+      var url;
+      try{ url = new URL(a.href, location.href); }catch(err){ return; }
+      if(url.origin !== location.origin) return;
+      var path = url.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+      var here = location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+      if(path !== here) return;
+      e.preventDefault();
+      var next = href.indexOf('#book-demo') !== -1 ? '#book-demo' : '#book-a-working-session';
+      if(location.hash !== next) history.pushState(null, '', next);
+      form.scrollIntoView({block:'start'});
+    });
   })();
 
   // testimonial carousel — continuous slow scroll, seamless loop
