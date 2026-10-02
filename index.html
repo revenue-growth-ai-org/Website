@@ -680,6 +680,33 @@
     color:#8FCB9A;
     font-size:13.5px;
   }
+  .form-status{
+    grid-column:1/-1;
+    display:none;
+    margin:0;
+    padding:14px 16px;
+    border-radius:var(--radius);
+    font-size:13.5px;
+    line-height:1.5;
+  }
+  .form-status.is-success{
+    display:block;
+    background:rgba(143,203,154,0.12);
+    border:1px solid rgba(143,203,154,0.35);
+    color:#8FCB9A;
+  }
+  .form-status.is-error{
+    display:block;
+    background:rgba(247,249,251,0.06);
+    border:1px solid rgba(247,249,251,0.28);
+    color:var(--paper);
+  }
+  form.session-form .submit-row .btn:disabled{
+    background:#E3A344;
+    color:var(--ink-navy);
+    cursor:default;
+    transform:none;
+  }
   @media (max-width:768px){
     .cta-panel,
     .cta-copy,
@@ -695,7 +722,8 @@
     form.session-form .field,
     form.session-form .submit-row,
     form.session-form .form-note,
-    form.session-form .form-success{
+    form.session-form .form-success,
+    form.session-form .form-status{
       grid-column:1/-1;
       min-width:0;
       max-width:100%;
@@ -1520,6 +1548,7 @@
         <div class="submit-row">
           <button type="submit" class="btn btn-amber" id="sessionSubmit">Book a working session</button>
         </div>
+        <p class="form-status" id="sessionStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
       </div>
@@ -1580,7 +1609,37 @@
     });
     var form = document.getElementById('sessionForm');
     if(form){
-      form.addEventListener('submit', function(e){ e.preventDefault(); });
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var submitBtn = document.getElementById('sessionSubmit');
+        var status = document.getElementById('sessionStatus');
+        if(!submitBtn || submitBtn.disabled) return;
+        submitBtn.disabled = true;
+        if(status){
+          status.textContent = '';
+          status.className = 'form-status';
+        }
+        var thankYou = 'Got it. I\u2019ll follow up with times for a working session.';
+        var errorMsg = 'Something went wrong \u2014 try again or email me directly.';
+        fetch('https://formspree.io/f/xaqgzqpe', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        }).then(function(response){
+          if(!response.ok) throw new Error('form');
+          if(status){
+            status.textContent = thankYou;
+            status.className = 'form-status is-success';
+          }
+        }).catch(function(){
+          if(status){
+            status.textContent = errorMsg;
+            status.className = 'form-status is-error';
+          }
+        }).then(function(){
+          submitBtn.disabled = false;
+        });
+      });
     }
     function bindStickyBook(){
       var sticky = document.getElementById('stickyBook');
