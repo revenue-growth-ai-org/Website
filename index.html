@@ -1124,7 +1124,7 @@
         <p class="sub">Clean up the CRM and sales process, then build agents that research and draft outreach. Your people still hit send. They keep the handoff when I’m gone — not another tool to log into.</p>
         <p class="process-line">data → processes → agents. Your stack first.</p>
         <div class="hero-ctas">
-          <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn btn-amber">Book a working session</a>
+          <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn btn-amber" id="heroBook">Book a working session</a>
           <a href="#asknicely-story" class="btn btn-copper-outline btn-outline-dark">Read the AskNicely case study</a>
         </div>
         <p class="icp-line">For RevOps / CRO / founders who own Salesforce or HubSpot at $5M–$50M B2B SaaS.</p>
@@ -1644,14 +1644,33 @@
     function bindStickyBook(){
       var sticky = document.getElementById('stickyBook');
       var submitBtn = document.getElementById('sessionSubmit');
+      var heroBtn = document.getElementById('heroBook');
       if(!sticky || !submitBtn || !('IntersectionObserver' in window)) return;
+      var heroInView = false;
+      var submitInView = false;
+      function sync(){
+        var hide = heroInView || submitInView;
+        sticky.classList.toggle('is-hidden', hide);
+        document.body.classList.toggle('sticky-book-hidden', hide);
+      }
+      function inViewport(el){
+        if(!el) return false;
+        var r = el.getBoundingClientRect();
+        var h = window.innerHeight || document.documentElement.clientHeight;
+        var w = window.innerWidth || document.documentElement.clientWidth;
+        return r.width > 0 && r.height > 0 && r.bottom > 0 && r.right > 0 && r.top < h && r.left < w;
+      }
+      heroInView = inViewport(heroBtn);
+      submitInView = inViewport(submitBtn);
+      sync();
       var observer = new IntersectionObserver(function(entries){
-        var entry = entries[0];
-        if(!entry) return;
-        var inView = entry.isIntersecting;
-        sticky.classList.toggle('is-hidden', inView);
-        document.body.classList.toggle('sticky-book-hidden', inView);
+        entries.forEach(function(entry){
+          if(heroBtn && entry.target === heroBtn) heroInView = entry.isIntersecting;
+          else if(entry.target === submitBtn) submitInView = entry.isIntersecting;
+        });
+        sync();
       }, {threshold:0});
+      if(heroBtn) observer.observe(heroBtn);
       observer.observe(submitBtn);
     }
     if(document.readyState === 'loading'){
