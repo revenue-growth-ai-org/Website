@@ -1508,7 +1508,7 @@
       </div>
       <div id="book-a-working-session" class="book-target">
       <div id="book-demo" class="book-target">
-      <form class="session-form" id="sessionForm" novalidate>
+      <form class="session-form" id="sessionForm">
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
         <div class="field">
           <label for="f-name">Name</label>
@@ -1520,7 +1520,7 @@
         </div>
         <div class="field">
           <label for="f-email">Work email</label>
-          <input type="email" id="f-email" name="email" required autocomplete="email">
+          <input type="email" id="f-email" name="email" required autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[^\s@]+">
         </div>
         <div class="field">
           <label for="f-crm">CRM</label>
@@ -1614,6 +1614,10 @@
         var submitBtn = document.getElementById('sessionSubmit');
         var status = document.getElementById('sessionStatus');
         if(!submitBtn || submitBtn.disabled) return;
+        if(!form.checkValidity()){
+          form.reportValidity();
+          return;
+        }
         submitBtn.disabled = true;
         if(status){
           status.textContent = '';
@@ -1636,7 +1640,6 @@
             status.textContent = errorMsg;
             status.className = 'form-status is-error';
           }
-        }).then(function(){
           submitBtn.disabled = false;
         });
       });
