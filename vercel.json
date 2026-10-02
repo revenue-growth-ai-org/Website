@@ -2,11 +2,13 @@
   "rewrites": [
     { "source": "/platform", "destination": "/platform.html" },
     { "source": "/platform/architecture", "destination": "/architecture.html" },
-    { "source": "/how-we-run", "destination": "/how-we-run.html" }
+    { "source": "/how-we-run", "destination": "/how-we-run.html" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" }
   ],
   "redirects": [
     { "source": "/platform.html", "destination": "/platform", "permanent": true },
     { "source": "/architecture.html", "destination": "/platform/architecture", "permanent": true },
-    { "source": "/how-we-run.html", "destination": "/how-we-run", "permanent": true }
+    { "source": "/how-we-run.html", "destination": "/how-we-run", "permanent": true },
+    { "source": "/privacy-policy.html", "destination": "/privacy-policy", "permanent": true }
   ]
 }
