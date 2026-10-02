@@ -416,6 +416,8 @@
   @media (max-width:960px){
     .sticky-book{display:block;}
     body{padding-bottom:76px;}
+    body.sticky-book-hidden{padding-bottom:0;}
+    .sticky-book.is-hidden{display:none;}
   }
 
   /* ---------- SECTION LABELS / CARDS ---------- */
@@ -677,6 +679,39 @@
     border-radius:var(--radius);
     color:#8FCB9A;
     font-size:13.5px;
+  }
+  @media (max-width:768px){
+    .cta-panel,
+    .cta-copy,
+    .book-target,
+    form.session-form{
+      min-width:0;
+      max-width:100%;
+    }
+    form.session-form{
+      grid-template-columns:minmax(0,1fr);
+      width:100%;
+    }
+    form.session-form .field,
+    form.session-form .submit-row,
+    form.session-form .form-note,
+    form.session-form .form-success{
+      grid-column:1/-1;
+      min-width:0;
+      max-width:100%;
+    }
+    form.session-form input,
+    form.session-form select,
+    form.session-form textarea,
+    form.session-form .submit-row .btn{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+    }
+    form.session-form .submit-row .btn{
+      white-space:normal;
+      text-align:center;
+    }
   }
 
   /* ---------- FOOTER ---------- */
@@ -1483,7 +1518,7 @@
           <textarea id="f-comments" name="comments" placeholder="Any specific goals or context to share before we chat?"></textarea>
         </div>
         <div class="submit-row">
-          <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn btn-amber" style="width:100%;justify-content:center;">Book a working session</a>
+          <button type="submit" class="btn btn-amber" id="sessionSubmit">Book a working session</button>
         </div>
         </form>
       </div>
@@ -1546,6 +1581,24 @@
     var form = document.getElementById('sessionForm');
     if(form){
       form.addEventListener('submit', function(e){ e.preventDefault(); });
+    }
+    function bindStickyBook(){
+      var sticky = document.getElementById('stickyBook');
+      var submitBtn = document.getElementById('sessionSubmit');
+      if(!sticky || !submitBtn || !('IntersectionObserver' in window)) return;
+      var observer = new IntersectionObserver(function(entries){
+        var entry = entries[0];
+        if(!entry) return;
+        var inView = entry.isIntersecting;
+        sticky.classList.toggle('is-hidden', inView);
+        document.body.classList.toggle('sticky-book-hidden', inView);
+      }, {threshold:0});
+      observer.observe(submitBtn);
+    }
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', bindStickyBook);
+    }else{
+      bindStickyBook();
     }
     function bookHash(){
       var h = location.hash;
