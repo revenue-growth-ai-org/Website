@@ -1,14 +1,12 @@
 # Revenue-Growth.ai
 
-> Six-month AI GTM / RevOps embed. Data cleanup first, then process, then agents. Your stack first. The platform is included when it fits.
+> Revenue-Growth.ai is a fractional AI GTM engineer: a six-month AI GTM / RevOps embed. Data cleanup first, then process, then agents. Your stack first. The platform is included when it fits.
 
-Revenue-Growth.ai embeds for six months as an AI GTM / RevOps engineer. The work starts in the client’s own stack — Salesforce or HubSpot — with data cleanup, then process, then agents that research and draft. People still approve the send. They keep the handoff. The platform is included when it fits; it is not the lead offer.
-
-Primary deep read: [Fractional AI GTM: who it’s for and what six months buys](https://www.revenue-growth.ai/insights/fractional-ai-gtm-embed/).
+Revenue-Growth.ai embeds in the client’s own stack — Salesforce or HubSpot — with data cleanup, then process, then agents that research and draft. People still approve the send. They keep the handoff. The platform is included when it fits; it is not the lead offer.
 
 ## Primary deep read
 
-- [Fractional AI GTM: who it’s for and what six months buys](https://www.revenue-growth.ai/insights/fractional-ai-gtm-embed/): Who a fractional AI GTM / RevOps embed is for, and what six months of data cleanup, process, then agents buys. Platform included when it fits.
+- [Fractional AI GTM engineer: 6-month embed](https://www.revenue-growth.ai/insights/fractional-ai-gtm-embed/): Who a fractional AI GTM / RevOps embed is for, and what six months of data cleanup, process, then agents buys. Platform included when it fits.
 
 ## Pages
 
@@ -17,13 +15,10 @@ Primary deep read: [Fractional AI GTM: who it’s for and what six months buys](
 - [Platform architecture](https://www.revenue-growth.ai/platform/architecture): Trust-boundary overview of where the included platform runs. Secondary reading.
 - [How we run](https://www.revenue-growth.ai/how-we-run): How Revenue-Growth.ai runs internally. Not the offer.
 - [Insights](https://www.revenue-growth.ai/insights/): Notes on the six-month AI GTM / RevOps embed — cleanup, process, then agents. Platform included when it fits.
+- [GTM engineer vs agency vs full-time hire: who ships what](https://www.revenue-growth.ai/insights/gtm-engineer-vs-agency-vs-full-time/): What ships first, who owns it after, where agents run, and who sends — full-time hire, agency, DIY build, or an embed.
 - [Cuban Is Right About Custom. Wrong About Who Does It for RevOps.](https://www.revenue-growth.ai/insights/cuban-custom-revops-embed/): Mark Cuban is right that utilization wins; for RevOps the fix isn’t another GTM wrapper. It’s an embed that cleans data, fixes process, then puts agents in your stack.
 - [Per-task automation billing doesn’t scale](https://www.revenue-growth.ai/insights/per-task-automation-billing/): Why Make, Zapier, and n8n Cloud bills track CRM event volume — and why the path out is a six-month embed (data → processes → agents), with capacity-based runtime included when it fits.
 - [Grok Bot for business, OpenClaw for enterprise, and Hermes for business](https://www.revenue-growth.ai/insights/grok-bot-for-business/): Personal teammate agents vs coverage of the book via a six-month embed — data → processes → agents.
-- [RevOps Guide](https://www.revenue-growth.ai/guide.html): Long-form guide on AI agents in the customer’s own cloud.
-- [AI Deal Inspection & Forecast Accuracy](https://www.revenue-growth.ai/forecast-accuracy.html): Use-case page on deal inspection and forecast readouts for B2B SaaS revenue teams.
-- [AI Churn Prediction & Expansion Revenue](https://www.revenue-growth.ai/churn-prediction.html): Use-case page on customer health, churn risk, and expansion identification.
-- [AI Lead Routing & Inbound Acceleration](https://www.revenue-growth.ai/lead-routing.html): Use-case page on inbound intent, account research, and rep routing for Salesforce and HubSpot.
 
 ## Proof
 
