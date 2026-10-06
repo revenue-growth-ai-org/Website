@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://revenue-growth.ai/</loc>
+    <loc>https://www.revenue-growth.ai/</loc>
     <lastmod>2026-07-09</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/guide.html</loc>
+    <loc>https://www.revenue-growth.ai/guide.html</loc>
     <lastmod>2026-07-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/forecast-accuracy.html</loc>
+    <loc>https://www.revenue-growth.ai/forecast-accuracy.html</loc>
     <lastmod>2026-07-09</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/churn-prediction.html</loc>
+    <loc>https://www.revenue-growth.ai/churn-prediction.html</loc>
     <lastmod>2026-07-09</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://revenue-growth.ai/lead-routing.html</loc>
+    <loc>https://www.revenue-growth.ai/lead-routing.html</loc>
     <lastmod>2026-07-09</lastmod>
     <priority>0.7</priority>
   </url>
@@ -50,7 +50,6 @@
     <lastmod>2026-09-21</lastmod>
     <priority>0.8</priority>
   </url>
-  <url><loc>https://www.revenue-growth.ai/</loc></url>
   <url><loc>https://www.revenue-growth.ai/platform</loc></url>
   <url><loc>https://www.revenue-growth.ai/platform/architecture</loc></url>
   <url><loc>https://www.revenue-growth.ai/how-we-run</loc></url>
