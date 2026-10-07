@@ -6,6 +6,12 @@
     { "source": "/privacy-policy", "destination": "/privacy-policy.html" }
   ],
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "revenue-growth.ai" }],
+      "destination": "https://www.revenue-growth.ai/:path*",
+      "permanent": true
+    },
     { "source": "/platform.html", "destination": "/platform", "permanent": true },
     { "source": "/architecture.html", "destination": "/platform/architecture", "permanent": true },
     { "source": "/how-we-run.html", "destination": "/how-we-run", "permanent": true },
