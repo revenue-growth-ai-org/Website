@@ -15,6 +15,16 @@
     { "source": "/platform.html", "destination": "/platform", "permanent": true },
     { "source": "/architecture.html", "destination": "/platform/architecture", "permanent": true },
     { "source": "/how-we-run.html", "destination": "/how-we-run", "permanent": true },
-    { "source": "/privacy-policy.html", "destination": "/privacy-policy", "permanent": true }
+    { "source": "/privacy-policy.html", "destination": "/privacy-policy", "permanent": true },
+    { "source": "/ARR-Blueprint", "destination": "/insights/fractional-ai-gtm-embed/", "permanent": true },
+    { "source": "/ARR-Blueprint/", "destination": "/insights/fractional-ai-gtm-embed/", "permanent": true },
+    { "source": "/arr-blueprint", "destination": "/insights/fractional-ai-gtm-embed/", "permanent": true },
+    { "source": "/arr-blueprint/", "destination": "/insights/fractional-ai-gtm-embed/", "permanent": true },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "query", "key": "_rsc", "value": ".*" }],
+      "destination": "/$1?",
+      "permanent": true
+    }
   ]
 }
