@@ -94,7 +94,7 @@
       "name": "Can AI agents run on my CRM inside my own AWS account?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and every action logs to your own CloudTrail."
+        "text": "Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and they log to your own CloudTrail."
       }
     },
     {
@@ -102,7 +102,7 @@
       "name": "How does my security team review and control AI agents that write to Salesforce or HubSpot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. Every action logs to your own CloudTrail. Start read-only, and let each workflow earn write access one field at a time."
+        "text": "With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. Agents log to your own CloudTrail. Start read-only, and let each workflow earn write access one field at a time."
       }
     },
     {
@@ -237,7 +237,7 @@
     </a>
     <div style="display:flex;align-items:center;gap:28px;">
       <a href="../" class="back-link">&larr; Insights</a>
-      <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn-amber">Book a working session</a>
+      <a href="https://www.revenue-growth.ai/#book-demo" class="btn-amber">Book a working session</a>
     </div>
   </div>
 </header>
@@ -277,14 +277,14 @@
       <li>The agents run in your own AWS account, under your IAM roles.</li>
       <li>Those roles carry a permissions boundary.</li>
       <li>Data is encrypted with KMS keys in your account.</li>
-      <li>Every action logs to your own CloudTrail.</li>
+      <li>Agents log to your own CloudTrail.</li>
       <li>Changes are locked so only one runs at a time, and every release is version-pinned so we can go back to a known-good version.</li>
     </ul>
     <p>Each of those decides what an agent can see versus what it's allowed to act on. None of them is the agent. We've built this setup and tested it in real AWS installs, including a live customer deployment.</p>
     <p class="tagline">The control of DIY. The speed of SaaS. The data never leaves your AWS account.</p>
 
     <h2>How your security team reviews it</h2>
-    <p>It runs in your account, so your team reviews it the way they review anything else there. The agents act under your IAM roles. Data is encrypted with KMS keys in your account. Every action logs to your own CloudTrail, so when a rep asks why a record moved, the answer is in your audit trail, not in someone's chat thread. See the <a href="/platform/architecture">platform architecture</a> for how it fits together.</p>
+    <p>It runs in your account, so your team reviews it the way they review anything else there. The agents act under your IAM roles. Data is encrypted with KMS keys in your account. Agents log to your own CloudTrail, so when a rep asks why a record moved, the answer is in your audit trail, not in someone's chat thread. See the <a href="/platform/architecture">platform architecture</a> for how it fits together.</p>
     <p>Don't grant write access by default. Start with what an agent can see. Let each workflow earn the fields it's allowed to change. A human stays in the loop on anything that sends.</p>
 
     <h2>Who keeps it pinned, updated and audited after launch</h2>
@@ -301,9 +301,9 @@
 
     <h2>FAQ</h2>
     <h3>Can AI agents run on my CRM inside my own AWS account?</h3>
-    <p>Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and every action logs to your own CloudTrail.</p>
+    <p>Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and they log to your own CloudTrail.</p>
     <h3>How does my security team review and control AI agents that write to Salesforce or HubSpot?</h3>
-    <p>With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. Every action logs to your own CloudTrail. Start read-only, and let each workflow earn write access one field at a time.</p>
+    <p>With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. Agents log to your own CloudTrail. Start read-only, and let each workflow earn write access one field at a time.</p>
     <h3>Should we build our own agent platform on AWS or buy one?</h3>
     <p>Build the agents with someone who knows RevOps. Don&#x27;t rebuild the safe AWS setup from scratch. The agents are the easy part; the roles, permission limits, encryption, audit logs, change locking and version pinning are the hard part, and they have to be maintained for as long as the agents run.</p>
     <h3>Who maintains AI agents after launch?</h3>
@@ -319,7 +319,7 @@
     <div class="cta-block">
       <h3>Book a working session</h3>
       <p>Six-month AI GTM / RevOps embed — cleanup, process, then agents. Platform included when it fits.</p>
-      <a href="https://www.revenue-growth.ai/#book-a-working-session" class="btn-amber">Book a working session</a>
+      <a href="https://www.revenue-growth.ai/#book-demo" class="btn-amber">Book a working session</a>
     </div>
 
   </div>
