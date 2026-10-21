@@ -102,7 +102,7 @@
       "name": "How does my security team review and control AI agents that write to your CRM?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With the controls they already use. The agents act under your IAM roles, and the roles it creates carry a permissions boundary. The platform's AWS activity logs to your own CloudTrail. Start read-only, and let each workflow earn write access one workflow at a time."
+        "text": "With the controls they already use. The agents act under your IAM roles, and the roles it creates carry a permissions boundary. The platform's AWS activity logs to your own CloudTrail. Start read-only, and let each workflow earn its own write access."
       }
     },
     {
@@ -302,7 +302,7 @@
     <h3>Can AI agents run on my CRM inside my own AWS account?</h3>
     <p>Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and the platform's AWS activity logs to your own CloudTrail.</p>
     <h3>How does my security team review and control AI agents that write to your CRM?</h3>
-    <p>With the controls they already use. The agents act under your IAM roles, and the roles it creates carry a permissions boundary. The platform's AWS activity logs to your own CloudTrail. Start read-only, and let each workflow earn write access one workflow at a time.</p>
+    <p>With the controls they already use. The agents act under your IAM roles, and the roles it creates carry a permissions boundary. The platform's AWS activity logs to your own CloudTrail. Start read-only, and let each workflow earn its own write access.</p>
     <h3>Should we build our own agent platform on AWS or buy one?</h3>
     <p>Build the agents with someone who knows RevOps. Don&#x27;t rebuild the safe AWS setup from scratch. The agents are the easy part; the roles, permission limits, encryption, audit logs, change locking and version pinning are the hard part, and they have to be maintained for as long as the agents run.</p>
     <h3>Who maintains AI agents after launch?</h3>
