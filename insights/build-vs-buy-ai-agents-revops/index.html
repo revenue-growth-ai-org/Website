@@ -94,15 +94,15 @@
       "name": "Can AI agents run on my CRM inside my own AWS account?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and they log to your own CloudTrail."
+        "text": "Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and the platform's AWS activity logs to your own CloudTrail."
       }
     },
     {
       "@type": "Question",
-      "name": "How does my security team review and control AI agents that write to Salesforce or HubSpot?",
+      "name": "How does my security team review and control AI agents that write to your CRM?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. Agents log to your own CloudTrail. Start read-only, and let each workflow earn write access one field at a time."
+        "text": "With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. The platform's AWS activity logs to your own CloudTrail. Start read-only, and let each workflow earn write access one workflow at a time."
       }
     },
     {
@@ -118,7 +118,7 @@
       "name": "Who maintains AI agents after launch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Someone has to keep every release version-pinned, re-check what each agent can see versus what it's allowed to act on when the CRM changes, read the audit trail, and turn off agents that don't move the number. During the 6-month embed, Revenue-Growth.ai carries that work."
+        "text": "Someone has to keep every release version-pinned, re-check what each agent can see versus what it's allowed to act on when the CRM changes, trace changes through the CRM's change history and the platform's logs, and turn off agents that don't move the number. During the 6-month embed, Revenue-Growth.ai carries that work."
       }
     },
     {
@@ -254,7 +254,7 @@
 <article>
   <div class="wrap">
 
-    <div class="answer"><p>Build the agents with someone who knows RevOps, and don&#x27;t build the AWS setup yourself. The agents are the easy part. The hard part is the safe AWS setup: IAM roles with a permissions boundary, KMS encryption in your account, logs to your own CloudTrail, and every release version-pinned so we can go back to a known-good version. Revenue-Growth.ai stands that up during a 6-month embed.</p></div>
+    <div class="answer"><p>Build the agents with someone who knows RevOps, and don&#x27;t build the AWS setup yourself. The agents are the easy part. The hard part is the safe AWS setup: IAM roles with a permissions boundary, KMS encryption in your account, the platform&#x27;s AWS activity logged to your own CloudTrail, and every release version-pinned so we can go back to a known-good version. Revenue-Growth.ai stands that up during a 6-month embed.</p></div>
 
     <h2>One teammate per person vs. a team of agents for the book</h2>
     <p>A personal assistant like Grok Bot is a teammate for one person. It drafts, researches and gets tasks done in that person's apps. A revenue agent platform is a team of agents for the whole revenue org. It runs on a schedule in your AWS account, works in your CRM, and keeps records and pipeline clean for everyone. We covered the personal side in <a href="/insights/grok-bot-for-business/">Grok Bot for business</a>. This page is about the other one.</p>
@@ -271,50 +271,49 @@
     <p>Most teams buy the first and expect the second.</p>
 
     <h2>The hard part: roles, permission limits, encryption, audit logs, locking</h2>
-    <p>"Build it or rent it" is the argument everyone is having. It's the wrong first question. An agent that reads an Opportunity and drafts a next step is a few days of work. Getting your security team to let it run every night across the whole CRM is the project.</p>
+    <p>"Build it or rent it" is the argument everyone is having. It's the wrong first question. An agent that reads an Opportunity and drafts a next step is the quick part. Getting your security team to let it run every night across the whole CRM is the project.</p>
     <p>Here's what the safe setup takes:</p>
     <ul>
       <li>The agents run in your own AWS account, under your IAM roles.</li>
       <li>Those roles carry a permissions boundary.</li>
       <li>Data is encrypted with KMS keys in your account.</li>
-      <li>Agents log to your own CloudTrail.</li>
+      <li>The platform's AWS activity logs to your own CloudTrail.</li>
       <li>Changes are locked so only one runs at a time, and every release is version-pinned so we can go back to a known-good version.</li>
     </ul>
     <p>Each of those decides what an agent can see versus what it's allowed to act on. None of them is the agent. We've built this setup and tested it in real AWS installs, including a live customer deployment.</p>
-    <p class="tagline">The control of DIY. The speed of SaaS. The data never leaves your AWS account.</p>
 
     <h2>How your security team reviews it</h2>
-    <p>It runs in your account, so your team reviews it the way they review anything else there. The agents act under your IAM roles. Data is encrypted with KMS keys in your account. Agents log to your own CloudTrail, so when a rep asks why a record moved, the answer is in your audit trail, not in someone's chat thread. See the <a href="/platform/architecture">platform architecture</a> for how it fits together.</p>
-    <p>Don't grant write access by default. Start with what an agent can see. Let each workflow earn the fields it's allowed to change. A human stays in the loop on anything that sends.</p>
+    <p>It runs in your account, so your team reviews it the way they review anything else there. The agents act under your IAM roles. Data is encrypted with KMS keys in your account. The platform's AWS activity logs to your own CloudTrail, so when a rep asks why a record moved, you can trace it through your CRM's change history and the platform's logs in your account, not someone's chat thread.</p>
+    <p>Don't grant write access by default. Start with what an agent can see. Let each workflow earn the fields it's allowed to change. Keep a human in the loop on anything that sends.</p>
 
     <h2>Who keeps it pinned, updated and audited after launch</h2>
-    <p>Launch day is where the real work starts. Somebody has to keep every release pinned and know what changed, re-check permissions every time the CRM changes, read the audit trail, and turn off the agents that aren't earning their keep. Building agents is code. Deciding which ones are worth running is RevOps judgment.</p>
-    <p>That's the part we carry during a 6-month AI GTM / RevOps embed. The order is data, then processes, then agents. Put an agent on bad CRM data and you get confident bad output on a schedule. We use your stack first, and the <a href="/platform">platform</a> is included when it fits.</p>
+    <p>Launch day is where the real work starts. Somebody has to keep every release pinned and know what changed, re-check permissions every time the CRM changes, trace changes through the CRM's change history and the platform's logs, and turn off the agents that aren't earning their keep. Building agents is code. Deciding which ones are worth running is RevOps judgment.</p>
+    <p>That's the part we carry during a 6-month AI GTM / RevOps embed. The order is data, then processes, then agents. Put an agent on bad CRM data and you get confident bad output on a schedule. We use your stack first, and the platform is included when it fits.</p>
     <p>AskNicely — lifted forecasted win rate 18% and doubled qualified pipeline in the same quarter.</p>
 
     <h2>Build, buy, or embed: a short checklist</h2>
     <ul>
       <li><strong>Build it yourself</strong> if you have someone who owns AWS IAM, KMS and CloudTrail, someone who owns RevOps process, and both will stay for as long as the agents run.</li>
-      <li><strong>Buy a SaaS agent</strong> if your security team is fine with CRM data leaving your account.</li>
+      <li><strong>Buy a SaaS agent</strong> if your security team is fine with the agent running in the vendor's account instead of yours.</li>
       <li><strong>Embed</strong> if you want the agents in your account, under your controls, without hiring two people to get there. For how this compares with a full-time hire, see <a href="/insights/gtm-engineer-vs-agency-vs-full-time/">who ships what</a>.</li>
     </ul>
 
     <h2>FAQ</h2>
     <h3>Can AI agents run on my CRM inside my own AWS account?</h3>
-    <p>Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and they log to your own CloudTrail.</p>
-    <h3>How does my security team review and control AI agents that write to Salesforce or HubSpot?</h3>
-    <p>With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. Agents log to your own CloudTrail. Start read-only, and let each workflow earn write access one field at a time.</p>
+    <p>Yes. The agents run in your own AWS account under your IAM roles. Data is encrypted with KMS keys in your account, and the platform's AWS activity logs to your own CloudTrail.</p>
+    <h3>How does my security team review and control AI agents that write to your CRM?</h3>
+    <p>With the controls they already use. The agents act under your IAM roles, and those roles carry a permissions boundary. The platform's AWS activity logs to your own CloudTrail. Start read-only, and let each workflow earn write access one workflow at a time.</p>
     <h3>Should we build our own agent platform on AWS or buy one?</h3>
     <p>Build the agents with someone who knows RevOps. Don&#x27;t rebuild the safe AWS setup from scratch. The agents are the easy part; the roles, permission limits, encryption, audit logs, change locking and version pinning are the hard part, and they have to be maintained for as long as the agents run.</p>
     <h3>Who maintains AI agents after launch?</h3>
-    <p>Someone has to keep every release version-pinned, re-check what each agent can see versus what it&#x27;s allowed to act on when the CRM changes, read the audit trail, and turn off agents that don&#x27;t move the number. During the 6-month embed, Revenue-Growth.ai carries that work.</p>
+    <p>Someone has to keep every release version-pinned, re-check what each agent can see versus what it&#x27;s allowed to act on when the CRM changes, trace changes through the CRM's change history and the platform's logs, and turn off agents that don&#x27;t move the number. During the 6-month embed, Revenue-Growth.ai carries that work.</p>
     <h3>What&#x27;s the difference between an AI assistant like Grok Bot and a multi-agent platform for RevOps?</h3>
     <p>An assistant like Grok Bot is a teammate for one person. A revenue agent platform is a team of agents for the whole revenue org, running on a schedule in your AWS account.</p>
 
     <h2>The sharp question</h2>
     <p>If an agent changed a CRM record last night, can your security team point to the role it ran under and the log line it left? If not, start there before you write another prompt.</p>
 
-    <p class="related"><a href="/insights/grok-bot-for-business/">Grok Bot for business</a> · <a href="/platform">Platform</a> · <a href="/platform/architecture">Architecture</a> · <a href="../">Insights</a></p>
+    <p class="related"><a href="/insights/grok-bot-for-business/">Grok Bot for business</a> · <a href="../">Insights</a></p>
 
     <div class="cta-block">
       <h3>Book a working session</h3>
