@@ -254,17 +254,17 @@
 <article>
   <div class="wrap">
 
-    <div class="answer"><p>Buy the AWS setup, build the agents with someone who knows RevOps. The agents are the easy part. The hard part is the safe AWS setup: IAM roles with a permissions boundary, KMS encryption in your account, logs to your own CloudTrail, and version-pinned releases so we can go back to a known-good version. Revenue-Growth.ai stands that up during a 6-month embed.</p></div>
+    <div class="answer"><p>Build the agents with someone who knows RevOps, and don&#x27;t build the AWS setup yourself. The agents are the easy part. The hard part is the safe AWS setup: IAM roles with a permissions boundary, KMS encryption in your account, logs to your own CloudTrail, and every release version-pinned so we can go back to a known-good version. Revenue-Growth.ai stands that up during a 6-month embed.</p></div>
 
     <h2>One teammate per person vs. a team of agents for the book</h2>
-    <p>A personal assistant like Grok Bot is a teammate for one person. It drafts, researches and gets tasks done in that person's apps. A revenue agent platform is a team of agents for the whole revenue org. It runs on a schedule in your AWS account and keeps CRM records, routing and pipeline clean for everyone. We covered the personal side in <a href="/insights/grok-bot-for-business/">Grok Bot for business</a>. This page is about the other one.</p>
+    <p>A personal assistant like Grok Bot is a teammate for one person. It drafts, researches and gets tasks done in that person's apps. A revenue agent platform is a team of agents for the whole revenue org. It runs on a schedule in your AWS account, works in your CRM, and keeps records and pipeline clean for everyone. We covered the personal side in <a href="/insights/grok-bot-for-business/">Grok Bot for business</a>. This page is about the other one.</p>
     <table class="cmp">
       <thead><tr><th></th><th>Personal assistant (e.g. Grok Bot)</th><th>Revenue agent platform</th></tr></thead>
       <tbody>
         <tr><th>Who it serves</th><td>One person</td><td>The whole revenue org</td></tr>
         <tr><th>Where it runs</th><td>In that person's apps</td><td>In your own AWS account, under your IAM roles</td></tr>
         <tr><th>When it runs</th><td>When the person asks</td><td>On a schedule</td></tr>
-        <tr><th>What it touches</th><td>That person's drafts, research and tasks</td><td>CRM records, routing and pipeline for the whole team</td></tr>
+        <tr><th>What it touches</th><td>That person's drafts, research and tasks</td><td>CRM records and pipeline for the whole team</td></tr>
         <tr><th>Who reviews and controls it</th><td>The person using it</td><td>Your security team, through your IAM roles and your own CloudTrail</td></tr>
       </tbody>
     </table>
