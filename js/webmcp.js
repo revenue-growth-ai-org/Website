@@ -18,6 +18,10 @@
         title: "Insights",
         summary: "Notes on the six-month AI GTM / RevOps embed — cleanup, process, then agents. Platform included when it fits."
       },
+      "/insights/build-vs-buy-ai-agents-revops/": {
+        title: "Build vs buy AI agents for RevOps: the agents are the easy part",
+        summary: "The hard part is the safe AWS setup: IAM roles, permission boundaries, encryption, audit logs, and keeping it version-pinned after launch."
+      },
       "/insights/gtm-engineer-vs-agency-vs-full-time/": {
         title: "GTM engineer vs agency vs full-time hire: who ships what",
         summary: "What ships first, who owns it after, where agents run, and who sends — full-time hire, agency, DIY build, or an embed."
